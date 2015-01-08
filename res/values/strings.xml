@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+
+    <string name="app_name">lookFor</string>
+    <string name="my_friend">我的好友</string>
+    <string name="wonderful_recommended">精彩推荐</string>
+    <string name="my_message">我的消息</string>
+    <string name="my_collection">我的收藏</string>
+    <string name="setting">设置</string>
+    <string name="about_us">关于我们</string>
+    <string name="version_update">版本更新</string>
+
+</resources>
