@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical" >
 
-    <ImageView
+    <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="@drawable/divider_line" />
@@ -14,26 +14,9 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginLeft="16.0dip"
+        android:layout_marginTop="50dp"
         android:gravity="center|left"
         android:text="@string/setting"
-        android:textSize="18.0sp" />
-
-    <TextView
-        android:id="@+id/about_us"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginLeft="16.0dip"
-        android:gravity="center|left"
-        android:text="@string/about_us"
-        android:textSize="18.0sp" />
-
-    <TextView
-        android:id="@+id/version_update"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginLeft="16.0dip"
-        android:gravity="center|left"
-        android:text="@string/version_update"
         android:textSize="18.0sp" />
 
 </LinearLayout>

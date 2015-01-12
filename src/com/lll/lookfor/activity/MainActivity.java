@@ -72,6 +72,11 @@ public class MainActivity extends Activity implements OnClickListener {
 		this.left_drawer_img.setOnClickListener(this);
 		this.mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
+		//ListView头部
+		View listHead = LayoutInflater.from(this).inflate(
+				R.layout.drawer_list_head, null);
+		mDrawerList.addHeaderView(listHead);
+		//ListView底部
 		View listfoot = LayoutInflater.from(this).inflate(
 				R.layout.drawer_list_foot, null);
 		mDrawerList.addFooterView(listfoot);
@@ -89,13 +94,13 @@ public class MainActivity extends Activity implements OnClickListener {
 		this.list = new ArrayList<DrawerItem>();
 
 		list.add(new DrawerItem(R.drawable.ic_launcher,
-				getString(R.string.my_friend)));
-		list.add(new DrawerItem(R.drawable.ic_launcher,
-				getString(R.string.wonderful_recommended)));
-		list.add(new DrawerItem(R.drawable.ic_launcher,
 				getString(R.string.my_message)));
 		list.add(new DrawerItem(R.drawable.ic_launcher,
-				getString(R.string.my_collection)));
+				getString(R.string.my_friend)));
+		list.add(new DrawerItem(R.drawable.ic_launcher,
+				getString(R.string.my_circles)));
+		list.add(new DrawerItem(R.drawable.ic_launcher,
+				getString(R.string.my_request)));
 		adapter = new DrawerListAdapter(this, list);
 		mDrawerList.setAdapter(adapter);
 
