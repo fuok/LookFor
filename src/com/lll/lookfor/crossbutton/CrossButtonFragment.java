@@ -21,21 +21,21 @@ public class CrossButtonFragment extends Fragment {
 		View rootView = inflater.inflate(R.layout.fragment_cross_button, container, false);
 
 		composerLayout clayout = (composerLayout) rootView.findViewById(R.id.composerLayout);
-		clayout.init(new int[] { R.drawable.composer_camera, R.drawable.composer_music, R.drawable.composer_place, R.drawable.composer_sleep, R.drawable.composer_thought, R.drawable.composer_with },
-				R.drawable.composer_button, R.drawable.composer_icn_plus, composerLayout.LEFTBOTTOM, 180,// �����������ӵ�ˮƽ��ʾ
+		clayout.init(new int[] { R.drawable.composer_camera, R.drawable.composer_music, R.drawable.composer_place, R.drawable.composer_sleep }, R.drawable.composer_button,
+				R.drawable.composer_icn_plus, composerLayout.LEFTBOTTOM, 180,// �����������ӵ�ˮƽ��ʾ
 				1000);
 		// �ӂ��c���O ��100+0����composer_camera��100+1����composer_music�������������Ў׶������o�ͼӎ׶�����
 		OnClickListener clickit = new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				if (v.getId() == 100 + 0) {
-					Toast.makeText(getActivity(), "��һ��", Toast.LENGTH_SHORT).show();
+					Toast.makeText(getActivity(), "安心出行", Toast.LENGTH_SHORT).show();
 				} else if (v.getId() == 100 + 1) {
-					System.out.println("composer_music");
+					Toast.makeText(getActivity(), "召集", Toast.LENGTH_SHORT).show();
 				} else if (v.getId() == 100 + 2) {
-					System.out.println("composer_place");
+					Toast.makeText(getActivity(), "好友", Toast.LENGTH_SHORT).show();
 				} else if (v.getId() == 100 + 3) {
-					System.out.println("composer_sleep");
+					Toast.makeText(getActivity(), "公开位置", Toast.LENGTH_SHORT).show();
 				} else if (v.getId() == 100 + 4) {
 					System.out.println("composer_thought");
 				} else if (v.getId() == 100 + 5) {

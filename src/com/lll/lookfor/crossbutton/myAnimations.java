@@ -143,7 +143,7 @@ public class myAnimations {
 				deltaX = Math.cos(offangle * i * Math.PI / 180) * R;
 				// �޸�֮
 				Log.w("liuy", "�Ƕ���" + offangle);
-				deltaX = 80 * i;
+				deltaX = 150 * i;//控制弹出部分每个小球的间距
 			}
 
 			ViewPropertyAnimator viewPropertyAnimator = viewAnimators.get(i);
@@ -151,8 +151,8 @@ public class myAnimations {
 
 			inoutimagebutton.setVisibility(View.VISIBLE);
 			// ���·������Ƶ���
-			viewPropertyAnimator.x((float) (inoutimagebutton.getLeft() + 80 + xOri * deltaX)).y(// 80�Ǹ����ʼƫ��ֵ
-					(float) (inoutimagebutton.getTop() + 0));// yOri * deltaY�޸�֮
+			viewPropertyAnimator.x((float) (inoutimagebutton.getLeft() + 150 + xOri * deltaX)).y(//控制弹出部分偏移量
+					(float) (inoutimagebutton.getTop() - 10));// yOri * deltaY//屏蔽原来的代码，相当于Y值为固定
 
 		}
 	}
