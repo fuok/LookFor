@@ -22,9 +22,10 @@
             android:layout_alignParentLeft="true"
             android:background="@drawable/ic_launcher" />
     </RelativeLayout>
-    
-    <!--底部的弹出按钮  -->
-     <RelativeLayout
+
+    <!-- 底部的弹出按钮 -->
+
+    <RelativeLayout
         android:id="@+id/cross_button_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
