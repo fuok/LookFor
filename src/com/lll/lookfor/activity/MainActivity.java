@@ -54,7 +54,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.activity_drawer);
 		//创建底部导航按钮碎片
 		if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()
