@@ -48,6 +48,13 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:windowSoftInputMode="stateHidden|adjustResize" />
+        
+        <!-- 本地联系人列表 -->
+         <activity
+            android:name="com.lll.lookfor.activity.ContactsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
+        </activity>
 
         <service
             android:name="com.baidu.location.f"
