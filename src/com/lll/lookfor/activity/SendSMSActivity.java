@@ -31,7 +31,7 @@ public class SendSMSActivity extends Activity implements OnClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_sendsms);
+		setContentView(R.layout.act_sendsms);
 		sensmsButton = (Button) findViewById(R.id.button1);
 		verificationButton = (Button) findViewById(R.id.button2);
 		countryButton = (Button) findViewById(R.id.button3);

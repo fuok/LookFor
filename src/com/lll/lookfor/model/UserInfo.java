@@ -28,6 +28,7 @@ public class UserInfo implements Serializable {
 	private String topNum;// 用户金币排名
 	private String subscriberId;// 硬件id
 	private String pwd; // 是否有密码标志
+	private double latitude; // 纬度
 
 	public String getUserId() {
 		return userId;
@@ -165,6 +166,22 @@ public class UserInfo implements Serializable {
 		this.pwd = pwd;
 	}
 
+	public double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
+	}
+
+	public double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
+	}
+
 	@Override
 	public String toString() {
 		return "UserInfo [userId=" + userId + ", mobile=" + mobile
@@ -174,7 +191,10 @@ public class UserInfo implements Serializable {
 				+ registerDate + ", vip=" + vip + ", birthdate=" + birthdate
 				+ ", familyType=" + familyType + ", mailAudit=" + mailAudit
 				+ ", integral=" + integral + ", topNum=" + topNum
-				+ ", subscriberId=" + subscriberId + ", pwd=" + pwd + "]";
+				+ ", subscriberId=" + subscriberId + ", pwd=" + pwd
+				+ ", latitude=" + latitude + ", longitude=" + longitude + "]";
 	}
+
+	private double longitude; // 经度
 
 }

@@ -61,7 +61,7 @@ public class RoutePlanActivity extends Activity implements BaiduMap.OnMapClickLi
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_routeplan);
+        setContentView(R.layout.act_routeplan);
         CharSequence titleLable = "路线规划功能";
         setTitle(titleLable);
         //初始化地图

@@ -3,9 +3,12 @@ package com.lll.lookfor;
 import java.io.File;
 
 import android.app.Application;
+import android.content.Intent;
 
 import com.baidu.mapapi.SDKInitializer;
+import com.lll.lookfor.service.MessageService;
 import com.lll.lookfor.utils.FileUtils;
+import com.lll.lookfor.utils.SharePreferenceUtil;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -15,6 +18,7 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
 public class BaseApplication extends Application {
 	private static Application mApplication;
+	private SharePreferenceUtil mSpUtil;
 
 	public static synchronized Application getInstance() {
 		return mApplication;
@@ -28,8 +32,28 @@ public class BaseApplication extends Application {
 
 		// 在使用 SDK 各组间之前初始化 context 信息，传入 ApplicationContext
 		SDKInitializer.initialize(this);
-		
+
 		initImageLoader(this);
+
+		mSpUtil = new SharePreferenceUtil(this, SharePreferenceUtil.HOOPHONE);
+
+		// 启动Service
+		Intent serviceIntent = new Intent();
+		serviceIntent.setClass(this, MessageService.class);
+		startService(serviceIntent);
+
+	}
+
+	/**
+	 * 返回保存的文件
+	 * 
+	 * @return
+	 */
+	public synchronized SharePreferenceUtil getSharePreferenceUtil() {
+		if (mSpUtil == null)
+			mSpUtil = new SharePreferenceUtil(this,
+					SharePreferenceUtil.HOOPHONE);
+		return mSpUtil;
 	}
 
 	/**
