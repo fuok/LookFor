@@ -41,7 +41,7 @@ import com.lll.lookfor.R;
 import com.lll.lookfor.adapter.DrawerListAdapter;
 import com.lll.lookfor.crossbutton.CrossButtonFragment;
 import com.lll.lookfor.model.DrawerItem;
-import com.lll.lookfor.model.UserInfo;
+import com.lll.lookfor.model.UserBean;
 import com.lll.lookfor.utils.Log;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
@@ -233,19 +233,19 @@ public class MainActivity extends Activity implements OnClickListener {
 				MapStatusUpdate u = MapStatusUpdateFactory.newLatLng(ll);
 				mBaiduMap.animateMapStatus(u);
 
-				UserInfo userInfo = new UserInfo();
+				UserBean userInfo = new UserBean();
 				userInfo.setLatitude(location.getLatitude());
 				userInfo.setLongitude(location.getLongitude());
 
-				UserInfo userInfo1 = new UserInfo();
+				UserBean userInfo1 = new UserBean();
 				userInfo1.setLatitude(22.540941);
 				userInfo1.setLongitude(113.967302);
 
-				UserInfo userInfo2 = new UserInfo();
+				UserBean userInfo2 = new UserBean();
 				userInfo2.setLatitude(22.540941);
 				userInfo2.setLongitude(113.978302);
 
-				ArrayList<UserInfo> userInfos = new ArrayList<UserInfo>();
+				ArrayList<UserBean> userInfos = new ArrayList<UserBean>();
 				userInfos.add(userInfo);
 				userInfos.add(userInfo1);
 				userInfos.add(userInfo2);
@@ -260,9 +260,9 @@ public class MainActivity extends Activity implements OnClickListener {
 	/**
 	 * 增加覆盖物
 	 */
-	public void addOverlay(ArrayList<UserInfo> infos) {
+	public void addOverlay(ArrayList<UserBean> infos) {
 		mBaiduMap.clear();
-		for (final UserInfo info : infos) {
+		for (final UserBean info : infos) {
 
 			// 图标
 			final View item = LayoutInflater.from(MainActivity.this).inflate(

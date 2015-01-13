@@ -12,7 +12,7 @@ import android.os.Message;
 import android.text.TextUtils;
 
 import com.lll.lookfor.BaseApplication;
-import com.lll.lookfor.model.UserInfo;
+import com.lll.lookfor.model.UserBean;
 import com.lll.lookfor.network.HooHttpResponse;
 import com.lll.lookfor.network.OnHttpResponseListener;
 import com.lll.lookfor.network.ResponseHandler;
@@ -78,8 +78,8 @@ public class MessageService extends Service {
 	 * 获取站内信(未读)
 	 */
 	private void getMessageList() {
-		ResponseHandler<UserInfo> handler = new ResponseHandler<UserInfo>(
-				UserInfo.class);
+		ResponseHandler<UserBean> handler = new ResponseHandler<UserBean>(
+				UserBean.class);
 		handler.setOnHttpResponseListener(new OnGetHomeMessageListener());
 
 		userId = share.getUserId();
