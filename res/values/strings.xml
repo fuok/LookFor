@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
 
     <string name="app_name">lookFor</string>
-    <string name="my_message">我的消息</string>
+    <string name="my_message">我的信息</string>
     <string name="my_friend">我的好友</string>
     <string name="my_circles">我的圈圈</string>
     <string name="my_request">我的申请</string>

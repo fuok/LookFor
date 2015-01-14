@@ -9,7 +9,7 @@ public class Constant {
 	/**
 	 * 应用程序文件夹名字
 	 */
-	public static final String APP_DIR = "hxz";
+	public static final String APP_DIR = "lookfor";
 
 	/**
 	 * 应用程序图片缓存文件夹名字

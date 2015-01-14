@@ -2,20 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical" >
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="16dp" >
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@drawable/divider_line" />
+    <ImageView
+        android:id="@+id/drawer_item_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/left_set" />
 
     <TextView
         android:id="@+id/setting"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginLeft="16.0dip"
-        android:layout_marginTop="50dp"
-        android:gravity="center|left"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
         android:text="@string/setting"
         android:textSize="18.0sp" />
 

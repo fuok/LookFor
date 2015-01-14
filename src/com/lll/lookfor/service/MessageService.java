@@ -12,6 +12,7 @@ import android.os.Message;
 import android.text.TextUtils;
 
 import com.lll.lookfor.BaseApplication;
+import com.lll.lookfor.model.FriendListData;
 import com.lll.lookfor.model.UserBean;
 import com.lll.lookfor.network.HooHttpResponse;
 import com.lll.lookfor.network.OnHttpResponseListener;
@@ -31,7 +32,7 @@ public class MessageService extends Service {
 		super.onCreate();
 		this.share = ((BaseApplication) BaseApplication.getInstance())
 				.getSharePreferenceUtil();// 获取sharereferenceUtil
-		
+
 		share.setUserId("123");
 		// 对象
 		// 开启时间任务，每十秒请求一次绑定关系
@@ -78,8 +79,8 @@ public class MessageService extends Service {
 	 * 获取站内信(未读)
 	 */
 	private void getMessageList() {
-		ResponseHandler<UserBean> handler = new ResponseHandler<UserBean>(
-				UserBean.class);
+		ResponseHandler<FriendListData> handler = new ResponseHandler<FriendListData>(
+				FriendListData.class);
 		handler.setOnHttpResponseListener(new OnGetHomeMessageListener());
 
 		userId = share.getUserId();
@@ -112,7 +113,10 @@ public class MessageService extends Service {
 			int rc = response.getHeader().getRc();
 			String rm = response.getHeader().getRm();
 			if (rc == 0) {
-
+				FriendListData friendList = (FriendListData) response.getBody();
+				System.out
+						.println("MessageService.OnGetHomeMessageListener.onSuccess()"
+								+ friendList.toString());
 			} else {
 				Log.e(TAG, "获取新消息失败:" + "RC=" + rc + "RM=" + rm);
 			}

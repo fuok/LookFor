@@ -12,4 +12,10 @@ public class FriendListData {
 	public void setFriendList(ArrayList<UserBean> friendList) {
 		this.friendList = friendList;
 	}
+
+	@Override
+	public String toString() {
+		return "FriendListData [friendList=" + friendList + "]";
+	}
+
 }

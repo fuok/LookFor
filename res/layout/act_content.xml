@@ -13,18 +13,19 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentTop="true"
-        android:background="#7be66b6b" >
+        android:background="@drawable/title" >
 
         <ImageView
             android:id="@+id/left_drawer_img"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentLeft="true"
-            android:background="@drawable/ic_launcher" />
+            android:background="@drawable/home_left_menu" />
     </RelativeLayout>
-    
-    <!--底部的弹出按钮  -->
-     <RelativeLayout
+
+    <!-- 底部的弹出按钮 -->
+
+    <RelativeLayout
         android:id="@+id/cross_button_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

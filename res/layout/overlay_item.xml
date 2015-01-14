@@ -5,17 +5,25 @@
     android:gravity="center"
     android:orientation="vertical" >
 
-    <ImageView
-        android:id="@+id/ovetlay_item_image"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:src="@drawable/ic_launcher" />
-
     <TextView
         android:id="@+id/ovetlay_item_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:text="测试!" />
+
+    <LinearLayout
+        android:id="@+id/ovetlay_item_bg"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/icon_user"
+        android:gravity="center" >
+
+        <ImageView
+            android:id="@+id/ovetlay_item_img"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginBottom="4.5dp" />
+    </LinearLayout>
 
 </LinearLayout>

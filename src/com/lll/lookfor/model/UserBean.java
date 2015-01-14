@@ -111,4 +111,14 @@ public class UserBean implements Serializable {
 		this.updateTime = updateTime;
 	}
 
+	@Override
+	public String toString() {
+		return "UserBean [friendId=" + friendId + ", mobilNumber="
+				+ mobilNumber + ", nickName=" + nickName + ", sex=" + sex
+				+ ", commentName=" + commentName + ", status=" + status
+				+ ", permission=" + permission + ", portrait=" + portrait
+				+ ", longitude=" + longitude + ", latitude=" + latitude
+				+ ", updateTime=" + updateTime + "]";
+	}
+
 }

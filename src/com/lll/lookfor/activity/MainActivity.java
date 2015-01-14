@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.view.KeyEvent;
@@ -14,7 +15,10 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,7 +47,9 @@ import com.lll.lookfor.crossbutton.CrossButtonFragment;
 import com.lll.lookfor.model.DrawerItem;
 import com.lll.lookfor.model.UserBean;
 import com.lll.lookfor.utils.Log;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 public class MainActivity extends Activity implements OnClickListener {
@@ -62,9 +68,12 @@ public class MainActivity extends Activity implements OnClickListener {
 	private MapView mMapView;
 	private BaiduMap mBaiduMap;
 	// 自定义图标
-	private BitmapDescriptor bdA;
 	private InfoWindow mInfoWindow;
 	private ArrayList<Marker> markerList;
+	private ArrayList<UserBean> userList;
+	private ArrayList<BitmapDescriptor> bitmapList;
+	// Imageloader配置
+	private DisplayImageOptions option;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +86,15 @@ public class MainActivity extends Activity implements OnClickListener {
 					.add(R.id.cross_button_container, new CrossButtonFragment())
 					.commit();
 		}
+
 		this.markerList = new ArrayList<Marker>();
+		this.userList = new ArrayList<UserBean>();
+		this.bitmapList = new ArrayList<BitmapDescriptor>();
+
+		this.option = new DisplayImageOptions.Builder()
+				.bitmapConfig(Bitmap.Config.RGB_565).cacheInMemory(true)
+				.cacheOnDisk(true).displayer(new RoundedBitmapDisplayer(360))
+				.build();
 		initView();
 		initMyLocation();
 	}
@@ -94,6 +111,9 @@ public class MainActivity extends Activity implements OnClickListener {
 		// ListView头部
 		View listHead = LayoutInflater.from(this).inflate(
 				R.layout.drawer_list_head, null);
+		ListView.LayoutParams params = new ListView.LayoutParams(
+				LayoutParams.MATCH_PARENT,200);
+		listHead.setLayoutParams(params);
 		mDrawerList.addHeaderView(listHead);
 		// ListView底部
 		View listfoot = LayoutInflater.from(this).inflate(
@@ -112,13 +132,13 @@ public class MainActivity extends Activity implements OnClickListener {
 
 		this.list = new ArrayList<DrawerItem>();
 
-		list.add(new DrawerItem(R.drawable.ic_launcher,
-				getString(R.string.my_message)));
-		list.add(new DrawerItem(R.drawable.ic_launcher,
-				getString(R.string.my_friend)));
-		list.add(new DrawerItem(R.drawable.ic_launcher,
+		list.add(new DrawerItem(R.drawable.left_quanta,
 				getString(R.string.my_circles)));
-		list.add(new DrawerItem(R.drawable.ic_launcher,
+		list.add(new DrawerItem(R.drawable.left_message_default,
+				getString(R.string.my_message)));
+		list.add(new DrawerItem(R.drawable.left_friends,
+				getString(R.string.my_friend)));
+		list.add(new DrawerItem(R.drawable.left_application,
 				getString(R.string.my_request)));
 		adapter = new DrawerListAdapter(this, list);
 		mDrawerList.setAdapter(adapter);
@@ -159,31 +179,82 @@ public class MainActivity extends Activity implements OnClickListener {
 
 		mBaiduMap.setOnMarkerClickListener(new OnMarkerClickListener() {
 			public boolean onMarkerClick(final Marker marker) {
-				final View item = LayoutInflater.from(MainActivity.this)
-						.inflate(R.layout.overlay_item, null);
-				final ImageView imageView = (ImageView) item
-						.findViewById(R.id.ovetlay_item_image);
-				TextView textView = (TextView) item
-						.findViewById(R.id.ovetlay_item_text);
-				textView.setText("变换图标了");
 
-				imageView.setImageResource(R.drawable.icon_markb);
-				bdA = BitmapDescriptorFactory.fromView(item);
-				marker.setIcon(bdA);
+				for (int i = 0; i < markerList.size(); i++) {
+					final Marker position = markerList.get(i);
+					if (position == marker) {
+						// 图标
+						final View item = LayoutInflater
+								.from(MainActivity.this).inflate(
+										R.layout.overlay_item, null);
+						final LinearLayout item_bg = (LinearLayout) item
+								.findViewById(R.id.ovetlay_item_bg);
+						final ImageView item_img = (ImageView) item
+								.findViewById(R.id.ovetlay_item_img);
 
-				Button button = new Button(getApplicationContext());
-				button.setBackgroundResource(R.drawable.popup);
-				OnInfoWindowClickListener listener = null;
-				button.setText("更改位置");
-				listener = new OnInfoWindowClickListener() {
-					public void onInfoWindowClick() {
-						Log.e("MainActivity", "弹出框点击");
+						ImageLoader
+								.getInstance()
+								.displayImage(
+										"http://www.1735la.com/d/file/touxiang/keai/20131026/b8d5edc5cd4d9181a94932ad210f0dfe.jpg",
+										item_img, option,
+										new SimpleImageLoadingListener() {
+											public void onLoadingComplete(
+													String imageUri,
+													android.view.View view,
+													android.graphics.Bitmap loadedImage) {
+
+												item_bg.setBackgroundResource(R.drawable.icon_personal);
+												BitmapDescriptor bdA = BitmapDescriptorFactory
+														.fromView(item);
+												bitmapList.add(bdA);
+												marker.setIcon(bdA);
+											};
+										});
+
+						Button button = new Button(getApplicationContext());
+						button.setBackgroundResource(R.drawable.popup);
+						OnInfoWindowClickListener listener = null;
+						button.setText("更改位置");
+						listener = new OnInfoWindowClickListener() {
+							public void onInfoWindowClick() {
+								Log.e("MainActivity", "弹出框点击");
+							}
+						};
+						LatLng ll = marker.getPosition();
+						mInfoWindow = new InfoWindow(BitmapDescriptorFactory
+								.fromView(button), ll, -87, listener);
+						mBaiduMap.showInfoWindow(mInfoWindow);
+					} else {
+						// 图标
+						final View item = LayoutInflater
+								.from(MainActivity.this).inflate(
+										R.layout.overlay_item, null);
+						final LinearLayout item_bg = (LinearLayout) item
+								.findViewById(R.id.ovetlay_item_bg);
+						final ImageView item_img = (ImageView) item
+								.findViewById(R.id.ovetlay_item_img);
+
+						ImageLoader
+								.getInstance()
+								.displayImage(
+										"http://www.1735la.com/d/file/touxiang/keai/20131026/b8d5edc5cd4d9181a94932ad210f0dfe.jpg",
+										item_img, option,
+										new SimpleImageLoadingListener() {
+											public void onLoadingComplete(
+													String imageUri,
+													android.view.View view,
+													android.graphics.Bitmap loadedImage) {
+
+												item_bg.setBackgroundResource(R.drawable.icon_user);
+												BitmapDescriptor bdA = BitmapDescriptorFactory
+														.fromView(item);
+												bitmapList.add(bdA);
+												position.setIcon(bdA);
+											};
+										});
 					}
-				};
-				LatLng ll = marker.getPosition();
-				mInfoWindow = new InfoWindow(BitmapDescriptorFactory
-						.fromView(button), ll, -87, listener);
-				mBaiduMap.showInfoWindow(mInfoWindow);
+
+				}
 				return true;
 			}
 		});
@@ -191,8 +262,9 @@ public class MainActivity extends Activity implements OnClickListener {
 		// 地图点击事件
 		mBaiduMap.setOnMapClickListener(new OnMapClickListener() {
 			public void onMapClick(LatLng point) {
-				mBaiduMap.hideInfoWindow();
 				Log.e("MainActivity", "单击地图");
+				mBaiduMap.hideInfoWindow();
+				addOverlay(userList);
 			}
 
 			public boolean onMapPoiClick(MapPoi poi) {
@@ -238,18 +310,17 @@ public class MainActivity extends Activity implements OnClickListener {
 				userInfo.setLongitude(location.getLongitude());
 
 				UserBean userInfo1 = new UserBean();
-				userInfo1.setLatitude(22.540941);
-				userInfo1.setLongitude(113.967302);
+				userInfo1.setLatitude(location.getLatitude());
+				userInfo1.setLongitude(location.getLongitude() + 0.01);
 
 				UserBean userInfo2 = new UserBean();
-				userInfo2.setLatitude(22.540941);
-				userInfo2.setLongitude(113.978302);
+				userInfo2.setLatitude(location.getLatitude());
+				userInfo2.setLongitude(location.getLongitude() + 0.02);
 
-				ArrayList<UserBean> userInfos = new ArrayList<UserBean>();
-				userInfos.add(userInfo);
-				userInfos.add(userInfo1);
-				userInfos.add(userInfo2);
-				addOverlay(userInfos);
+				userList.add(userInfo);
+				userList.add(userInfo1);
+				userList.add(userInfo2);
+				addOverlay(userList);
 			}
 		}
 
@@ -267,23 +338,22 @@ public class MainActivity extends Activity implements OnClickListener {
 			// 图标
 			final View item = LayoutInflater.from(MainActivity.this).inflate(
 					R.layout.overlay_item, null);
-			final ImageView imageView = (ImageView) item
-					.findViewById(R.id.ovetlay_item_image);
+			final LinearLayout item_bg = (LinearLayout) item
+					.findViewById(R.id.ovetlay_item_bg);
+			final ImageView item_img = (ImageView) item
+					.findViewById(R.id.ovetlay_item_img);
 
 			ImageLoader
 					.getInstance()
 					.displayImage(
-							"http://d.hiphotos.bdimg.com/album/w%3D2048/sign=c661edfb0ff41bd5da53eff465e283cb/aec379310a55b31950bb88a542a98226cefc179b.jpg",
-							imageView, new SimpleImageLoadingListener() {
+							"http://www.1735la.com/d/file/touxiang/keai/20131026/b8d5edc5cd4d9181a94932ad210f0dfe.jpg",
+							item_img, option, new SimpleImageLoadingListener() {
 								public void onLoadingComplete(String imageUri,
 										android.view.View view,
 										android.graphics.Bitmap loadedImage) {
-
-									imageView.setImageBitmap(loadedImage);
-
 									BitmapDescriptor bdA = BitmapDescriptorFactory
 											.fromView(item);
-
+									bitmapList.add(bdA);
 									// 位置
 									LatLng latLng = new LatLng(info
 											.getLatitude(), info.getLongitude());
@@ -295,7 +365,6 @@ public class MainActivity extends Activity implements OnClickListener {
 									Bundle bundle = new Bundle();
 									bundle.putSerializable("info", info);
 									marker.setExtraInfo(bundle);
-									// 将所有的覆盖物放入集合中
 									markerList.add(marker);
 								};
 							});
@@ -333,6 +402,14 @@ public class MainActivity extends Activity implements OnClickListener {
 		mBaiduMap.setMyLocationEnabled(false);
 		mMapView.onDestroy();
 		mMapView = null;
+
+		// 回收 bitmap 资源
+		if (bitmapList != null && bitmapList.size() > 0) {
+			for (int i = 0; i < bitmapList.size(); i++) {
+				BitmapDescriptor bitmap = bitmapList.get(i);
+				bitmap.recycle();
+			}
+		}
 		super.onDestroy();
 	}
 
