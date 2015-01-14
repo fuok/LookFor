@@ -18,17 +18,28 @@
             android:value="sdgecGYE6unM2RPllnaaw5GC" />
 
         <activity
-            android:name="com.lll.lookfor.activity.MainActivity"
+            android:name="com.lll.lookfor.activity.StartActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <!-- 用户向导页 -->
+        <activity
+            android:name="com.lll.lookfor.activity.UserGuideActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" >
+        </activity>
+        <!-- 地图主页面 -->
+        <activity
+            android:name="com.lll.lookfor.activity.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
+        </activity>
         <!-- 线路规划 -->
         <activity
             android:name="com.lll.lookfor.activity.RoutePlanActivity"
