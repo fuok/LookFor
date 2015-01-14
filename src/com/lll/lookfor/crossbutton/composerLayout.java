@@ -119,12 +119,12 @@ public class composerLayout extends RelativeLayout {
 
 		rlButton = new RelativeLayout(mycontext); // ����Ť
 		llayouts = new LinearLayout[imgResId.length];
-		// N���Ӱ��o
+		// 添加弹出部分的几个小圆
 		for (int i = 0; i < imgResId.length; i++) {
 			ImageView img = new ImageView(mycontext);// �Ӱ�Ť�DƬ
 
 			img.setImageResource(imgResId[i]);
-			LinearLayout.LayoutParams llps = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+			LinearLayout.LayoutParams llps = new LinearLayout.LayoutParams(100, 100);//这是小圆的尺寸
 
 			img.setLayoutParams(llps);
 			llayouts[i] = new LinearLayout(mycontext);// �Ӱ��o��
@@ -139,18 +139,22 @@ public class composerLayout extends RelativeLayout {
 			llayouts[i].setVisibility(View.INVISIBLE);// �˴�����ΪGONE
 			rl1.addView(llayouts[i]);
 		}
-		RelativeLayout.LayoutParams rlps1 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.FILL_PARENT, RelativeLayout.LayoutParams.FILL_PARENT);
+
+		// 弹出部分
+		RelativeLayout.LayoutParams rlps1 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);// 横向表示弹出部分总长度，纵向为高度
 		rlps1.alignWithParent = true;
+		rlps1.setMargins(20, 0, 0, 20);//设置一定的偏移值，以免小圆View创建时从左下角被看到
 		rlps1.addRule(align1, RelativeLayout.TRUE);
 		rlps1.addRule(align2, RelativeLayout.TRUE);
 		rl1.setLayoutParams(rlps1);
-
-		RelativeLayout.LayoutParams buttonlps = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+		// 主体部分
+		RelativeLayout.LayoutParams buttonlps = new RelativeLayout.LayoutParams(150, 150);// 显示大小
 		buttonlps.alignWithParent = true;
 		buttonlps.addRule(align1, RelativeLayout.TRUE);
 		buttonlps.addRule(align2, RelativeLayout.TRUE);
 		rlButton.setLayoutParams(buttonlps);
 		rlButton.setBackgroundResource(showhideButtonId);
+		// 旋转X部分
 		cross = new ImageView(mycontext);
 		cross.setImageResource(crossId);
 		RelativeLayout.LayoutParams crosslps = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
@@ -164,16 +168,16 @@ public class composerLayout extends RelativeLayout {
 			public void onClick(View v) {
 				if (areButtonsShowing) {
 					myani.startAnimationsOut(duretime);
-					cross.startAnimation(myAnimations.getRotateAnimation(-225, 0, duretime));
+					cross.startAnimation(myAnimations.getRotateAnimation(-45, 0, duretime));// 这里是按钮旋转的角度
 				} else {
 					myani.startAnimationsIn(duretime);
-					cross.startAnimation(myAnimations.getRotateAnimation(0, -225, duretime));
+					cross.startAnimation(myAnimations.getRotateAnimation(0, -45, duretime));// 这里是按钮旋转的角度
 				}
 				areButtonsShowing = !areButtonsShowing;
 			}
 		});
 
-		cross.startAnimation(myAnimations.getRotateAnimation(0, 360, 200));
+		// cross.startAnimation(myAnimations.getRotateAnimation(0, 360, 200));//多余代码
 		this.addView(rl1);
 		this.addView(rlButton);
 		hasInit = true;

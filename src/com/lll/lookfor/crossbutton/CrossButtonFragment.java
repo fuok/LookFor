@@ -22,8 +22,7 @@ public class CrossButtonFragment extends Fragment {
 
 		composerLayout clayout = (composerLayout) rootView.findViewById(R.id.composerLayout);
 		clayout.init(new int[] { R.drawable.composer_camera, R.drawable.composer_music, R.drawable.composer_place, R.drawable.composer_sleep }, R.drawable.composer_button,
-				R.drawable.composer_icn_plus, composerLayout.LEFTBOTTOM, 180,// �����������ӵ�ˮƽ��ʾ
-				1000);
+				R.drawable.composer_icn_plus, composerLayout.LEFTBOTTOM, 180, 500);// 设置动画旋转时长
 		// �ӂ��c���O ��100+0����composer_camera��100+1����composer_music�������������Ў׶������o�ͼӎ׶�����
 		OnClickListener clickit = new OnClickListener() {
 			@Override
