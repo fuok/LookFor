@@ -111,8 +111,20 @@ public class MessageService extends Service {
 			String rm = response.getHeader().getRm();
 			if (rc == 0) {
 				FriendListData friendList = (FriendListData) response.getBody();
-				((BaseApplication) BaseApplication.getInstance())
-						.getAll_friends().addAll(friendList.getFriendList());
+				if (friendList != null && friendList.getFriendList().size() > 0) {
+					// 添加全部好友集合
+					((BaseApplication) BaseApplication.getInstance())
+							.getAll_friends()
+							.addAll(friendList.getFriendList());
+					// 添加可见好友集合
+					for (int i = 0; i < friendList.getFriendList().size(); i++) {
+						UserBean uBean = friendList.getFriendList().get(i);
+						if (uBean.getStatus() == 1) {
+							((BaseApplication) BaseApplication.getInstance())
+									.getStatus_friends().add(uBean);
+						}
+					}
+				}
 				System.out
 						.println("MessageService.OnGetHomeMessageListener.onSuccess()"
 								+ friendList.toString());
