@@ -48,12 +48,7 @@ public class BaseApplication extends Application {
 		initImageLoader(this);
 
 		mSpUtil = new SharePreferenceUtil(this, SharePreferenceUtil.HOOPHONE);
-
-		// 启动Service
-		Intent serviceIntent = new Intent();
-		serviceIntent.setClass(this, MessageService.class);
-		startService(serviceIntent);
-
+		
 		this.all_friends = new ArrayList<UserBean>();
 		this.status_friends = new ArrayList<UserBean>();
 	}

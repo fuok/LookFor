@@ -11,6 +11,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.lll.lookfor.R;
+import com.lll.lookfor.service.MessageService;
 
 /** 程序启动页，第一个打开的页面，请求也在这里 */
 public class StartActivity extends Activity {
@@ -47,10 +48,16 @@ public class StartActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.act_start);
 		// 启动系统登录
 		mHandler.sendEmptyMessage(LOGIN_START);
+
+		// 启动Service
+		Intent serviceIntent = new Intent();
+		serviceIntent.setClass(this, MessageService.class);
+		startService(serviceIntent);
 	}
 
 	// 在启动图处停留5s
