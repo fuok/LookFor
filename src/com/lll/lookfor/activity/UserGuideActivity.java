@@ -31,7 +31,7 @@ public class UserGuideActivity extends Activity implements OnPageChangeListener 
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-		setContentView(R.layout.act__user_guide);
+		setContentView(R.layout.act_user_guide);
 		vPager = (ViewPager) findViewById(R.id.vp);
 		/*
 		 * dotsLayout = (LinearLayout) findViewById(R.id.dot_layout); dots.get(oldPosition).setBackgroundResource(R.drawable.dot_focus);

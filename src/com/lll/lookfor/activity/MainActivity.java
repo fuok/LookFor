@@ -3,6 +3,7 @@ package com.lll.lookfor.activity;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
@@ -18,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,6 +61,11 @@ public class MainActivity extends Activity implements OnClickListener {
 	private DrawerListAdapter adapter;
 	private ImageView left_drawer_img;
 	private DrawerLayout mDrawerLayout;
+	
+	//在线好友按钮
+	private Button btn_home_right;
+	//判断好友列表是否展开状态
+	private boolean isFriendListShow;
 
 	// 定位相关
 	private LocationClient mLocClient;
@@ -105,6 +113,8 @@ public class MainActivity extends Activity implements OnClickListener {
 		this.mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		this.left_drawer_img = (ImageView) findViewById(R.id.left_drawer_img);
 		this.left_drawer_img.setOnClickListener(this);
+		btn_home_right=(Button) findViewById(R.id.btn_home_right);
+		btn_home_right.setOnClickListener(this);
 		this.mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
 		// ListView头部
@@ -414,7 +424,6 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.left_drawer_img:
 			if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
@@ -423,13 +432,69 @@ public class MainActivity extends Activity implements OnClickListener {
 				mDrawerLayout.openDrawer(mDrawerList);
 			}
 			break;
-
+		case R.id.btn_home_right:
+			if(!isFriendListShow){
+				showFriendList();
+			}else{
+				hideFriendList();
+			}
+			
+			break;
 		default:
 			break;
 		}
 
 	}
 
+	/**显示可见好友列表*/
+	private void showFriendList() {
+		RelativeLayout friend_list_container = (RelativeLayout) findViewById(R.id.friend_list_container);
+
+		if (FriendListFragment.getInstance() == null) {
+			getFragmentManager().beginTransaction().replace(R.id.friend_list_container, FriendListFragment.newInstance()).commit();
+		} else {
+			getFragmentManager().beginTransaction().show(FriendListFragment.getInstance()).commit();
+		}
+		friend_list_container.setVisibility(View.VISIBLE);
+		isFriendListShow = true;
+	}
+
+	/**隐藏可见好友列表*/
+	private void hideFriendList() {
+		RelativeLayout friend_list_container = (RelativeLayout) findViewById(R.id.friend_list_container);
+		friend_list_container.setVisibility(View.GONE);
+		isFriendListShow = false;
+	}
+
+	/**好友列表Fragment*/
+	public static class FriendListFragment extends Fragment {
+		private static FriendListFragment instance = null;
+
+		public FriendListFragment() {
+		}
+
+		public static FriendListFragment newInstance() {
+			instance = new FriendListFragment();
+			return instance;
+		}
+
+		public static Fragment getInstance() {
+			return instance;
+		}
+
+		@Override
+		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+			View rootView = inflater.inflate(R.layout.fragment_friend_list, container, false);
+			return rootView;
+		}
+
+		@Override
+		public void onStart() {
+			super.onStart();
+		}
+		
+	}
+	
 	private long exitTime = 0;
 
 	@Override

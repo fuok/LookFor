@@ -10,6 +10,7 @@
         android:clickable="true" />
 
     <RelativeLayout
+        android:id="@+id/title_home"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentTop="true"
@@ -21,6 +22,21 @@
             android:layout_height="50dp"
             android:layout_alignParentLeft="true"
             android:background="@drawable/home_left_menu" />
+
+        <Button
+            android:id="@+id/btn_home_right"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/selector_home_right" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/friend_list_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title_home"
+        android:visibility="gone" >
     </RelativeLayout>
 
     <!-- 底部的弹出按钮 -->
