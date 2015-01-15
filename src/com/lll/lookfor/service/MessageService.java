@@ -97,10 +97,7 @@ public class MessageService extends Service {
 							+ HooPhoneConstant
 									.getURL(HooPhoneConstant.URL_MSG_GET_MSG_LIST)
 							+ "?" + postPara);
-			HttpUtil.post(
-					HooPhoneConstant
-							.getURL(HooPhoneConstant.URL_MSG_GET_MSG_LIST)
-							+ "?" + postPara, handler);
+			HttpUtil.get("http://www.xshcar.com/chen/friendList.html", handler);
 		}
 	}
 
@@ -114,6 +111,8 @@ public class MessageService extends Service {
 			String rm = response.getHeader().getRm();
 			if (rc == 0) {
 				FriendListData friendList = (FriendListData) response.getBody();
+				((BaseApplication) BaseApplication.getInstance())
+						.getAll_friends().addAll(friendList.getFriendList());
 				System.out
 						.println("MessageService.OnGetHomeMessageListener.onSuccess()"
 								+ friendList.toString());
