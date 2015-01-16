@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center" >
+
+    <ImageView
+        android:id="@+id/contacts_item_img"
+        android:layout_width="40dip"
+        android:layout_height="40dip" />
+
+    <TextView
+        android:id="@+id/contacts_item_name"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/contacts_item_img"
+        android:singleLine="true"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/contacts_item_number"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/contacts_item_name"
+        android:layout_toRightOf="@+id/contacts_item_img"
+        android:textSize="15sp" />
+
+</RelativeLayout>

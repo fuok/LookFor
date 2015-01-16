@@ -21,7 +21,13 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentLeft="true"
-            android:background="@drawable/home_left_menu" />
+            android:background="@drawable/selector_home_left_menu" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@drawable/logo" />
 
         <Button
             android:id="@+id/btn_home_right"

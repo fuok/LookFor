@@ -30,12 +30,11 @@ public class MessageService extends Service {
 
 	public void onCreate() {
 		super.onCreate();
-		this.share = ((BaseApplication) BaseApplication.getInstance())
-				.getSharePreferenceUtil();// 获取sharereferenceUtil
+		this.share = BaseApplication.getInstance().getSharePreferenceUtil();// 获取sharereferenceUtil
 
 		share.setUserId("123");
-		// 对象
-		// 开启时间任务，每十秒请求一次绑定关系
+
+		// 开启时间任务，每十秒请求一次
 		timer = new Timer();
 		timer.schedule(new TimerTask() {
 			public void run() {
@@ -112,22 +111,27 @@ public class MessageService extends Service {
 			if (rc == 0) {
 				FriendListData friendList = (FriendListData) response.getBody();
 				if (friendList != null && friendList.getFriendList().size() > 0) {
+					BaseApplication.getInstance().getAll_friends().clear();
+					BaseApplication.getInstance().getStatus_friends().clear();
+
 					// 添加全部好友集合
-					((BaseApplication) BaseApplication.getInstance())
-							.getAll_friends()
+					BaseApplication.getInstance().getAll_friends()
 							.addAll(friendList.getFriendList());
 					// 添加可见好友集合
 					for (int i = 0; i < friendList.getFriendList().size(); i++) {
 						UserBean uBean = friendList.getFriendList().get(i);
 						if (uBean.getStatus() == 1) {
-							((BaseApplication) BaseApplication.getInstance())
-									.getStatus_friends().add(uBean);
+							BaseApplication.getInstance().getStatus_friends()
+									.add(uBean);
 						}
 					}
 				}
-				System.out
-						.println("MessageService.OnGetHomeMessageListener.onSuccess()"
-								+ friendList.toString());
+				Log.e(TAG, "获取好友列表成功:"
+						+ BaseApplication.getInstance().getAll_friends()
+								.toString());
+				Log.e(TAG, "获取可见好友列表成功:"
+						+ BaseApplication.getInstance().getStatus_friends()
+								.toString());
 			} else {
 				Log.e(TAG, "获取新消息失败:" + "RC=" + rc + "RM=" + rm);
 			}

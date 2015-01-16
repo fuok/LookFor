@@ -9,5 +9,7 @@
     <string name="setting">设置</string>
     <string name="about_us">关于我们</string>
     <string name="version_update">版本更新</string>
+    <string name="contacts_friend">通讯录好友</string>
+    <string name="find_friend">查找好友</string>
 
 </resources>

@@ -47,7 +47,7 @@ public class ContactsAdapter extends BaseAdapter {
 		if (convertView == null || position < contactsList.size()) {
 			holder = new ViewHolder();
 			convertView = LayoutInflater.from(context).inflate(
-					R.layout.contacts_item, null);
+					R.layout.item_contacts, null);
 			holder.img = (ImageView) convertView
 					.findViewById(R.id.contacts_item_img);
 			holder.name = (TextView) convertView

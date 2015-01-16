@@ -10,7 +10,7 @@
         android:layout_height="55dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:src="@drawable/left_login" />
+        android:src="@drawable/selector_left_login" />
 
     <TextView
         android:id="@+id/tv_nick_name"

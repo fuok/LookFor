@@ -4,11 +4,9 @@ import java.io.File;
 import java.util.ArrayList;
 
 import android.app.Application;
-import android.content.Intent;
 
 import com.baidu.mapapi.SDKInitializer;
 import com.lll.lookfor.model.UserBean;
-import com.lll.lookfor.service.MessageService;
 import com.lll.lookfor.utils.FileUtils;
 import com.lll.lookfor.utils.SharePreferenceUtil;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
@@ -19,7 +17,7 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
 public class BaseApplication extends Application {
-	private static Application mApplication;
+	private static BaseApplication mApplication;
 	private SharePreferenceUtil mSpUtil;
 	private ArrayList<UserBean> all_friends = null;// 全部好友
 	private ArrayList<UserBean> status_friends = null;// 可见好友
@@ -32,7 +30,7 @@ public class BaseApplication extends Application {
 		return status_friends;
 	}
 
-	public static synchronized Application getInstance() {
+	public static synchronized BaseApplication getInstance() {
 		return mApplication;
 	}
 
@@ -48,7 +46,7 @@ public class BaseApplication extends Application {
 		initImageLoader(this);
 
 		mSpUtil = new SharePreferenceUtil(this, SharePreferenceUtil.HOOPHONE);
-		
+
 		this.all_friends = new ArrayList<UserBean>();
 		this.status_friends = new ArrayList<UserBean>();
 	}

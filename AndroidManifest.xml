@@ -59,6 +59,13 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:windowSoftInputMode="stateHidden|adjustResize" />
 
+        <!-- 好友列表 -->
+        <activity
+            android:name="com.lll.lookfor.activity.FriendListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
+        </activity>
+
         <!-- 本地联系人列表 -->
         <activity
             android:name="com.lll.lookfor.activity.ContactsActivity"
@@ -66,6 +73,7 @@
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
         </activity>
 
+        <!-- 百度定位服务 -->
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"

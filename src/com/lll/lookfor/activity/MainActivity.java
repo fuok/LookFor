@@ -65,10 +65,10 @@ public class MainActivity extends Activity implements OnClickListener {
 	private DrawerListAdapter adapter;
 	private ImageView left_drawer_img;
 	private DrawerLayout mDrawerLayout;
-	
-	//在线好友按钮
+
+	// 在线好友按钮
 	private Button btn_home_right;
-	//判断好友列表是否展开状态
+	// 判断好友列表是否展开状态
 	private boolean isFriendListShow;
 
 	// 定位相关
@@ -117,7 +117,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		this.mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		this.left_drawer_img = (ImageView) findViewById(R.id.left_drawer_img);
 		this.left_drawer_img.setOnClickListener(this);
-		btn_home_right=(Button) findViewById(R.id.btn_home_right);
+		btn_home_right = (Button) findViewById(R.id.btn_home_right);
 		btn_home_right.setOnClickListener(this);
 		this.mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
@@ -125,7 +125,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		View listHead = LayoutInflater.from(this).inflate(
 				R.layout.drawer_list_head, null);
 		ListView.LayoutParams params = new ListView.LayoutParams(
-				LayoutParams.MATCH_PARENT,200);
+				LayoutParams.MATCH_PARENT, 200);
 		listHead.setLayoutParams(params);
 		mDrawerList.addHeaderView(listHead);
 		// ListView底部
@@ -163,7 +163,13 @@ public class MainActivity extends Activity implements OnClickListener {
 					int position, long id) {
 				if (position == 0) {
 					Intent intent = new Intent(MainActivity.this,
-							ContactsActivity.class);
+							RoutePlanActivity.class);
+					intent.putExtra("st", userList.get(0));
+					intent.putExtra("en", userList.get(1));
+					startActivity(intent);
+				} else if (position == 3) {
+					Intent intent = new Intent(MainActivity.this,
+							FriendListActivity.class);
 					startActivity(intent);
 				}
 			}
@@ -199,7 +205,7 @@ public class MainActivity extends Activity implements OnClickListener {
 						// 图标
 						final View item = LayoutInflater
 								.from(MainActivity.this).inflate(
-										R.layout.overlay_item, null);
+										R.layout.item_overlay, null);
 						final LinearLayout item_bg = (LinearLayout) item
 								.findViewById(R.id.ovetlay_item_bg);
 						final ImageView item_img = (ImageView) item
@@ -241,7 +247,7 @@ public class MainActivity extends Activity implements OnClickListener {
 						// 图标
 						final View item = LayoutInflater
 								.from(MainActivity.this).inflate(
-										R.layout.overlay_item, null);
+										R.layout.item_overlay, null);
 						final LinearLayout item_bg = (LinearLayout) item
 								.findViewById(R.id.ovetlay_item_bg);
 						final ImageView item_img = (ImageView) item
@@ -350,7 +356,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
 			// 图标
 			final View item = LayoutInflater.from(MainActivity.this).inflate(
-					R.layout.overlay_item, null);
+					R.layout.item_overlay, null);
 			final LinearLayout item_bg = (LinearLayout) item
 					.findViewById(R.id.ovetlay_item_bg);
 			final ImageView item_img = (ImageView) item
@@ -437,12 +443,12 @@ public class MainActivity extends Activity implements OnClickListener {
 			}
 			break;
 		case R.id.btn_home_right:
-			if(!isFriendListShow){
+			if (!isFriendListShow) {
 				showFriendList();
-			}else{
+			} else {
 				hideFriendList();
 			}
-			
+
 			break;
 		default:
 			break;
@@ -450,32 +456,37 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	}
 
-	/**显示可见好友列表*/
+	/** 显示可见好友列表 */
 	private void showFriendList() {
 		RelativeLayout friend_list_container = (RelativeLayout) findViewById(R.id.friend_list_container);
 
 		if (FriendListFragment.getInstance() == null) {
-			getFragmentManager().beginTransaction().replace(R.id.friend_list_container, FriendListFragment.newInstance()).commit();
+			getFragmentManager()
+					.beginTransaction()
+					.replace(R.id.friend_list_container,
+							FriendListFragment.newInstance()).commit();
 		} else {
-			getFragmentManager().beginTransaction().show(FriendListFragment.getInstance()).commit();
+			getFragmentManager().beginTransaction()
+					.show(FriendListFragment.getInstance()).commit();
 		}
 		friend_list_container.setVisibility(View.VISIBLE);
 		isFriendListShow = true;
 	}
 
-	/**隐藏可见好友列表*/
+	/** 隐藏可见好友列表 */
 	private void hideFriendList() {
 		RelativeLayout friend_list_container = (RelativeLayout) findViewById(R.id.friend_list_container);
 		friend_list_container.setVisibility(View.GONE);
 		isFriendListShow = false;
-		getFragmentManager().beginTransaction().remove(FriendListFragment.getInstance()).commit();//务必销毁之，这个Fragment每次都要重新来过
+		getFragmentManager().beginTransaction()
+				.remove(FriendListFragment.getInstance()).commit();// 务必销毁之，这个Fragment每次都要重新来过
 	}
 
-	/**好友列表Fragment*/
+	/** 好友列表Fragment */
 	public static class FriendListFragment extends Fragment {
-		
-		ViewPager viewPager;//列表的ViewPager
-		
+
+		ViewPager viewPager;// 列表的ViewPager
+
 		private static FriendListFragment instance = null;
 
 		public FriendListFragment() {
@@ -491,8 +502,10 @@ public class MainActivity extends Activity implements OnClickListener {
 		}
 
 		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_friend_list, container, false);
+		public View onCreateView(LayoutInflater inflater, ViewGroup container,
+				Bundle savedInstanceState) {
+			View rootView = inflater.inflate(R.layout.fragment_friend_list,
+					container, false);
 			viewPager = (ViewPager) rootView.findViewById(R.id.viewPager);
 			return rootView;
 		}
@@ -501,9 +514,11 @@ public class MainActivity extends Activity implements OnClickListener {
 		public void onStart() {
 			super.onStart();
 			// 获取可见好友列表
-			BaseApplication application = (BaseApplication) (getActivity().getApplication());
-			ArrayList<UserBean> visibleFriendList = application.getStatus_friends();
-//			Log.w("liuy", "可见人数：" + visibleFriendList.size());
+			BaseApplication application = (BaseApplication) (getActivity()
+					.getApplication());
+			ArrayList<UserBean> visibleFriendList = application
+					.getStatus_friends();
+			// Log.w("liuy", "可见人数：" + visibleFriendList.size());
 			createList(visibleFriendList);
 		}
 
@@ -519,19 +534,22 @@ public class MainActivity extends Activity implements OnClickListener {
 			if (beanList != null && beanList.size() > 0) {
 				for (int i = 0; i < beanList.size(); i++) {
 					final UserBean ubean = beanList.get(i);
-					View view = getActivity().getLayoutInflater().inflate(R.layout.item_visiable_friend, null);
+					View view = getActivity().getLayoutInflater().inflate(
+							R.layout.item_visiable_friend, null);
 					// 头像还没添加
 
 					// 添加名称
 					String name = ubean.getNickName();
-					TextView tv_name = (TextView) view.findViewById(R.id.tv_name);
+					TextView tv_name = (TextView) view
+							.findViewById(R.id.tv_name);
 					tv_name.setText(name);
 					pages.add(view);// 最关键的步骤，把创建好的View添加到ViewPager队列中
 				}
 			}
 
 			// 创建ViewPager适配器
-			VisiableFriendAdapter viewPageradapter = new VisiableFriendAdapter(pages, getActivity());
+			VisiableFriendAdapter viewPageradapter = new VisiableFriendAdapter(
+					pages, getActivity());
 			viewPager.setAdapter(viewPageradapter);
 			viewPager.setLeft(200);// 这俩不知道是干啥的
 			viewPager.setRight(200);// 这俩不知道是干啥的
@@ -540,7 +558,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		}
 
 	}
-	
+
 	private long exitTime = 0;
 
 	@Override
