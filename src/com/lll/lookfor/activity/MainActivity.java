@@ -128,6 +128,18 @@ public class MainActivity extends Activity implements OnClickListener {
 				LayoutParams.MATCH_PARENT, 200);
 		listHead.setLayoutParams(params);
 		mDrawerList.addHeaderView(listHead);
+		listHead.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if (true) {// 登录状态判断
+					Intent intent = new Intent(MainActivity.this,
+							LoginActivity.class);
+					startActivity(intent);
+				}
+
+			}
+		});
 		// ListView底部
 		View listfoot = LayoutInflater.from(this).inflate(
 				R.layout.drawer_list_foot, null);

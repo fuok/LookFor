@@ -46,7 +46,12 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
         </activity>
-
+        <!-- 用户登录页 -->
+        <activity
+            android:name="com.lll.lookfor.activity.LoginActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
+        </activity>
         <!-- 验证码发送 -->
         <activity
             android:name="com.lll.lookfor.activity.SendSMSActivity"
