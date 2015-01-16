@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/darker_gray"
     android:focusable="true"
     android:padding="5dp" >
 
     <!-- 头像 -->
 
-    <ImageView
+    <com.lll.lookfor.ui.CircleImageView
         android:id="@+id/iv_portrait"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_alignParentTop="true"
         android:contentDescription="@null"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic_launcher" />
+        android:src="@drawable/ic_launcher"
+        app:border_color="@android:color/white"
+        app:border_width="2dp" />
 
     <!-- 名字 -->
 
