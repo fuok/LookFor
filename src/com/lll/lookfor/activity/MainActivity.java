@@ -1,12 +1,14 @@
 package com.lll.lookfor.activity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -43,8 +45,10 @@ import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
+import com.lll.lookfor.BaseApplication;
 import com.lll.lookfor.R;
 import com.lll.lookfor.adapter.DrawerListAdapter;
+import com.lll.lookfor.adapter.VisiableFriendAdapter;
 import com.lll.lookfor.crossbutton.CrossButtonFragment;
 import com.lll.lookfor.model.DrawerItem;
 import com.lll.lookfor.model.UserBean;
@@ -464,10 +468,14 @@ public class MainActivity extends Activity implements OnClickListener {
 		RelativeLayout friend_list_container = (RelativeLayout) findViewById(R.id.friend_list_container);
 		friend_list_container.setVisibility(View.GONE);
 		isFriendListShow = false;
+		getFragmentManager().beginTransaction().remove(FriendListFragment.getInstance()).commit();//务必销毁之，这个Fragment每次都要重新来过
 	}
 
 	/**好友列表Fragment*/
 	public static class FriendListFragment extends Fragment {
+		
+		ViewPager viewPager;//列表的ViewPager
+		
 		private static FriendListFragment instance = null;
 
 		public FriendListFragment() {
@@ -485,14 +493,52 @@ public class MainActivity extends Activity implements OnClickListener {
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 			View rootView = inflater.inflate(R.layout.fragment_friend_list, container, false);
+			viewPager = (ViewPager) rootView.findViewById(R.id.viewPager);
 			return rootView;
 		}
 
 		@Override
 		public void onStart() {
 			super.onStart();
+			// 获取可见好友列表
+			BaseApplication application = (BaseApplication) (getActivity().getApplication());
+			ArrayList<UserBean> visibleFriendList = application.getStatus_friends();
+//			Log.w("liuy", "可见人数：" + visibleFriendList.size());
+			createList(visibleFriendList);
 		}
-		
+
+		@Override
+		public void onDestroy() {
+			instance = null;// 务必销毁之，这个Fragment每次都要重新来过
+			super.onDestroy();
+		}
+
+		private void createList(ArrayList<UserBean> beanList) {
+			// 清空原有队列
+			List<View> pages = new ArrayList<View>();
+			if (beanList != null && beanList.size() > 0) {
+				for (int i = 0; i < beanList.size(); i++) {
+					final UserBean ubean = beanList.get(i);
+					View view = getActivity().getLayoutInflater().inflate(R.layout.item_visiable_friend, null);
+					// 头像还没添加
+
+					// 添加名称
+					String name = ubean.getNickName();
+					TextView tv_name = (TextView) view.findViewById(R.id.tv_name);
+					tv_name.setText(name);
+					pages.add(view);// 最关键的步骤，把创建好的View添加到ViewPager队列中
+				}
+			}
+
+			// 创建ViewPager适配器
+			VisiableFriendAdapter viewPageradapter = new VisiableFriendAdapter(pages, getActivity());
+			viewPager.setAdapter(viewPageradapter);
+			viewPager.setLeft(200);// 这俩不知道是干啥的
+			viewPager.setRight(200);// 这俩不知道是干啥的
+			viewPager.setOffscreenPageLimit(5);// 一次性加载的View数量，作用应该是和ListView的滚动加载差不多
+			viewPager.setPageMargin(0);// 两个View的间隔距离
+		}
+
 	}
 	
 	private long exitTime = 0;
