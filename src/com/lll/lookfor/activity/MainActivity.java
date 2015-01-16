@@ -536,7 +536,13 @@ public class MainActivity extends Activity implements OnClickListener {
 					final UserBean ubean = beanList.get(i);
 					View view = getActivity().getLayoutInflater().inflate(
 							R.layout.item_visiable_friend, null);
-					// 头像还没添加
+					
+					// 添加头像
+					String portrait_url = ubean.getPortrait();
+					ImageView iv_portrait = (ImageView) view.findViewById(R.id.iv_portrait);
+					if (portrait_url != null && portrait_url.length() > 10) {
+						ImageLoader.getInstance().displayImage(portrait_url, iv_portrait);
+					}
 
 					// 添加名称
 					String name = ubean.getNickName();
