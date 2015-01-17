@@ -45,16 +45,29 @@
         android:visibility="gone" >
     </RelativeLayout>
 
-    <!-- 底部的弹出按钮 -->
-
-    <RelativeLayout
-        android:id="@+id/cross_button_container"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp" >
-    </RelativeLayout>
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/btn_home_recovery"
+            android:layout_width="78dp"
+            android:layout_height="78dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/selector_home_recovery" />
+
+        <!-- 底部的弹出按钮 -->
+
+        <RelativeLayout
+            android:id="@+id/cross_button_container"
+            android:layout_width="match_parent"
+            android:layout_height="85dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp" >
+        </RelativeLayout>
+    </LinearLayout>
 
 </RelativeLayout>

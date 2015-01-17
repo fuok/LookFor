@@ -86,6 +86,9 @@ public class MainActivity extends Activity implements OnClickListener {
 	// Imageloader配置
 	private DisplayImageOptions option;
 
+	private Button btn_home_recovery;// 定位按钮
+	private LatLng ll_recovery;// 当前经纬度
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -129,7 +132,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		listHead.setLayoutParams(params);
 		mDrawerList.addHeaderView(listHead);
 		listHead.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				if (true) {// 登录状态判断
@@ -302,6 +305,16 @@ public class MainActivity extends Activity implements OnClickListener {
 				return false;
 			}
 		});
+
+		btn_home_recovery = (Button) findViewById(R.id.btn_home_recovery);
+		btn_home_recovery.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				MapStatusUpdate u = MapStatusUpdateFactory
+						.newLatLng(ll_recovery);
+				mBaiduMap.animateMapStatus(u);
+			}
+		});
 	}
 
 	/**
@@ -329,6 +342,9 @@ public class MainActivity extends Activity implements OnClickListener {
 			// map view 销毁后不在处理新接收的位置
 			if (location == null || mMapView == null)
 				return;
+
+			ll_recovery = new LatLng(location.getLatitude(),
+					location.getLongitude());
 			if (isFirstLoc) {
 				isFirstLoc = false;
 				LatLng ll = new LatLng(location.getLatitude(),
@@ -548,12 +564,14 @@ public class MainActivity extends Activity implements OnClickListener {
 					final UserBean ubean = beanList.get(i);
 					View view = getActivity().getLayoutInflater().inflate(
 							R.layout.item_visiable_friend, null);
-					
+
 					// 添加头像
 					String portrait_url = ubean.getPortrait();
-					ImageView iv_portrait = (ImageView) view.findViewById(R.id.iv_portrait);
+					ImageView iv_portrait = (ImageView) view
+							.findViewById(R.id.iv_portrait);
 					if (portrait_url != null && portrait_url.length() > 10) {
-						ImageLoader.getInstance().displayImage(portrait_url, iv_portrait);
+						ImageLoader.getInstance().displayImage(portrait_url,
+								iv_portrait);
 					}
 
 					// 添加名称
