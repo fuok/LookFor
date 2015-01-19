@@ -110,13 +110,11 @@ public class myAnimations {
 
 		@Override
 		public void onAnimationCancel(Animator animation) {
-			// TODO Auto-generated method stub
 
 		}
 
 		@Override
 		public void onAnimationRepeat(Animator animation) {
-			// TODO Auto-generated method stub
 
 		}
 	}
@@ -143,7 +141,7 @@ public class myAnimations {
 				deltaX = Math.cos(offangle * i * Math.PI / 180) * R;
 				// �޸�֮
 				Log.w("liuy", "�Ƕ���" + offangle);
-				deltaX = 150 * i;//控制弹出部分每个小球的间距
+				deltaX = 140 * i;//控制弹出部分每个小球的间距
 			}
 
 			ViewPropertyAnimator viewPropertyAnimator = viewAnimators.get(i);

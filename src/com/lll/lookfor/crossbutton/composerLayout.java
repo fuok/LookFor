@@ -127,8 +127,8 @@ public class composerLayout extends RelativeLayout {
 			LinearLayout.LayoutParams llps = new LinearLayout.LayoutParams(100, 100);//这是小圆的尺寸
 
 			img.setLayoutParams(llps);
-			llayouts[i] = new LinearLayout(mycontext);// �Ӱ��o��
-			llayouts[i].setId(100 + i);// �S���O��id������onclick���r���R�e���������؂�idֵ�S�����O�������l�Fͬ����ؼ��_ͻ�����и�һ�¡�
+			llayouts[i] = new LinearLayout(mycontext);
+			llayouts[i].setId(100 + i);//小圆id，点击事件需要
 			llayouts[i].addView(img);
 
 			RelativeLayout.LayoutParams rlps = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
@@ -148,7 +148,7 @@ public class composerLayout extends RelativeLayout {
 		rlps1.addRule(align2, RelativeLayout.TRUE);
 		rl1.setLayoutParams(rlps1);
 		// 主体部分
-		RelativeLayout.LayoutParams buttonlps = new RelativeLayout.LayoutParams(150, 150);// 显示大小
+		RelativeLayout.LayoutParams buttonlps = new RelativeLayout.LayoutParams(135, 135);// 大圆按钮尺寸
 		buttonlps.alignWithParent = true;
 		buttonlps.addRule(align1, RelativeLayout.TRUE);
 		buttonlps.addRule(align2, RelativeLayout.TRUE);

@@ -3,21 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/darker_gray"
     android:focusable="true"
+    android:gravity="center_vertical"
     android:padding="5dp" >
 
     <!-- 头像 -->
 
     <com.lll.lookfor.ui.CircleImageView
         android:id="@+id/iv_portrait"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
         android:contentDescription="@null"
         android:src="@drawable/ic_launcher"
-        app:border_color="@android:color/white"
-        app:border_width="2dp" />
+        app:border_color="@color/text_gray"
+        app:border_width="1dp" />
 
     <!-- 名字 -->
 
@@ -26,10 +27,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/iv_portrait"
+        android:layout_centerHorizontal="true"
         android:gravity="center"
         android:singleLine="true"
         android:text="name"
-        android:textColor="@android:color/black"
+        android:textColor="@color/text_gray"
         android:textSize="15sp" />
 
 </RelativeLayout>

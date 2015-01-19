@@ -48,8 +48,7 @@ public class StartActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-				WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.act_start);
 		// 启动系统登录
 		mHandler.sendEmptyMessage(LOGIN_START);
@@ -62,17 +61,7 @@ public class StartActivity extends Activity {
 
 	// 在启动图处停留5s
 	private void sleep() {
-		new Thread() {
-			@Override
-			public void run() {
-				try {
-					sleep(1000);
-					mHandler.sendEmptyMessage(LOGIN_FINISH);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-		}.run();
+		mHandler.sendEmptyMessageDelayed(LOGIN_FINISH, 2000);
 	}
 
 	/** 打开下一级Activity */

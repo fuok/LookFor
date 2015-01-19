@@ -53,8 +53,8 @@
 
         <Button
             android:id="@+id/btn_home_recovery"
-            android:layout_width="78dp"
-            android:layout_height="78dp"
+            android:layout_width="68dp"
+            android:layout_height="68dp"
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="10dp"
             android:background="@drawable/selector_home_recovery" />
