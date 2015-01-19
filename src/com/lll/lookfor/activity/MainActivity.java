@@ -19,7 +19,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -36,7 +35,6 @@ import com.baidu.mapapi.map.BaiduMap.OnMarkerClickListener;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.InfoWindow;
-import com.baidu.mapapi.map.InfoWindow.OnInfoWindowClickListener;
 import com.baidu.mapapi.map.MapPoi;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
@@ -52,6 +50,8 @@ import com.lll.lookfor.adapter.VisiableFriendAdapter;
 import com.lll.lookfor.crossbutton.CrossButtonFragment;
 import com.lll.lookfor.model.DrawerItem;
 import com.lll.lookfor.model.UserBean;
+import com.lll.lookfor.ui.InfoWindow_View;
+import com.lll.lookfor.ui.Overlay_View;
 import com.lll.lookfor.utils.Log;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -177,11 +177,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				if (position == 0) {
-					Intent intent = new Intent(MainActivity.this,
-							RoutePlanActivity.class);
-					intent.putExtra("st", userList.get(0));
-					intent.putExtra("en", userList.get(1));
-					startActivity(intent);
+					
 				} else if (position == 3) {
 					Intent intent = new Intent(MainActivity.this,
 							FriendListActivity.class);
@@ -217,71 +213,70 @@ public class MainActivity extends Activity implements OnClickListener {
 				for (int i = 0; i < markerList.size(); i++) {
 					final Marker position = markerList.get(i);
 					if (position == marker) {
-						// 图标
-						final View item = LayoutInflater
-								.from(MainActivity.this).inflate(
-										R.layout.item_overlay, null);
-						final LinearLayout item_bg = (LinearLayout) item
-								.findViewById(R.id.ovetlay_item_bg);
-						final ImageView item_img = (ImageView) item
-								.findViewById(R.id.ovetlay_item_img);
+						final Overlay_View item = new Overlay_View(
+								MainActivity.this);
 
 						ImageLoader
 								.getInstance()
 								.displayImage(
 										"http://www.1735la.com/d/file/touxiang/keai/20131026/b8d5edc5cd4d9181a94932ad210f0dfe.jpg",
-										item_img, option,
+										item.getItem_img(), option,
 										new SimpleImageLoadingListener() {
 											public void onLoadingComplete(
 													String imageUri,
 													android.view.View view,
 													android.graphics.Bitmap loadedImage) {
-
-												item_bg.setBackgroundResource(R.drawable.icon_personal);
+												item.getItem_text()
+														.setVisibility(
+																View.GONE);
+												item.getItem_bg()
+														.setBackgroundResource(
+																R.drawable.icon_user_selected);
 												BitmapDescriptor bdA = BitmapDescriptorFactory
-														.fromView(item);
+														.fromView(item
+																.getView());
 												bitmapList.add(bdA);
 												marker.setIcon(bdA);
 											};
 										});
 
-						Button button = new Button(getApplicationContext());
-						button.setBackgroundResource(R.drawable.popup);
-						OnInfoWindowClickListener listener = null;
-						button.setText("更改位置");
-						listener = new OnInfoWindowClickListener() {
-							public void onInfoWindowClick() {
-								Log.e("MainActivity", "弹出框点击");
+						InfoWindow_View infoWindow_View = new InfoWindow_View(
+								MainActivity.this);
+						infoWindow_View.getHere().setOnClickListener(new OnClickListener() {
+							@Override
+							public void onClick(View v) {
+								Intent intent = new Intent(MainActivity.this,
+										RoutePlanActivity.class);
+								intent.putExtra("st", userList.get(0));
+								intent.putExtra("en", userList.get(1));
+								startActivity(intent);
 							}
-						};
+						});
 						LatLng ll = marker.getPosition();
-						mInfoWindow = new InfoWindow(BitmapDescriptorFactory
-								.fromView(button), ll, -87, listener);
+						mInfoWindow = new InfoWindow(infoWindow_View.getView(),
+								ll, -130);
 						mBaiduMap.showInfoWindow(mInfoWindow);
 					} else {
-						// 图标
-						final View item = LayoutInflater
-								.from(MainActivity.this).inflate(
-										R.layout.item_overlay, null);
-						final LinearLayout item_bg = (LinearLayout) item
-								.findViewById(R.id.ovetlay_item_bg);
-						final ImageView item_img = (ImageView) item
-								.findViewById(R.id.ovetlay_item_img);
+						final Overlay_View item = new Overlay_View(
+								MainActivity.this);
 
 						ImageLoader
 								.getInstance()
 								.displayImage(
 										"http://www.1735la.com/d/file/touxiang/keai/20131026/b8d5edc5cd4d9181a94932ad210f0dfe.jpg",
-										item_img, option,
+										item.getItem_img(), option,
 										new SimpleImageLoadingListener() {
 											public void onLoadingComplete(
 													String imageUri,
 													android.view.View view,
 													android.graphics.Bitmap loadedImage) {
 
-												item_bg.setBackgroundResource(R.drawable.icon_user);
+												item.getItem_bg()
+														.setBackgroundResource(
+																R.drawable.icon_user);
 												BitmapDescriptor bdA = BitmapDescriptorFactory
-														.fromView(item);
+														.fromView(item
+																.getView());
 												bitmapList.add(bdA);
 												position.setIcon(bdA);
 											};
@@ -381,25 +376,19 @@ public class MainActivity extends Activity implements OnClickListener {
 	public void addOverlay(ArrayList<UserBean> infos) {
 		mBaiduMap.clear();
 		for (final UserBean info : infos) {
-
-			// 图标
-			final View item = LayoutInflater.from(MainActivity.this).inflate(
-					R.layout.item_overlay, null);
-			final LinearLayout item_bg = (LinearLayout) item
-					.findViewById(R.id.ovetlay_item_bg);
-			final ImageView item_img = (ImageView) item
-					.findViewById(R.id.ovetlay_item_img);
+			final Overlay_View item = new Overlay_View(MainActivity.this);
 
 			ImageLoader
 					.getInstance()
 					.displayImage(
 							"http://www.1735la.com/d/file/touxiang/keai/20131026/b8d5edc5cd4d9181a94932ad210f0dfe.jpg",
-							item_img, option, new SimpleImageLoadingListener() {
+							item.getItem_img(), option,
+							new SimpleImageLoadingListener() {
 								public void onLoadingComplete(String imageUri,
 										android.view.View view,
 										android.graphics.Bitmap loadedImage) {
 									BitmapDescriptor bdA = BitmapDescriptorFactory
-											.fromView(item);
+											.fromView(item.getView());
 									bitmapList.add(bdA);
 									// 位置
 									LatLng latLng = new LatLng(info
