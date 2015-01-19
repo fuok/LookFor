@@ -3,12 +3,16 @@ package com.lll.lookfor.activity;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v4.widget.DrawerLayout;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -93,6 +97,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.act_drawer);
+		conHandler=fListHandler;
 		// 创建底部导航按钮碎片
 		if (savedInstanceState == null) {
 			getFragmentManager()
@@ -461,9 +466,13 @@ public class MainActivity extends Activity implements OnClickListener {
 			break;
 		case R.id.btn_home_right:
 			if (!isFriendListShow) {
-				showFriendList();
+//				showFriendList();
+				fListHandler.sendEmptyMessage(1);//列表显示
+				fListHandler.sendEmptyMessageDelayed(2, 3000);//3秒后隐藏
 			} else {
-				hideFriendList();
+//				hideFriendList();
+				fListHandler.sendEmptyMessage(0);//列表隐藏
+				fListHandler.removeMessages(2);//取消自动隐藏
 			}
 
 			break;
@@ -498,6 +507,30 @@ public class MainActivity extends Activity implements OnClickListener {
 		getFragmentManager().beginTransaction()
 				.remove(FriendListFragment.getInstance()).commit();// 务必销毁之，这个Fragment每次都要重新来过
 	}
+	
+	/**静态Handler，用于Fragment通讯*/
+	public static Handler conHandler;
+	
+	@SuppressLint("HandlerLeak")
+	private Handler fListHandler = new Handler() {
+
+		@Override
+		public void handleMessage(Message msg) {
+			super.handleMessage(msg);
+			switch (msg.what) {
+			case 0:
+				hideFriendList();
+				break;
+			case 1:
+				showFriendList();
+				break;
+			case 2:
+				hideFriendList();
+				break;
+			}
+		}
+
+	};
 
 	/** 好友列表Fragment */
 	public static class FriendListFragment extends Fragment {
@@ -564,10 +597,16 @@ public class MainActivity extends Activity implements OnClickListener {
 					}
 
 					// 添加名称
-					String name = ubean.getNickName();
+					final String name = ubean.getNickName();
 					TextView tv_name = (TextView) view
 							.findViewById(R.id.tv_name);
 					tv_name.setText(name);
+					view.setOnClickListener(new OnClickListener() {
+						@Override
+						public void onClick(View v) {//item点击事件，TODO
+							Toast.makeText(getActivity(), name, Toast.LENGTH_SHORT).show();
+						}
+					});
 					pages.add(view);// 最关键的步骤，把创建好的View添加到ViewPager队列中
 				}
 			}
@@ -580,6 +619,22 @@ public class MainActivity extends Activity implements OnClickListener {
 			viewPager.setRight(200);// 这俩不知道是干啥的
 			viewPager.setOffscreenPageLimit(5);// 一次性加载的View数量，作用应该是和ListView的滚动加载差不多
 			viewPager.setPageMargin(0);// 两个View的间隔距离
+			viewPager.setOnPageChangeListener(new OnPageChangeListener() {//监听viewPager的切换，设置列表的自动隐藏
+				
+				@Override
+				public void onPageSelected(int arg0) {//page移动，改变并且固定位置时回调
+					conHandler.removeMessages(2);
+					conHandler.sendEmptyMessageDelayed(2, 3000);
+				}
+				
+				@Override
+				public void onPageScrolled(int arg0, float arg1, int arg2) {//拖动时一直回调
+				}
+				
+				@Override
+				public void onPageScrollStateChanged(int arg0) {//拖动，靠边，状态改变时
+				}
+			});
 		}
 
 	}
