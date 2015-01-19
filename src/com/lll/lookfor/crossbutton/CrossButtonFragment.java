@@ -21,7 +21,7 @@ public class CrossButtonFragment extends Fragment {
 		View rootView = inflater.inflate(R.layout.fragment_cross_button, container, false);
 
 		composerLayout clayout = (composerLayout) rootView.findViewById(R.id.composerLayout);
-		clayout.init(new int[] { R.drawable.composer_guard, R.drawable.composer_convene, R.drawable.composer_friends, R.drawable.composer_share }, R.drawable.composer_button,
+		clayout.init(new int[] { R.drawable.selector_navi_guard, R.drawable.selector_navi_convene, R.drawable.selector_navi_friends, R.drawable.selector_navi_share }, R.drawable.selector_navi_home,
 				R.drawable.composer_icn_plus, composerLayout.LEFTBOTTOM, 180, 500);// 设置动画旋转时长
 		// �ӂ��c���O ��100+0����composer_camera��100+1����composer_music�������������Ў׶������o�ͼӎ׶�����
 		OnClickListener clickit = new OnClickListener() {
