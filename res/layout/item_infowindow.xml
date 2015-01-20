@@ -8,6 +8,7 @@
         android:id="@+id/btn_infowindow_quanta"
         android:layout_width="35dp"
         android:layout_height="35dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/selector_quanta" />
 
     <Button
@@ -22,6 +23,7 @@
         android:id="@+id/btn_infowindow_here"
         android:layout_width="35dp"
         android:layout_height="35dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/selector_here" />
 
 </LinearLayout>
