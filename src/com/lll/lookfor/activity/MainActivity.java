@@ -19,6 +19,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
@@ -495,6 +498,9 @@ public class MainActivity extends Activity implements OnClickListener {
 			getFragmentManager().beginTransaction()
 					.show(FriendListFragment.getInstance()).commit();
 		}
+		// 添加一个简单动画，避免添加View太生硬
+		Animation animation = AnimationUtils.loadAnimation(MainActivity.this, android.R.anim.fade_in);
+		friend_list_container.startAnimation(animation);
 		friend_list_container.setVisibility(View.VISIBLE);
 		isFriendListShow = true;
 	}
@@ -502,10 +508,25 @@ public class MainActivity extends Activity implements OnClickListener {
 	/** 隐藏可见好友列表 */
 	private void hideFriendList() {
 		RelativeLayout friend_list_container = (RelativeLayout) findViewById(R.id.friend_list_container);
+		// 添加一个简单动画，避免添加View太生硬
+		Animation animation = AnimationUtils.loadAnimation(MainActivity.this, android.R.anim.fade_out);
+		animation.setAnimationListener(new AnimationListener() {// 设置一下动画监听
+					@Override
+					public void onAnimationStart(Animation animation) {
+					}
+
+					@Override
+					public void onAnimationRepeat(Animation animation) {
+					}
+
+					@Override
+					public void onAnimationEnd(Animation animation) {// 当渐隐动画播放完后，再销毁Fragment
+						isFriendListShow = false;
+						getFragmentManager().beginTransaction().remove(FriendListFragment.getInstance()).commit();// 务必销毁之，这个Fragment每次都要重新来过
+					}
+				});
+		friend_list_container.startAnimation(animation);
 		friend_list_container.setVisibility(View.GONE);
-		isFriendListShow = false;
-		getFragmentManager().beginTransaction()
-				.remove(FriendListFragment.getInstance()).commit();// 务必销毁之，这个Fragment每次都要重新来过
 	}
 	
 	/**静态Handler，用于Fragment通讯*/
