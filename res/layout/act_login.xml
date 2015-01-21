@@ -48,6 +48,7 @@
         android:orientation="vertical" >
 
         <EditText
+            android:id="@+id/et_login_mobilenumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@null"
@@ -62,6 +63,7 @@
             android:background="@drawable/divider_line" />
 
         <EditText
+            android:id="@+id/et_login_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@null"
@@ -70,6 +72,7 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/btn_login"
         android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -80,6 +83,7 @@
         android:textSize="18sp" />
 
     <Button
+        android:id="@+id/btn_login_forget"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
