@@ -11,5 +11,11 @@
     <string name="version_update">版本更新</string>
     <string name="contacts_friend">通讯录好友</string>
     <string name="find_friend">查找好友</string>
+    <string name="login">登录</string>
+    <string name="cancal">取消</string>
+    <string name="register_new">注册新用户</string>
+    <string name="input_mobilenumber">输入手机号码</string>
+    <string name="input_password">输入密码</string>
+    <string name="forget_password">忘记密码</string>
 
 </resources>
