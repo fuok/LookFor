@@ -5,7 +5,6 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.BinaryHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import com.loopj.android.http.ResponseHandlerInterface;
 
 public class HttpUtil {
 	private static AsyncHttpClient client = new AsyncHttpClient(); // 实例化对象

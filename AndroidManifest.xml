@@ -78,6 +78,20 @@
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
         </activity>
 
+        <!-- 安心出行 -->
+        <activity
+            android:name="com.lll.lookfor.activity.GuardActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
+        </activity>
+
+        <!-- 注册界面 -->
+        <activity
+            android:name="com.lll.lookfor.activity.RegisterActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
+        </activity>
+
         <!-- 百度定位服务 -->
         <service
             android:name="com.baidu.location.f"

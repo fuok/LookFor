@@ -1,13 +1,14 @@
 package com.lll.lookfor.activity;
 
-import com.lll.lookfor.R;
-
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.lll.lookfor.R;
 
 /** 用户登录界面 */
 public class LoginActivity extends Activity implements OnClickListener {
@@ -57,7 +58,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 			finish();
 			break;
 		case R.id.btn_login_register:
-
+			startActivity(new Intent(this, RegisterActivity.class));
 			break;
 		case R.id.btn_login:
 

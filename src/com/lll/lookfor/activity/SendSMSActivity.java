@@ -1,13 +1,9 @@
 package com.lll.lookfor.activity;
 
-import com.lll.lookfor.R;
-
-import cn.smssdk.EventHandler;
-import cn.smssdk.SMSSDK;
+import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.app.Activity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -16,6 +12,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import cn.smssdk.EventHandler;
+import cn.smssdk.SMSSDK;
+
+import com.lll.lookfor.R;
 
 public class SendSMSActivity extends Activity implements OnClickListener {
 

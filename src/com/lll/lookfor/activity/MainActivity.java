@@ -26,6 +26,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -56,9 +57,15 @@ import com.lll.lookfor.adapter.DrawerListAdapter;
 import com.lll.lookfor.adapter.VisiableFriendAdapter;
 import com.lll.lookfor.crossbutton.CrossButtonFragment;
 import com.lll.lookfor.model.DrawerItem;
+import com.lll.lookfor.model.LbsBean;
+import com.lll.lookfor.model.LbsListData;
 import com.lll.lookfor.model.UserBean;
+import com.lll.lookfor.network.HooHttpResponse;
+import com.lll.lookfor.network.OnHttpResponseListener;
+import com.lll.lookfor.network.ResponseHandler;
 import com.lll.lookfor.ui.InfoWindow_View;
 import com.lll.lookfor.ui.Overlay_View;
+import com.lll.lookfor.utils.HttpUtil;
 import com.lll.lookfor.utils.Log;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -66,6 +73,7 @@ import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 public class MainActivity extends Activity implements OnClickListener {
+	private final String TAG = "MainActivity";
 	// 左侧侧滑菜单栏
 	private ListView mDrawerList;
 	private ArrayList<DrawerItem> list;
@@ -95,12 +103,20 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	private Button btn_home_recovery;// 定位按钮
 	private LatLng ll_recovery;// 当前经纬度
+	private LinearLayout ly_userinfo;// 底部用户信息
+	private TextView userinfo_name;// 用户名称
+	private Button userinfo_close;// 关闭图标
+	private TextView userinfo_position;// 用户地址
+	private TextView userinfo_time;// 用户最后登陆时间
+	private Button userinfo_tohere;// 去TA那按钮
+	private Button userinfo_hide;// 用户信息隐藏部分信息按钮
+	private LinearLayout userinfo_bottom;// 用户信息部分隐藏信息
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.act_drawer);
-		conHandler=fListHandler;
+		conHandler = fListHandler;
 		// 创建底部导航按钮碎片
 		if (savedInstanceState == null) {
 			getFragmentManager()
@@ -185,7 +201,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				if (position == 0) {
-					
+
 				} else if (position == 3) {
 					Intent intent = new Intent(MainActivity.this,
 							FriendListActivity.class);
@@ -248,22 +264,26 @@ public class MainActivity extends Activity implements OnClickListener {
 											};
 										});
 
+						final UserBean info = (UserBean) marker.getExtraInfo()
+								.get("info");
 						InfoWindow_View infoWindow_View = new InfoWindow_View(
 								MainActivity.this);
-						infoWindow_View.getHere().setOnClickListener(new OnClickListener() {
-							@Override
-							public void onClick(View v) {
-								Intent intent = new Intent(MainActivity.this,
-										RoutePlanActivity.class);
-								intent.putExtra("st", userList.get(0));
-								intent.putExtra("en", userList.get(1));
-								startActivity(intent);
-							}
-						});
+						infoWindow_View.getHere().setOnClickListener(
+								new OnClickListener() {
+									@Override
+									public void onClick(View v) {
+										Intent intent = new Intent(
+												MainActivity.this,
+												RoutePlanActivity.class);
+										intent.putExtra("en", info);
+										startActivity(intent);
+									}
+								});
 						LatLng ll = marker.getPosition();
 						mInfoWindow = new InfoWindow(infoWindow_View.getView(),
 								ll, -130);
 						mBaiduMap.showInfoWindow(mInfoWindow);
+						getUserData();
 					} else {
 						final Overlay_View item = new Overlay_View(
 								MainActivity.this);
@@ -301,6 +321,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			public void onMapClick(LatLng point) {
 				Log.e("MainActivity", "单击地图");
 				mBaiduMap.hideInfoWindow();
+				ly_userinfo.setVisibility(View.GONE);
 				addOverlay(userList);
 			}
 
@@ -316,6 +337,43 @@ public class MainActivity extends Activity implements OnClickListener {
 				MapStatusUpdate u = MapStatusUpdateFactory
 						.newLatLng(ll_recovery);
 				mBaiduMap.animateMapStatus(u);
+			}
+		});
+
+		ly_userinfo = (LinearLayout) findViewById(R.id.ly_userinfo);
+		userinfo_name = (TextView) findViewById(R.id.userinfo_name);
+		userinfo_close = (Button) findViewById(R.id.userinfo_close);
+		userinfo_position = (TextView) findViewById(R.id.userinfo_position);
+		userinfo_time = (TextView) findViewById(R.id.userinfo_time);
+		userinfo_tohere = (Button) findViewById(R.id.userinfo_tohere);
+		userinfo_hide = (Button) findViewById(R.id.userinfo_hide);
+		userinfo_bottom = (LinearLayout) findViewById(R.id.userinfo_bottom);
+	}
+
+	/**
+	 * 设置用户信息，从底部弹出
+	 */
+	private void setUserInfo(LbsBean userBean) {
+		userinfo_name.setText(userBean.getNickName());// 用户昵称
+		userinfo_position.setText(userBean.getLocation());// 用户地址
+		userinfo_time.setText(userBean.getUpdateTime());// 用户最后登陆时间
+
+		ly_userinfo.setVisibility(View.VISIBLE);
+		userinfo_bottom.setVisibility(View.GONE);
+
+		userinfo_close.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// 隐藏用户信息界面
+				ly_userinfo.setVisibility(View.GONE);
+			}
+		});
+
+		userinfo_hide.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				userinfo_bottom.setVisibility(View.VISIBLE);
 			}
 		});
 	}
@@ -358,14 +416,20 @@ public class MainActivity extends Activity implements OnClickListener {
 				UserBean userInfo = new UserBean();
 				userInfo.setLatitude(location.getLatitude());
 				userInfo.setLongitude(location.getLongitude());
+				userInfo.setNickName("测试");
+				userInfo.setUpdateTime("2014-01-21 15:31");
 
 				UserBean userInfo1 = new UserBean();
 				userInfo1.setLatitude(location.getLatitude());
 				userInfo1.setLongitude(location.getLongitude() + 0.01);
+				userInfo1.setNickName("测试");
+				userInfo1.setUpdateTime("2014-01-21 15:32");
 
 				UserBean userInfo2 = new UserBean();
 				userInfo2.setLatitude(location.getLatitude());
 				userInfo2.setLongitude(location.getLongitude() + 0.02);
+				userInfo2.setNickName("测试");
+				userInfo2.setUpdateTime("2014-01-21 15:33");
 
 				userList.add(userInfo);
 				userList.add(userInfo1);
@@ -469,13 +533,13 @@ public class MainActivity extends Activity implements OnClickListener {
 			break;
 		case R.id.btn_home_right:
 			if (!isFriendListShow) {
-//				showFriendList();
-				fListHandler.sendEmptyMessage(1);//列表显示
-				fListHandler.sendEmptyMessageDelayed(2, 3000);//3秒后隐藏
+				// showFriendList();
+				fListHandler.sendEmptyMessage(1);// 列表显示
+				fListHandler.sendEmptyMessageDelayed(2, 3000);// 3秒后隐藏
 			} else {
-//				hideFriendList();
-				fListHandler.sendEmptyMessage(0);//列表隐藏
-				fListHandler.removeMessages(2);//取消自动隐藏
+				// hideFriendList();
+				fListHandler.sendEmptyMessage(0);// 列表隐藏
+				fListHandler.removeMessages(2);// 取消自动隐藏
 			}
 
 			break;
@@ -499,7 +563,8 @@ public class MainActivity extends Activity implements OnClickListener {
 					.show(FriendListFragment.getInstance()).commit();
 		}
 		// 添加一个简单动画，避免添加View太生硬
-		Animation animation = AnimationUtils.loadAnimation(MainActivity.this, android.R.anim.fade_in);
+		Animation animation = AnimationUtils.loadAnimation(MainActivity.this,
+				android.R.anim.fade_in);
 		friend_list_container.startAnimation(animation);
 		friend_list_container.setVisibility(View.VISIBLE);
 		isFriendListShow = true;
@@ -509,7 +574,8 @@ public class MainActivity extends Activity implements OnClickListener {
 	private void hideFriendList() {
 		RelativeLayout friend_list_container = (RelativeLayout) findViewById(R.id.friend_list_container);
 		// 添加一个简单动画，避免添加View太生硬
-		Animation animation = AnimationUtils.loadAnimation(MainActivity.this, android.R.anim.fade_out);
+		Animation animation = AnimationUtils.loadAnimation(MainActivity.this,
+				android.R.anim.fade_out);
 		animation.setAnimationListener(new AnimationListener() {// 设置一下动画监听
 					@Override
 					public void onAnimationStart(Animation animation) {
@@ -522,16 +588,18 @@ public class MainActivity extends Activity implements OnClickListener {
 					@Override
 					public void onAnimationEnd(Animation animation) {// 当渐隐动画播放完后，再销毁Fragment
 						isFriendListShow = false;
-						getFragmentManager().beginTransaction().remove(FriendListFragment.getInstance()).commit();// 务必销毁之，这个Fragment每次都要重新来过
+						getFragmentManager().beginTransaction()
+								.remove(FriendListFragment.getInstance())
+								.commit();// 务必销毁之，这个Fragment每次都要重新来过
 					}
 				});
 		friend_list_container.startAnimation(animation);
 		friend_list_container.setVisibility(View.GONE);
 	}
-	
-	/**静态Handler，用于Fragment通讯*/
+
+	/** 静态Handler，用于Fragment通讯 */
 	public static Handler conHandler;
-	
+
 	@SuppressLint("HandlerLeak")
 	private Handler fListHandler = new Handler() {
 
@@ -624,8 +692,9 @@ public class MainActivity extends Activity implements OnClickListener {
 					tv_name.setText(name);
 					view.setOnClickListener(new OnClickListener() {
 						@Override
-						public void onClick(View v) {//item点击事件，TODO
-							Toast.makeText(getActivity(), name, Toast.LENGTH_SHORT).show();
+						public void onClick(View v) {// item点击事件，TODO
+							Toast.makeText(getActivity(), name,
+									Toast.LENGTH_SHORT).show();
 						}
 					});
 					pages.add(view);// 最关键的步骤，把创建好的View添加到ViewPager队列中
@@ -640,25 +709,81 @@ public class MainActivity extends Activity implements OnClickListener {
 			viewPager.setRight(200);// 这俩不知道是干啥的
 			viewPager.setOffscreenPageLimit(5);// 一次性加载的View数量，作用应该是和ListView的滚动加载差不多
 			viewPager.setPageMargin(0);// 两个View的间隔距离
-			viewPager.setOnPageChangeListener(new OnPageChangeListener() {//监听viewPager的切换，设置列表的自动隐藏
-				
-				@Override
-				public void onPageSelected(int arg0) {//page移动，改变并且固定位置时回调
-					conHandler.removeMessages(2);
-					conHandler.sendEmptyMessageDelayed(2, 3000);
-				}
-				
-				@Override
-				public void onPageScrolled(int arg0, float arg1, int arg2) {//拖动时一直回调
-				}
-				
-				@Override
-				public void onPageScrollStateChanged(int arg0) {//拖动，靠边，状态改变时
-				}
-			});
+			viewPager.setOnPageChangeListener(new OnPageChangeListener() {// 监听viewPager的切换，设置列表的自动隐藏
+
+						@Override
+						public void onPageSelected(int arg0) {// page移动，改变并且固定位置时回调
+							conHandler.removeMessages(2);
+							conHandler.sendEmptyMessageDelayed(2, 3000);
+						}
+
+						@Override
+						public void onPageScrolled(int arg0, float arg1,
+								int arg2) {// 拖动时一直回调
+						}
+
+						@Override
+						public void onPageScrollStateChanged(int arg0) {// 拖动，靠边，状态改变时
+						}
+					});
 		}
 
 	}
+	
+	/**
+	 * 获取数据
+	 */
+	private void getUserData() {
+		ResponseHandler<LbsListData> handler = new ResponseHandler<LbsListData>(
+				LbsListData.class);
+		handler.setOnHttpResponseListener(new OnGetHomeMessageListener());
+
+		// 请求
+		HttpUtil.get("http://www.xshcar.com/chen/friendDetail.html", handler);
+	}
+
+	/** 请求站内信相应事件 */
+	private class OnGetHomeMessageListener implements OnHttpResponseListener {
+
+		@SuppressWarnings("rawtypes")
+		@Override
+		public void onSuccess(HooHttpResponse response) {
+			int rc = response.getHeader().getRc();
+			String rm = response.getHeader().getRm();
+			if (rc == 0) {
+				LbsListData lbsListData = (LbsListData) response.getBody();
+				setUserInfo(lbsListData.getLbsList().get(0));
+			} else {
+				Log.e(TAG, "获取用户信息失败:" + "RC=" + rc + "RM=" + rm);
+			}
+
+		}
+
+		@Override
+		public void onError(int statusCode, Throwable error, String content) {
+			Log.e(TAG, "获取用户信息失败:" + error);
+		}
+
+		@Override
+		public void onStart() {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void onEnd() {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void onProgress(int bytesWritten, int totalSize) {
+			// TODO Auto-generated method stub
+
+		}
+
+	}
+
 
 	private long exitTime = 0;
 

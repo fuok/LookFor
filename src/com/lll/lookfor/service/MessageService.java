@@ -17,7 +17,6 @@ import com.lll.lookfor.model.UserBean;
 import com.lll.lookfor.network.HooHttpResponse;
 import com.lll.lookfor.network.OnHttpResponseListener;
 import com.lll.lookfor.network.ResponseHandler;
-import com.lll.lookfor.utils.HooPhoneConstant;
 import com.lll.lookfor.utils.HttpUtil;
 import com.lll.lookfor.utils.Log;
 import com.lll.lookfor.utils.SharePreferenceUtil;
@@ -75,7 +74,7 @@ public class MessageService extends Service {
 	// ------------------------------------------网络请求及响应事件-----------------------------------------------
 
 	/**
-	 * 获取站内信(未读)
+	 * 获取数据
 	 */
 	private void getMessageList() {
 		ResponseHandler<FriendListData> handler = new ResponseHandler<FriendListData>(
@@ -91,11 +90,7 @@ public class MessageService extends Service {
 			// 拼接请求体
 			String postPara = "receiveId=" + userId;
 			// 请求
-			Log.w(TAG,
-					"消息轮询中:"
-							+ HooPhoneConstant
-									.getURL(HooPhoneConstant.URL_MSG_GET_MSG_LIST)
-							+ "?" + postPara);
+			Log.w(TAG, "消息轮询中:" + "http://www.xshcar.com/chen/friendList.html");
 			HttpUtil.get("http://www.xshcar.com/chen/friendList.html", handler);
 		}
 	}

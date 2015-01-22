@@ -25,7 +25,6 @@ import java.util.Enumeration;
 import java.util.List;
 
 import android.app.ActivityManager;
-import android.app.ActivityManager.MemoryInfo;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -112,26 +111,6 @@ public class DeviceUtil {
         }
         return fileData.toString();
     }
-        
-
-    /**
-     *  获取设备上内存使用百分比 
-     * @return 整数 XX%
-     */
-    public static int getMemoryUsage(Context context){
-        ActivityManager activityManger=(ActivityManager) context.getSystemService(context.ACTIVITY_SERVICE);
-        MemoryInfo memInfo = new MemoryInfo();
-        activityManger.getMemoryInfo(memInfo);
-       if(memInfo.totalMem == 0){
-            return 0;
-        }else{
-            memory = memInfo.totalMem;
-        }
-        return 100 - (int)(memInfo.availMem*100/memInfo.totalMem);
-       
-       
-    }
-    
     public static long getTotalMemory(){
         return memory;
     }

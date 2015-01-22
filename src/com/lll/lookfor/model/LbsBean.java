@@ -5,6 +5,10 @@ import java.io.Serializable;
 /** 请求指定用户数据详情的返回结果 */
 public class LbsBean implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String friendId;// 对方id
 	private String mobilNumber;// 手机号
 	private String nickName;// 昵称
@@ -139,6 +143,17 @@ public class LbsBean implements Serializable {
 
 	public void setLattice(int lattice) {
 		this.lattice = lattice;
+	}
+
+	@Override
+	public String toString() {
+		return "LbsBean [friendId=" + friendId + ", mobilNumber=" + mobilNumber
+				+ ", nickName=" + nickName + ", sex=" + sex + ", commentName="
+				+ commentName + ", portrait=" + portrait + ", longitude="
+				+ longitude + ", latitude=" + latitude + ", location="
+				+ location + ", updateTime=" + updateTime + ", velocity="
+				+ velocity + ", direction=" + direction + ", battery="
+				+ battery + ", signal=" + signal + ", lattice=" + lattice + "]";
 	}
 
 }
