@@ -64,7 +64,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 
 			break;
 		case R.id.btn_login_forget:
-
+			startActivity(new Intent(this, ChangePwdActivity.class));
 			break;
 
 		default:

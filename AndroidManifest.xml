@@ -91,6 +91,27 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
         </activity>
+        
+        <!-- 修改资料-->
+        <activity
+            android:name="com.lll.lookfor.activity.ChangeDataActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
+        </activity>
+        
+        <!-- 修改手机号-->
+        <activity
+            android:name="com.lll.lookfor.activity.ChangeMoblieActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
+        </activity>
+        
+        <!-- 修改密码-->
+        <activity
+            android:name="com.lll.lookfor.activity.ChangePwdActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
+        </activity>
 
         <!-- 百度定位服务 -->
         <service
