@@ -96,7 +96,6 @@ public class MainActivity extends Activity implements OnClickListener {
 	// 自定义图标
 	private InfoWindow mInfoWindow;
 	private ArrayList<Marker> markerList;
-	private ArrayList<UserBean> userList;
 	private ArrayList<BitmapDescriptor> bitmapList;
 	// Imageloader配置
 	private DisplayImageOptions option;
@@ -126,7 +125,6 @@ public class MainActivity extends Activity implements OnClickListener {
 		}
 
 		this.markerList = new ArrayList<Marker>();
-		this.userList = new ArrayList<UserBean>();
 		this.bitmapList = new ArrayList<BitmapDescriptor>();
 
 		this.option = new DisplayImageOptions.Builder()
@@ -239,33 +237,27 @@ public class MainActivity extends Activity implements OnClickListener {
 					if (position == marker) {
 						final Overlay_View item = new Overlay_View(
 								MainActivity.this);
-
-						ImageLoader
-								.getInstance()
-								.displayImage(
-										"http://www.1735la.com/d/file/touxiang/keai/20131026/b8d5edc5cd4d9181a94932ad210f0dfe.jpg",
-										item.getItem_img(), option,
-										new SimpleImageLoadingListener() {
-											public void onLoadingComplete(
-													String imageUri,
-													android.view.View view,
-													android.graphics.Bitmap loadedImage) {
-												item.getItem_text()
-														.setVisibility(
-																View.GONE);
-												item.getItem_bg()
-														.setBackgroundResource(
-																R.drawable.icon_user_selected);
-												BitmapDescriptor bdA = BitmapDescriptorFactory
-														.fromView(item
-																.getView());
-												bitmapList.add(bdA);
-												marker.setIcon(bdA);
-											};
-										});
-
 						final UserBean info = (UserBean) marker.getExtraInfo()
 								.get("info");
+						ImageLoader.getInstance().displayImage(
+								info.getPortrait(), item.getItem_img(), option,
+								new SimpleImageLoadingListener() {
+									public void onLoadingComplete(
+											String imageUri,
+											android.view.View view,
+											android.graphics.Bitmap loadedImage) {
+										item.getItem_text().setVisibility(
+												View.GONE);
+										item.getItem_bg()
+												.setBackgroundResource(
+														R.drawable.icon_user_selected);
+										BitmapDescriptor bdA = BitmapDescriptorFactory
+												.fromView(item.getView());
+										bitmapList.add(bdA);
+										marker.setIcon(bdA);
+									};
+								});
+
 						InfoWindow_View infoWindow_View = new InfoWindow_View(
 								MainActivity.this);
 						infoWindow_View.getHere().setOnClickListener(
@@ -287,28 +279,27 @@ public class MainActivity extends Activity implements OnClickListener {
 					} else {
 						final Overlay_View item = new Overlay_View(
 								MainActivity.this);
-
-						ImageLoader
-								.getInstance()
-								.displayImage(
-										"http://www.1735la.com/d/file/touxiang/keai/20131026/b8d5edc5cd4d9181a94932ad210f0dfe.jpg",
-										item.getItem_img(), option,
-										new SimpleImageLoadingListener() {
-											public void onLoadingComplete(
-													String imageUri,
-													android.view.View view,
-													android.graphics.Bitmap loadedImage) {
-
-												item.getItem_bg()
-														.setBackgroundResource(
-																R.drawable.icon_user);
-												BitmapDescriptor bdA = BitmapDescriptorFactory
-														.fromView(item
-																.getView());
-												bitmapList.add(bdA);
-												position.setIcon(bdA);
-											};
-										});
+						Marker otherMarker = markerList.get(i);
+						final UserBean info = (UserBean) otherMarker.getExtraInfo()
+								.get("info");
+						ImageLoader.getInstance().displayImage(
+								info.getPortrait(), item.getItem_img(), option,
+								new SimpleImageLoadingListener() {
+									public void onLoadingComplete(
+											String imageUri,
+											android.view.View view,
+											android.graphics.Bitmap loadedImage) {
+										item.getItem_text().setText(
+												info.getNickName());
+										item.getItem_bg()
+												.setBackgroundResource(
+														R.drawable.icon_user);
+										BitmapDescriptor bdA = BitmapDescriptorFactory
+												.fromView(item.getView());
+										bitmapList.add(bdA);
+										position.setIcon(bdA);
+									};
+								});
 					}
 
 				}
@@ -322,7 +313,7 @@ public class MainActivity extends Activity implements OnClickListener {
 				Log.e("MainActivity", "单击地图");
 				mBaiduMap.hideInfoWindow();
 				ly_userinfo.setVisibility(View.GONE);
-				addOverlay(userList);
+				addOverlay(BaseApplication.getInstance().getAll_friends());
 			}
 
 			public boolean onMapPoiClick(MapPoi poi) {
@@ -413,28 +404,7 @@ public class MainActivity extends Activity implements OnClickListener {
 				MapStatusUpdate u = MapStatusUpdateFactory.newLatLng(ll);
 				mBaiduMap.animateMapStatus(u);
 
-				UserBean userInfo = new UserBean();
-				userInfo.setLatitude(location.getLatitude());
-				userInfo.setLongitude(location.getLongitude());
-				userInfo.setNickName("测试");
-				userInfo.setUpdateTime("2014-01-21 15:31");
-
-				UserBean userInfo1 = new UserBean();
-				userInfo1.setLatitude(location.getLatitude());
-				userInfo1.setLongitude(location.getLongitude() + 0.01);
-				userInfo1.setNickName("测试");
-				userInfo1.setUpdateTime("2014-01-21 15:32");
-
-				UserBean userInfo2 = new UserBean();
-				userInfo2.setLatitude(location.getLatitude());
-				userInfo2.setLongitude(location.getLongitude() + 0.02);
-				userInfo2.setNickName("测试");
-				userInfo2.setUpdateTime("2014-01-21 15:33");
-
-				userList.add(userInfo);
-				userList.add(userInfo1);
-				userList.add(userInfo2);
-				addOverlay(userList);
+				addOverlay(BaseApplication.getInstance().getAll_friends());
 			}
 		}
 
@@ -450,32 +420,30 @@ public class MainActivity extends Activity implements OnClickListener {
 		for (final UserBean info : infos) {
 			final Overlay_View item = new Overlay_View(MainActivity.this);
 
-			ImageLoader
-					.getInstance()
-					.displayImage(
-							"http://www.1735la.com/d/file/touxiang/keai/20131026/b8d5edc5cd4d9181a94932ad210f0dfe.jpg",
-							item.getItem_img(), option,
-							new SimpleImageLoadingListener() {
-								public void onLoadingComplete(String imageUri,
-										android.view.View view,
-										android.graphics.Bitmap loadedImage) {
-									BitmapDescriptor bdA = BitmapDescriptorFactory
-											.fromView(item.getView());
-									bitmapList.add(bdA);
-									// 位置
-									LatLng latLng = new LatLng(info
-											.getLatitude(), info.getLongitude());
-									OverlayOptions overlayOptions = new MarkerOptions()
-											.position(latLng).icon(bdA);
-									Marker marker = (Marker) (mBaiduMap
-											.addOverlay(overlayOptions));
-									// 将实体传递
-									Bundle bundle = new Bundle();
-									bundle.putSerializable("info", info);
-									marker.setExtraInfo(bundle);
-									markerList.add(marker);
-								};
-							});
+			ImageLoader.getInstance().displayImage(info.getPortrait(),
+					item.getItem_img(), option,
+					new SimpleImageLoadingListener() {
+						public void onLoadingComplete(String imageUri,
+								android.view.View view,
+								android.graphics.Bitmap loadedImage) {
+							item.getItem_text().setText(info.getNickName());
+							BitmapDescriptor bdA = BitmapDescriptorFactory
+									.fromView(item.getView());
+							bitmapList.add(bdA);
+							// 位置
+							LatLng latLng = new LatLng(info.getLatitude(), info
+									.getLongitude());
+							OverlayOptions overlayOptions = new MarkerOptions()
+									.position(latLng).icon(bdA);
+							Marker marker = (Marker) (mBaiduMap
+									.addOverlay(overlayOptions));
+							// 将实体传递
+							Bundle bundle = new Bundle();
+							bundle.putSerializable("info", info);
+							marker.setExtraInfo(bundle);
+							markerList.add(marker);
+						};
+					});
 
 		}
 	}
@@ -729,7 +697,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		}
 
 	}
-	
+
 	/**
 	 * 获取数据
 	 */
@@ -783,7 +751,6 @@ public class MainActivity extends Activity implements OnClickListener {
 		}
 
 	}
-
 
 	private long exitTime = 0;
 
