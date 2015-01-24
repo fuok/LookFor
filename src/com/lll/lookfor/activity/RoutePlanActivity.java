@@ -37,6 +37,7 @@ import com.baidu.mapapi.search.route.RoutePlanSearch;
 import com.baidu.mapapi.search.route.TransitRouteResult;
 import com.baidu.mapapi.search.route.WalkingRoutePlanOption;
 import com.baidu.mapapi.search.route.WalkingRouteResult;
+import com.lll.lookfor.HttpInterface;
 import com.lll.lookfor.R;
 import com.lll.lookfor.model.LbsListData;
 import com.lll.lookfor.model.UserBean;
@@ -193,7 +194,7 @@ public class RoutePlanActivity extends Activity implements
 		handler.setOnHttpResponseListener(new OnGetHomeMessageListener());
 
 		// 请求
-		HttpUtil.get("http://www.xshcar.com/chen/friendDetail.html", handler);
+		HttpUtil.get(HttpInterface.LBS_LIST, handler);
 	}
 
 	/** 请求站内信相应事件 */

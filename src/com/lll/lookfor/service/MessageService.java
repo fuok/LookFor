@@ -12,6 +12,7 @@ import android.os.Message;
 import android.text.TextUtils;
 
 import com.lll.lookfor.BaseApplication;
+import com.lll.lookfor.HttpInterface;
 import com.lll.lookfor.model.FriendListData;
 import com.lll.lookfor.model.UserBean;
 import com.lll.lookfor.network.HooHttpResponse;
@@ -90,8 +91,8 @@ public class MessageService extends Service {
 			// 拼接请求体
 			String postPara = "receiveId=" + userId;
 			// 请求
-			Log.w(TAG, "消息轮询中:" + "http://www.xshcar.com/chen/friendList.html");
-			HttpUtil.get("http://www.xshcar.com/chen/friendList.html", handler);
+			Log.w(TAG, "消息轮询中:" + HttpInterface.FRIEND_LIST);
+			HttpUtil.get(HttpInterface.FRIEND_LIST, handler);
 		}
 	}
 

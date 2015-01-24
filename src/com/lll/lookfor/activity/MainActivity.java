@@ -52,6 +52,7 @@ import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.lll.lookfor.BaseApplication;
+import com.lll.lookfor.HttpInterface;
 import com.lll.lookfor.R;
 import com.lll.lookfor.adapter.DrawerListAdapter;
 import com.lll.lookfor.adapter.VisiableFriendAdapter;
@@ -707,7 +708,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		handler.setOnHttpResponseListener(new OnGetHomeMessageListener());
 
 		// 请求
-		HttpUtil.get("http://www.xshcar.com/chen/friendDetail.html", handler);
+		HttpUtil.get(HttpInterface.LBS_LIST, handler);
 	}
 
 	/** 请求站内信相应事件 */
