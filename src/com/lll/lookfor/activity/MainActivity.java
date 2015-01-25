@@ -724,6 +724,10 @@ public class MainActivity extends Activity implements OnClickListener {
 				Marker position = markerList.get(i);
 				UserBean info = (UserBean) position.getExtraInfo().get("info");
 				if (selectBean.getMobilNumber().equals(info.getMobilNumber())) {
+					LatLng ll = new LatLng(info.getLatitude(), info.getLongitude());
+					MapStatusUpdate u = MapStatusUpdateFactory
+							.newLatLng(ll);
+					mBaiduMap.animateMapStatus(u);
 					selectorOverlay(position);
 				}
 			}
