@@ -6,7 +6,10 @@ import java.util.List;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
@@ -112,6 +115,9 @@ public class MainActivity extends Activity implements OnClickListener {
 	private Button userinfo_hide;// 用户信息隐藏部分信息按钮
 	private LinearLayout userinfo_bottom;// 用户信息部分隐藏信息
 
+	private final static String MY_ACTION = "MYACTION";
+	protected MyReceiver myReceiver;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -134,6 +140,7 @@ public class MainActivity extends Activity implements OnClickListener {
 				.build();
 		initView();
 		initMyLocation();
+		myReceiver = new MyReceiver();
 	}
 
 	/**
@@ -232,78 +239,8 @@ public class MainActivity extends Activity implements OnClickListener {
 
 		mBaiduMap.setOnMarkerClickListener(new OnMarkerClickListener() {
 			public boolean onMarkerClick(final Marker marker) {
-
-				for (int i = 0; i < markerList.size(); i++) {
-					final Marker position = markerList.get(i);
-					if (position == marker) {
-						final Overlay_View item = new Overlay_View(
-								MainActivity.this);
-						final UserBean info = (UserBean) marker.getExtraInfo()
-								.get("info");
-						ImageLoader.getInstance().displayImage(
-								info.getPortrait(), item.getItem_img(), option,
-								new SimpleImageLoadingListener() {
-									public void onLoadingComplete(
-											String imageUri,
-											android.view.View view,
-											android.graphics.Bitmap loadedImage) {
-										item.getItem_text().setVisibility(
-												View.GONE);
-										item.getItem_bg()
-												.setBackgroundResource(
-														R.drawable.icon_user_selected);
-										BitmapDescriptor bdA = BitmapDescriptorFactory
-												.fromView(item.getView());
-										bitmapList.add(bdA);
-										marker.setIcon(bdA);
-									};
-								});
-
-						InfoWindow_View infoWindow_View = new InfoWindow_View(
-								MainActivity.this);
-						infoWindow_View.getHere().setOnClickListener(
-								new OnClickListener() {
-									@Override
-									public void onClick(View v) {
-										Intent intent = new Intent(
-												MainActivity.this,
-												RoutePlanActivity.class);
-										intent.putExtra("en", info);
-										startActivity(intent);
-									}
-								});
-						LatLng ll = marker.getPosition();
-						mInfoWindow = new InfoWindow(infoWindow_View.getView(),
-								ll, -130);
-						mBaiduMap.showInfoWindow(mInfoWindow);
-						getUserData();
-					} else {
-						final Overlay_View item = new Overlay_View(
-								MainActivity.this);
-						Marker otherMarker = markerList.get(i);
-						final UserBean info = (UserBean) otherMarker.getExtraInfo()
-								.get("info");
-						ImageLoader.getInstance().displayImage(
-								info.getPortrait(), item.getItem_img(), option,
-								new SimpleImageLoadingListener() {
-									public void onLoadingComplete(
-											String imageUri,
-											android.view.View view,
-											android.graphics.Bitmap loadedImage) {
-										item.getItem_text().setText(
-												info.getNickName());
-										item.getItem_bg()
-												.setBackgroundResource(
-														R.drawable.icon_user);
-										BitmapDescriptor bdA = BitmapDescriptorFactory
-												.fromView(item.getView());
-										bitmapList.add(bdA);
-										position.setIcon(bdA);
-									};
-								});
-					}
-
-				}
+				UserBean info = (UserBean) marker.getExtraInfo().get("info");
+				selectorOverlay(marker);
 				return true;
 			}
 		});
@@ -449,6 +386,74 @@ public class MainActivity extends Activity implements OnClickListener {
 		}
 	}
 
+	/**
+	 * 选中覆盖物
+	 */
+	private void selectorOverlay(Marker selector) {
+		for (int i = 0; i < markerList.size(); i++) {
+			final Marker position = markerList.get(i);
+			if (position == selector) {
+				final Overlay_View item = new Overlay_View(MainActivity.this);
+				final UserBean info = (UserBean) position.getExtraInfo().get(
+						"info");
+				ImageLoader.getInstance().displayImage(info.getPortrait(),
+						item.getItem_img(), option,
+						new SimpleImageLoadingListener() {
+							public void onLoadingComplete(String imageUri,
+									android.view.View view,
+									android.graphics.Bitmap loadedImage) {
+								item.getItem_text().setVisibility(View.GONE);
+								item.getItem_bg().setBackgroundResource(
+										R.drawable.icon_user_selected);
+								BitmapDescriptor bdA = BitmapDescriptorFactory
+										.fromView(item.getView());
+								bitmapList.add(bdA);
+								position.setIcon(bdA);
+							};
+						});
+
+				InfoWindow_View infoWindow_View = new InfoWindow_View(
+						MainActivity.this);
+				infoWindow_View.getHere().setOnClickListener(
+						new OnClickListener() {
+							@Override
+							public void onClick(View v) {
+								Intent intent = new Intent(MainActivity.this,
+										RoutePlanActivity.class);
+								intent.putExtra("en", info);
+								startActivity(intent);
+							}
+						});
+				LatLng ll = position.getPosition();
+				mInfoWindow = new InfoWindow(infoWindow_View.getView(), ll,
+						-130);
+				mBaiduMap.showInfoWindow(mInfoWindow);
+				getUserData();
+			} else {
+				final Overlay_View item = new Overlay_View(MainActivity.this);
+				Marker otherMarker = markerList.get(i);
+				final UserBean info = (UserBean) otherMarker.getExtraInfo()
+						.get("info");
+				ImageLoader.getInstance().displayImage(info.getPortrait(),
+						item.getItem_img(), option,
+						new SimpleImageLoadingListener() {
+							public void onLoadingComplete(String imageUri,
+									android.view.View view,
+									android.graphics.Bitmap loadedImage) {
+								item.getItem_text().setText(info.getNickName());
+								item.getItem_bg().setBackgroundResource(
+										R.drawable.icon_user);
+								BitmapDescriptor bdA = BitmapDescriptorFactory
+										.fromView(item.getView());
+								bitmapList.add(bdA);
+								position.setIcon(bdA);
+							};
+						});
+			}
+
+		}
+	}
+
 	@Override
 	protected void onStart() {
 		// 开启图层定位
@@ -467,6 +472,9 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	@Override
 	protected void onResume() {
+		IntentFilter filter = new IntentFilter();
+		filter.addAction(MY_ACTION);
+		registerReceiver(myReceiver, filter);
 		mMapView.onResume();
 		super.onResume();
 	}
@@ -487,6 +495,7 @@ public class MainActivity extends Activity implements OnClickListener {
 				bitmap.recycle();
 			}
 		}
+		unregisterReceiver(myReceiver);
 		super.onDestroy();
 	}
 
@@ -664,6 +673,10 @@ public class MainActivity extends Activity implements OnClickListener {
 						public void onClick(View v) {// item点击事件，TODO
 							Toast.makeText(getActivity(), name,
 									Toast.LENGTH_SHORT).show();
+							Intent intent = new Intent();
+							intent.setAction(MY_ACTION);
+							intent.putExtra("select", ubean);
+							getActivity().sendBroadcast(intent);
 						}
 					});
 					pages.add(view);// 最关键的步骤，把创建好的View添加到ViewPager队列中
@@ -697,6 +710,24 @@ public class MainActivity extends Activity implements OnClickListener {
 					});
 		}
 
+	}
+	
+	/**
+	 * 头部显示好友列表的选中广播事件处理
+	 */
+	public class MyReceiver extends BroadcastReceiver {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			UserBean selectBean = (UserBean) intent
+					.getSerializableExtra("select");
+			for (int i = 0; i < markerList.size(); i++) {
+				Marker position = markerList.get(i);
+				UserBean info = (UserBean) position.getExtraInfo().get("info");
+				if (selectBean.getMobilNumber().equals(info.getMobilNumber())) {
+					selectorOverlay(position);
+				}
+			}
+		}
 	}
 
 	/**
