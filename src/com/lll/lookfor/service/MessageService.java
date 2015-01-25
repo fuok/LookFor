@@ -32,7 +32,7 @@ public class MessageService extends Service {
 		super.onCreate();
 		this.share = BaseApplication.getInstance().getSharePreferenceUtil();// 获取sharereferenceUtil
 
-		share.setUserId("123");
+//		share.setUserId("123");//在getUserId方法我已经添加了默认值"0",LY
 
 		// 开启时间任务，每十秒请求一次
 		timer = new Timer();

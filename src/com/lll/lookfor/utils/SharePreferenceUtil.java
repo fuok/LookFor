@@ -129,7 +129,7 @@ public class SharePreferenceUtil {
 
 	// 获取用户ID
 	public String getUserId() {
-		return sp.getString(USERID, "");
+		return sp.getString(USERID, "0");//这里我设置了默认值，LY
 	}
 
 	// 保存硬件ID
