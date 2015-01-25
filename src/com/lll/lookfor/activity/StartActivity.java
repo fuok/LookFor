@@ -1,5 +1,7 @@
 package com.lll.lookfor.activity;
 
+import java.util.ArrayList;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
@@ -17,9 +19,8 @@ import android.widget.Toast;
 import com.lll.lookfor.BaseApplication;
 import com.lll.lookfor.HttpInterface;
 import com.lll.lookfor.R;
-import com.lll.lookfor.model.FriendListData;
+import com.lll.lookfor.model.SystemLoginBean;
 import com.lll.lookfor.model.SystemLoginData;
-import com.lll.lookfor.model.UserBean;
 import com.lll.lookfor.network.HooHttpResponse;
 import com.lll.lookfor.network.OnHttpResponseListener;
 import com.lll.lookfor.network.ResponseHandler;
@@ -97,11 +98,11 @@ public class StartActivity extends Activity {
 		// 拼接请求体
 		// String postPara = "receiveId=" + userId;
 		// 请求
-		Log.w(TAG, "系统登录中:" + HttpInterface.SYSTEM_LOGIN);
 		RequestParams params = new RequestParams();
-		params.add("subscriberId", DeviceUtil.getMACAddress(getApplicationContext()));// MAC
+		params.add("subscriberId",
+				DeviceUtil.getMACAddress(getApplicationContext()));// MAC
 		params.add("platform", "android");// 平台
-		PackageManager pm = getPackageManager();//context为当前Activity上下文 
+		PackageManager pm = getPackageManager();// context为当前Activity上下文
 		PackageInfo pi;
 		String version = "";
 		try {
@@ -112,11 +113,13 @@ public class StartActivity extends Activity {
 		}
 		params.add("version", version);// 版本号
 		params.add("userId", userId);// userId
+		Log.w(TAG, "系统登录中:" + HttpInterface.SYSTEM_LOGIN);
+		Log.w(TAG, "系统登录中:" + params.toString());
 		HttpUtil.post(HttpInterface.SYSTEM_LOGIN, params, handler);
 
 	}
 	
-	private class OnSystemLoginListener implements OnHttpResponseListener{
+	private class OnSystemLoginListener implements OnHttpResponseListener {
 
 		@SuppressWarnings("rawtypes")
 		@Override
@@ -124,11 +127,17 @@ public class StartActivity extends Activity {
 			int rc = response.getHeader().getRc();
 			String rm = response.getHeader().getRm();
 			if (rc == 0) {
-				//这里需要返回userId
-				Toast.makeText(StartActivity.this, "哈哈", Toast.LENGTH_SHORT).show();
-				
-				
-				
+				// 这里需要返回userId
+				SystemLoginData data = (SystemLoginData) response.getBody();
+				if (data != null && data.getItems().size() > 0) {
+
+					ArrayList<SystemLoginBean> items = data.getItems();
+					String userId = items.get(0).getUserId();
+					Toast.makeText(StartActivity.this, "userId=" + userId,
+							Toast.LENGTH_SHORT).show();
+
+				}
+
 			} else {
 				Log.e(TAG, "系统登录失败:" + "RC=" + rc + "RM=" + rm);
 			}
