@@ -12,9 +12,9 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import com.lll.lookfor.BaseApplication;
 import com.lll.lookfor.HttpInterface;
@@ -33,7 +33,7 @@ import com.loopj.android.http.RequestParams;
 
 /** 程序启动页，第一个打开的页面，请求也在这里 */
 public class StartActivity extends Activity {
-	private final String TAG="StartActivity";
+	private final String TAG = "StartActivity";
 	private final int LOGIN_START = 100;
 	private final int LOGIN_DONE = 200;
 	private final int LOGIN_FINISH = 300;
@@ -49,11 +49,10 @@ public class StartActivity extends Activity {
 			switch (msg.what) {
 			case LOGIN_START:
 				// 启动登录，这里我直接进入了
-				
+
 				doSystemLogin();
-				
-				
-				if(true){//TODO
+
+				if (true) {// TODO
 					sendEmptyMessage(LOGIN_DONE);
 				}
 				break;
@@ -75,7 +74,8 @@ public class StartActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		this.share = BaseApplication.getInstance().getSharePreferenceUtil();// 获取sharereferenceUtil
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.act_start);
 		// 启动系统登录
 		mHandler.sendEmptyMessage(LOGIN_START);
@@ -85,8 +85,8 @@ public class StartActivity extends Activity {
 		serviceIntent.setClass(this, MessageService.class);
 		startService(serviceIntent);
 	}
-	
-	/**启动系统登录*/
+
+	/** 启动系统登录 */
 	private void doSystemLogin() {
 
 		ResponseHandler<SystemLoginData> handler = new ResponseHandler<SystemLoginData>(
@@ -118,7 +118,7 @@ public class StartActivity extends Activity {
 		HttpUtil.post(HttpInterface.SYSTEM_LOGIN, params, handler);
 
 	}
-	
+
 	private class OnSystemLoginListener implements OnHttpResponseListener {
 
 		@SuppressWarnings("rawtypes")
@@ -133,9 +133,11 @@ public class StartActivity extends Activity {
 
 					ArrayList<SystemLoginBean> items = data.getItems();
 					String userId = items.get(0).getUserId();
-					Toast.makeText(StartActivity.this, "userId=" + userId,
-							Toast.LENGTH_SHORT).show();
-
+					share.setUserId(userId);
+					if (!TextUtils.isEmpty(items.get(0).getToken())) {
+						Log.e(TAG, "UserToken : " + items.get(0).getToken());
+						HttpUtil.addHeader("token", items.get(0).getToken());
+					}
 				}
 
 			} else {
@@ -165,7 +167,6 @@ public class StartActivity extends Activity {
 		}
 
 	}
-	
 
 	// 在启动图处停留5s
 	private void sleep() {

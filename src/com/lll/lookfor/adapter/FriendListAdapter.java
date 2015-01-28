@@ -12,21 +12,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lll.lookfor.R;
-import com.lll.lookfor.model.UserBean;
+import com.lll.lookfor.model.FriendBean;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
 public class FriendListAdapter extends BaseAdapter {
 	private Context context;
-	private ArrayList<UserBean> userBeanList;
+	private ArrayList<FriendBean> userBeanList;
 	private DisplayImageOptions options;// Imageloader配置
 
-	public ArrayList<UserBean> getUserBeanList() {
+	public ArrayList<FriendBean> getUserBeanList() {
 		return userBeanList;
 	}
 
-	public void setUserBeanList(ArrayList<UserBean> userBeanList) {
+	public void setUserBeanList(ArrayList<FriendBean> userBeanList) {
 		this.userBeanList = userBeanList;
 	}
 
@@ -71,12 +71,10 @@ public class FriendListAdapter extends BaseAdapter {
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-		ImageLoader
-				.getInstance()
-				.displayImage(
-						"http://www.1735la.com/d/file/touxiang/keai/20131026/b8d5edc5cd4d9181a94932ad210f0dfe.jpg",
-						holder.head, options);
-		holder.name.setText(userBeanList.get(position).getNickName());
+		FriendBean bean = userBeanList.get(position);
+		ImageLoader.getInstance().displayImage(bean.getPortrait(), holder.head,
+				options);
+		holder.name.setText(bean.getNickName());
 		return convertView;
 	}
 

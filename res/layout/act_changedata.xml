@@ -28,16 +28,6 @@
             android:textColor="@android:color/white"
             android:textSize="18sp" />
 
-        <Button
-            android:id="@+id/btn_changedata_save"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
-            android:background="@null"
-            android:text="@string/save"
-            android:textColor="@android:color/white"
-            android:textSize="15sp" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -52,6 +42,7 @@
             android:src="@drawable/ic_launcher" />
 
         <Button
+            android:id="@+id/btn_changedata_photo"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_alignLeft="@+id/img_changedata_photo"

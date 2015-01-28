@@ -17,7 +17,7 @@ import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
 
 import com.lll.lookfor.R;
-import com.lll.lookfor.model.UserBean;
+import com.lll.lookfor.model.FriendBean;
 import com.lll.lookfor.network.HooHttpResponse;
 import com.lll.lookfor.network.OnHttpResponseListener;
 import com.lll.lookfor.network.ResponseHandler;
@@ -203,8 +203,8 @@ public class ChangePwdActivity extends Activity implements OnClickListener {
 		// hashMap.put("password", password);
 		// hashMap.put("checkCode", checkCode);
 		HooRequestParams requestParams = new HooRequestParams(hashMap);
-		ResponseHandler<UserBean> handler = new ResponseHandler<UserBean>(
-				UserBean.class);
+		ResponseHandler<FriendBean> handler = new ResponseHandler<FriendBean>(
+				FriendBean.class);
 		handler.setOnHttpResponseListener(new OnHttpResponseListener() {
 			@SuppressWarnings("rawtypes")
 			@Override

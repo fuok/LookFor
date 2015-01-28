@@ -38,8 +38,12 @@
     <string name="nickname">名字</string>
     <string name="sex">性别</string>
     <string name="man">男</string>
-	<string name="woman">女</string>
-	<string name="change_data">修改资料</string>
-	<string name="save">保存</string>
-    
+    <string name="woman">女</string>
+    <string name="change_data">修改资料</string>
+    <string name="save">保存</string>
+    <string name="confirmation">确认选点</string>
+    <string name="select_friend">选择好友</string>
+    <string name="img_from_camera">拍照上传</string>
+    <string name="img_from_local">手机相册上传</string>
+
 </resources>

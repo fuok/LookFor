@@ -19,7 +19,7 @@
     </RelativeLayout>
 
     <EditText
-        android:id="@+id/et_nickname"
+        android:id="@+id/et_nickname_input"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_marginTop="20dp"
@@ -31,7 +31,7 @@
         android:textSize="15sp" />
 
     <Button
-        android:id="@+id/btn_determine"
+        android:id="@+id/btn_nickname_determine"
         android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

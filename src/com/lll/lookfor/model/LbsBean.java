@@ -1,6 +1,7 @@
 package com.lll.lookfor.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /** 请求指定用户数据详情的返回结果 */
 public class LbsBean implements Serializable {
@@ -9,6 +10,7 @@ public class LbsBean implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private ArrayList<LbsBean> items;
 	private String friendId;// 对方id
 	private String mobilNumber;// 手机号
 	private String nickName;// 昵称
@@ -24,6 +26,14 @@ public class LbsBean implements Serializable {
 	private int battery;// 电量（百分比）
 	private int signal;// 信号强度（百分比）
 	private int lattice;// 电子围栏数目（此项待定）
+
+	public ArrayList<LbsBean> getItems() {
+		return items;
+	}
+
+	public void setItems(ArrayList<LbsBean> items) {
+		this.items = items;
+	}
 
 	public String getFriendId() {
 		return friendId;
@@ -147,13 +157,14 @@ public class LbsBean implements Serializable {
 
 	@Override
 	public String toString() {
-		return "LbsBean [friendId=" + friendId + ", mobilNumber=" + mobilNumber
-				+ ", nickName=" + nickName + ", sex=" + sex + ", commentName="
-				+ commentName + ", portrait=" + portrait + ", longitude="
-				+ longitude + ", latitude=" + latitude + ", location="
-				+ location + ", updateTime=" + updateTime + ", velocity="
-				+ velocity + ", direction=" + direction + ", battery="
-				+ battery + ", signal=" + signal + ", lattice=" + lattice + "]";
+		return "LbsBean [items=" + items + ", friendId=" + friendId
+				+ ", mobilNumber=" + mobilNumber + ", nickName=" + nickName
+				+ ", sex=" + sex + ", commentName=" + commentName
+				+ ", portrait=" + portrait + ", longitude=" + longitude
+				+ ", latitude=" + latitude + ", location=" + location
+				+ ", updateTime=" + updateTime + ", velocity=" + velocity
+				+ ", direction=" + direction + ", battery=" + battery
+				+ ", signal=" + signal + ", lattice=" + lattice + "]";
 	}
 
 }

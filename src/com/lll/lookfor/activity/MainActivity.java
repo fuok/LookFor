@@ -17,6 +17,7 @@ import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v4.widget.DrawerLayout;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,8 +63,7 @@ import com.lll.lookfor.adapter.VisiableFriendAdapter;
 import com.lll.lookfor.crossbutton.CrossButtonFragment;
 import com.lll.lookfor.model.DrawerItem;
 import com.lll.lookfor.model.LbsBean;
-import com.lll.lookfor.model.LbsListData;
-import com.lll.lookfor.model.UserBean;
+import com.lll.lookfor.model.FriendBean;
 import com.lll.lookfor.network.HooHttpResponse;
 import com.lll.lookfor.network.OnHttpResponseListener;
 import com.lll.lookfor.network.ResponseHandler;
@@ -239,7 +239,6 @@ public class MainActivity extends Activity implements OnClickListener {
 
 		mBaiduMap.setOnMarkerClickListener(new OnMarkerClickListener() {
 			public boolean onMarkerClick(final Marker marker) {
-				UserBean info = (UserBean) marker.getExtraInfo().get("info");
 				selectorOverlay(marker);
 				return true;
 			}
@@ -319,6 +318,8 @@ public class MainActivity extends Activity implements OnClickListener {
 		option.setOpenGps(true);// 打开gps
 		option.setCoorType("bd09ll"); // 设置坐标类型
 		option.setScanSpan(1000);
+		option.setLocationNotify(false);
+		option.setAddrType("all");
 		mLocClient.setLocOption(option);
 	}
 
@@ -335,6 +336,10 @@ public class MainActivity extends Activity implements OnClickListener {
 
 			ll_recovery = new LatLng(location.getLatitude(),
 					location.getLongitude());
+			if (!TextUtils.isEmpty(location.getCity())) {
+				BaseApplication.getInstance().getSharePreferenceUtil()
+						.setCity(location.getCity());
+			}
 			if (isFirstLoc) {
 				isFirstLoc = false;
 				LatLng ll = new LatLng(location.getLatitude(),
@@ -353,9 +358,9 @@ public class MainActivity extends Activity implements OnClickListener {
 	/**
 	 * 增加覆盖物
 	 */
-	public void addOverlay(ArrayList<UserBean> infos) {
+	public void addOverlay(ArrayList<FriendBean> infos) {
 		mBaiduMap.clear();
-		for (final UserBean info : infos) {
+		for (final FriendBean info : infos) {
 			final Overlay_View item = new Overlay_View(MainActivity.this);
 
 			ImageLoader.getInstance().displayImage(info.getPortrait(),
@@ -394,7 +399,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			final Marker position = markerList.get(i);
 			if (position == selector) {
 				final Overlay_View item = new Overlay_View(MainActivity.this);
-				final UserBean info = (UserBean) position.getExtraInfo().get(
+				final FriendBean info = (FriendBean) position.getExtraInfo().get(
 						"info");
 				ImageLoader.getInstance().displayImage(info.getPortrait(),
 						item.getItem_img(), option,
@@ -424,6 +429,15 @@ public class MainActivity extends Activity implements OnClickListener {
 								startActivity(intent);
 							}
 						});
+				infoWindow_View.getQuanta().setOnClickListener(
+						new OnClickListener() {
+							@Override
+							public void onClick(View v) {
+								Intent intent = new Intent(MainActivity.this,
+										TravelActivity.class);
+								startActivity(intent);
+							}
+						});
 				LatLng ll = position.getPosition();
 				mInfoWindow = new InfoWindow(infoWindow_View.getView(), ll,
 						-130);
@@ -432,7 +446,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			} else {
 				final Overlay_View item = new Overlay_View(MainActivity.this);
 				Marker otherMarker = markerList.get(i);
-				final UserBean info = (UserBean) otherMarker.getExtraInfo()
+				final FriendBean info = (FriendBean) otherMarker.getExtraInfo()
 						.get("info");
 				ImageLoader.getInstance().displayImage(info.getPortrait(),
 						item.getItem_img(), option,
@@ -633,7 +647,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			// 获取可见好友列表
 			BaseApplication application = (BaseApplication) (getActivity()
 					.getApplication());
-			ArrayList<UserBean> visibleFriendList = application
+			ArrayList<FriendBean> visibleFriendList = application
 					.getStatus_friends();
 			// Log.w("liuy", "可见人数：" + visibleFriendList.size());
 			createList(visibleFriendList);
@@ -645,12 +659,12 @@ public class MainActivity extends Activity implements OnClickListener {
 			super.onDestroy();
 		}
 
-		private void createList(ArrayList<UserBean> beanList) {
+		private void createList(ArrayList<FriendBean> beanList) {
 			// 清空原有队列
 			List<View> pages = new ArrayList<View>();
 			if (beanList != null && beanList.size() > 0) {
 				for (int i = 0; i < beanList.size(); i++) {
-					final UserBean ubean = beanList.get(i);
+					final FriendBean ubean = beanList.get(i);
 					View view = getActivity().getLayoutInflater().inflate(
 							R.layout.item_visiable_friend, null);
 
@@ -711,22 +725,22 @@ public class MainActivity extends Activity implements OnClickListener {
 		}
 
 	}
-	
+
 	/**
 	 * 头部显示好友列表的选中广播事件处理
 	 */
 	public class MyReceiver extends BroadcastReceiver {
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			UserBean selectBean = (UserBean) intent
+			FriendBean selectBean = (FriendBean) intent
 					.getSerializableExtra("select");
 			for (int i = 0; i < markerList.size(); i++) {
 				Marker position = markerList.get(i);
-				UserBean info = (UserBean) position.getExtraInfo().get("info");
+				FriendBean info = (FriendBean) position.getExtraInfo().get("info");
 				if (selectBean.getMobilNumber().equals(info.getMobilNumber())) {
-					LatLng ll = new LatLng(info.getLatitude(), info.getLongitude());
-					MapStatusUpdate u = MapStatusUpdateFactory
-							.newLatLng(ll);
+					LatLng ll = new LatLng(info.getLatitude(),
+							info.getLongitude());
+					MapStatusUpdate u = MapStatusUpdateFactory.newLatLng(ll);
 					mBaiduMap.animateMapStatus(u);
 					selectorOverlay(position);
 				}
@@ -738,8 +752,8 @@ public class MainActivity extends Activity implements OnClickListener {
 	 * 获取数据
 	 */
 	private void getUserData() {
-		ResponseHandler<LbsListData> handler = new ResponseHandler<LbsListData>(
-				LbsListData.class);
+		ResponseHandler<LbsBean> handler = new ResponseHandler<LbsBean>(
+				LbsBean.class);
 		handler.setOnHttpResponseListener(new OnGetHomeMessageListener());
 
 		// 请求
@@ -755,8 +769,8 @@ public class MainActivity extends Activity implements OnClickListener {
 			int rc = response.getHeader().getRc();
 			String rm = response.getHeader().getRm();
 			if (rc == 0) {
-				LbsListData lbsListData = (LbsListData) response.getBody();
-				setUserInfo(lbsListData.getLbsList().get(0));
+				LbsBean lbsListData = (LbsBean) response.getBody();
+				setUserInfo(lbsListData.getItems().get(0));
 			} else {
 				Log.e(TAG, "获取用户信息失败:" + "RC=" + rc + "RM=" + rm);
 			}

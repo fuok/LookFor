@@ -14,7 +14,7 @@ import android.text.TextUtils;
 import com.lll.lookfor.BaseApplication;
 import com.lll.lookfor.HttpInterface;
 import com.lll.lookfor.model.FriendListData;
-import com.lll.lookfor.model.UserBean;
+import com.lll.lookfor.model.FriendBean;
 import com.lll.lookfor.network.HooHttpResponse;
 import com.lll.lookfor.network.OnHttpResponseListener;
 import com.lll.lookfor.network.ResponseHandler;
@@ -32,7 +32,7 @@ public class MessageService extends Service {
 		super.onCreate();
 		this.share = BaseApplication.getInstance().getSharePreferenceUtil();// 获取sharereferenceUtil
 
-//		share.setUserId("123");//在getUserId方法我已经添加了默认值"0",LY
+		// share.setUserId("123");//在getUserId方法我已经添加了默认值"0",LY
 
 		// 开启时间任务，每十秒请求一次
 		timer = new Timer();
@@ -78,8 +78,8 @@ public class MessageService extends Service {
 	 * 获取数据
 	 */
 	private void getMessageList() {
-		ResponseHandler<FriendListData> handler = new ResponseHandler<FriendListData>(
-				FriendListData.class);
+		ResponseHandler<FriendBean> handler = new ResponseHandler<FriendBean>(
+				FriendBean.class);
 		handler.setOnHttpResponseListener(new OnGetHomeMessageListener());
 
 		userId = share.getUserId();
@@ -105,17 +105,17 @@ public class MessageService extends Service {
 			int rc = response.getHeader().getRc();
 			String rm = response.getHeader().getRm();
 			if (rc == 0) {
-				FriendListData friendList = (FriendListData) response.getBody();
-				if (friendList != null && friendList.getFriendList().size() > 0) {
+				FriendBean friendList = (FriendBean) response.getBody();
+				if (friendList != null && friendList.getItems().size() > 0) {
 					BaseApplication.getInstance().getAll_friends().clear();
 					BaseApplication.getInstance().getStatus_friends().clear();
 
 					// 添加全部好友集合
 					BaseApplication.getInstance().getAll_friends()
-							.addAll(friendList.getFriendList());
+							.addAll(friendList.getItems());
 					// 添加可见好友集合
-					for (int i = 0; i < friendList.getFriendList().size(); i++) {
-						UserBean uBean = friendList.getFriendList().get(i);
+					for (int i = 0; i < friendList.getItems().size(); i++) {
+						FriendBean uBean = friendList.getItems().get(i);
 						if (uBean.getStatus() == 1) {
 							BaseApplication.getInstance().getStatus_friends()
 									.add(uBean);

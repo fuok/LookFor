@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import android.app.Application;
 
 import com.baidu.mapapi.SDKInitializer;
-import com.lll.lookfor.model.UserBean;
+import com.lll.lookfor.model.FriendBean;
 import com.lll.lookfor.utils.FileUtils;
 import com.lll.lookfor.utils.SharePreferenceUtil;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
@@ -19,14 +19,14 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 public class BaseApplication extends Application {
 	private static BaseApplication mApplication;
 	private SharePreferenceUtil mSpUtil;
-	private ArrayList<UserBean> all_friends = null;// 全部好友
-	private ArrayList<UserBean> status_friends = null;// 可见好友
+	private ArrayList<FriendBean> all_friends = null;// 全部好友
+	private ArrayList<FriendBean> status_friends = null;// 可见好友
 
-	public ArrayList<UserBean> getAll_friends() {
+	public ArrayList<FriendBean> getAll_friends() {
 		return all_friends;
 	}
 
-	public ArrayList<UserBean> getStatus_friends() {
+	public ArrayList<FriendBean> getStatus_friends() {
 		return status_friends;
 	}
 
@@ -45,10 +45,10 @@ public class BaseApplication extends Application {
 
 		initImageLoader(this);
 
-		mSpUtil = new SharePreferenceUtil(this, SharePreferenceUtil.HOOPHONE);
+		mSpUtil = new SharePreferenceUtil(this, SharePreferenceUtil.LOOKFOR);
 
-		this.all_friends = new ArrayList<UserBean>();
-		this.status_friends = new ArrayList<UserBean>();
+		this.all_friends = new ArrayList<FriendBean>();
+		this.status_friends = new ArrayList<FriendBean>();
 	}
 
 	/**
@@ -58,8 +58,7 @@ public class BaseApplication extends Application {
 	 */
 	public synchronized SharePreferenceUtil getSharePreferenceUtil() {
 		if (mSpUtil == null)
-			mSpUtil = new SharePreferenceUtil(this,
-					SharePreferenceUtil.HOOPHONE);
+			mSpUtil = new SharePreferenceUtil(this, SharePreferenceUtil.LOOKFOR);
 		return mSpUtil;
 	}
 

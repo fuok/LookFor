@@ -99,6 +99,13 @@
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
         </activity>
         
+        <!-- 修改昵称-->
+        <activity
+            android:name="com.lll.lookfor.activity.NicknameActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
+        </activity>
+        
         <!-- 修改手机号-->
         <activity
             android:name="com.lll.lookfor.activity.ChangeMoblieActivity"
@@ -109,6 +116,20 @@
         <!-- 修改密码-->
         <activity
             android:name="com.lll.lookfor.activity.ChangePwdActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
+        </activity>
+        
+        <!-- 安心出行-->
+        <activity
+            android:name="com.lll.lookfor.activity.TravelActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
+        </activity>
+        
+        <!-- 位置搜索-->
+        <activity
+            android:name="com.lll.lookfor.activity.SearchActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
         </activity>

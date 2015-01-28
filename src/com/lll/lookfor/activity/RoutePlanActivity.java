@@ -40,7 +40,7 @@ import com.baidu.mapapi.search.route.WalkingRouteResult;
 import com.lll.lookfor.HttpInterface;
 import com.lll.lookfor.R;
 import com.lll.lookfor.model.LbsListData;
-import com.lll.lookfor.model.UserBean;
+import com.lll.lookfor.model.FriendBean;
 import com.lll.lookfor.network.HooHttpResponse;
 import com.lll.lookfor.network.OnHttpResponseListener;
 import com.lll.lookfor.network.ResponseHandler;
@@ -66,7 +66,7 @@ public class RoutePlanActivity extends Activity implements
 	// 搜索相关
 	RoutePlanSearch mSearch = null; // 搜索模块，也可去掉地图模块独立使用
 
-	private UserBean enUserBean;// 到，就是要去地点的用户信息
+	private FriendBean enUserBean;// 到，就是要去地点的用户信息
 
 	private LatLng stLatLng;// 从的经纬度
 	private LatLng enLatLng;// 到的经纬度
@@ -83,7 +83,7 @@ public class RoutePlanActivity extends Activity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.act_routeplan);
 
-		enUserBean = (UserBean) getIntent().getSerializableExtra("en");
+		enUserBean = (FriendBean) getIntent().getSerializableExtra("en");
 
 		initView();
 

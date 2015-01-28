@@ -1,42 +1,35 @@
 package com.lll.lookfor.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * 用户信息实体
- * 
- * @author Hendy
- * @since 1.4.1
- * @date 2014-10-28
  */
 public class UserBean implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private String friendId; // 用户ID
-	private String mobilNumber;// 手机号码
-	private String nickName;// 中文昵称
-	private int sex;// 性别
-	private String commentName;// 备注名
-	private int status;// 可见状态
-	private int permission;// 闭眼模式
-	private String portrait;// 头像Url
-	private double longitude;// 经度
-	private double latitude;// 纬度
-	private String updateTime;// 更新时间
+	private ArrayList<UserBean> items;
+	private String userId; // 用户ID
+	private String nickName;// 昵称
+	private String portraitPic;// 用户头像
+	private int sex;// 1为男，2为女
+	private String mobile;// 手机号
+	private String token;// 登录校验码
 
-	public String getFriendId() {
-		return friendId;
+	public ArrayList<UserBean> getItems() {
+		return items;
 	}
 
-	public void setFriendId(String friendId) {
-		this.friendId = friendId;
+	public void setItems(ArrayList<UserBean> items) {
+		this.items = items;
 	}
 
-	public String getMobilNumber() {
-		return mobilNumber;
+	public String getUserId() {
+		return userId;
 	}
 
-	public void setMobilNumber(String mobilNumber) {
-		this.mobilNumber = mobilNumber;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 	public String getNickName() {
@@ -47,6 +40,14 @@ public class UserBean implements Serializable {
 		this.nickName = nickName;
 	}
 
+	public String getPortraitPic() {
+		return portraitPic;
+	}
+
+	public void setPortraitPic(String portraitPic) {
+		this.portraitPic = portraitPic;
+	}
+
 	public int getSex() {
 		return sex;
 	}
@@ -55,70 +56,28 @@ public class UserBean implements Serializable {
 		this.sex = sex;
 	}
 
-	public String getCommentName() {
-		return commentName;
+	public String getMobile() {
+		return mobile;
 	}
 
-	public void setCommentName(String commentName) {
-		this.commentName = commentName;
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
 	}
 
-	public int getStatus() {
-		return status;
+	public String getToken() {
+		return token;
 	}
 
-	public void setStatus(int status) {
-		this.status = status;
-	}
-
-	public int getPermission() {
-		return permission;
-	}
-
-	public void setPermission(int permission) {
-		this.permission = permission;
-	}
-
-	public String getPortrait() {
-		return portrait;
-	}
-
-	public void setPortrait(String portrait) {
-		this.portrait = portrait;
-	}
-
-	public double getLongitude() {
-		return longitude;
-	}
-
-	public void setLongitude(double longitude) {
-		this.longitude = longitude;
-	}
-
-	public double getLatitude() {
-		return latitude;
-	}
-
-	public void setLatitude(double latitude) {
-		this.latitude = latitude;
-	}
-
-	public String getUpdateTime() {
-		return updateTime;
-	}
-
-	public void setUpdateTime(String updateTime) {
-		this.updateTime = updateTime;
+	public void setToken(String token) {
+		this.token = token;
 	}
 
 	@Override
 	public String toString() {
-		return "UserBean [friendId=" + friendId + ", mobilNumber="
-				+ mobilNumber + ", nickName=" + nickName + ", sex=" + sex
-				+ ", commentName=" + commentName + ", status=" + status
-				+ ", permission=" + permission + ", portrait=" + portrait
-				+ ", longitude=" + longitude + ", latitude=" + latitude
-				+ ", updateTime=" + updateTime + "]";
+		return "UserBean [items=" + items + ", userId=" + userId
+				+ ", nickName=" + nickName + ", portraitPic=" + portraitPic
+				+ ", sex=" + sex + ", mobile=" + mobile + ", token=" + token
+				+ "]";
 	}
 
 }

@@ -17,6 +17,7 @@ public class NicknameActivity extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.act_nickname);
 
 		initView();
 		initListener();
@@ -26,8 +27,8 @@ public class NicknameActivity extends Activity implements OnClickListener {
 	 * 初始化视图控件
 	 */
 	private void initView() {
-		nickname = (EditText) findViewById(R.id.et_nickname);
-		determine = (Button) findViewById(R.id.btn_determine);
+		nickname = (EditText) findViewById(R.id.et_nickname_input);
+		determine = (Button) findViewById(R.id.btn_nickname_determine);
 	}
 
 	/**
@@ -41,7 +42,7 @@ public class NicknameActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
-		case R.id.btn_determine:
+		case R.id.btn_nickname_determine:
 
 			break;
 
