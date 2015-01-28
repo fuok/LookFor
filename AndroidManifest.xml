@@ -94,28 +94,28 @@
         
         <!-- 修改资料-->
         <activity
-            android:name="com.lll.lookfor.activity.ChangeDataActivity"
+            android:name="com.lll.lookfor.activity.ModifyDataActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
         </activity>
         
         <!-- 修改昵称-->
         <activity
-            android:name="com.lll.lookfor.activity.NicknameActivity"
+            android:name="com.lll.lookfor.activity.ModifyNicknameActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
         </activity>
         
         <!-- 修改手机号-->
         <activity
-            android:name="com.lll.lookfor.activity.ChangeMoblieActivity"
+            android:name="com.lll.lookfor.activity.ModifyMoblieActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
         </activity>
         
         <!-- 修改密码-->
         <activity
-            android:name="com.lll.lookfor.activity.ChangePwdActivity"
+            android:name="com.lll.lookfor.activity.ModifyPwdActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
         </activity>

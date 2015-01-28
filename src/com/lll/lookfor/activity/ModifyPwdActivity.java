@@ -26,7 +26,7 @@ import com.lll.lookfor.utils.HooRequestParams;
 import com.lll.lookfor.utils.HttpUtil;
 import com.lll.lookfor.utils.Log;
 
-public class ChangePwdActivity extends Activity implements OnClickListener {
+public class ModifyPwdActivity extends Activity implements OnClickListener {
 	private static final String TAG = "ChangePwdActivity";// Tag
 	private Button btn_cancal;// 取消按钮
 	private Button btn_complete;// 完成按钮
@@ -47,7 +47,7 @@ public class ChangePwdActivity extends Activity implements OnClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.act_changepwd);
+		setContentView(R.layout.act_modifypwd);
 
 		initView();
 		initListener();
@@ -74,12 +74,12 @@ public class ChangePwdActivity extends Activity implements OnClickListener {
 	 * 初始化视图控件
 	 */
 	private void initView() {
-		btn_cancal = (Button) findViewById(R.id.btn_changepwd_cancal);
-		btn_complete = (Button) findViewById(R.id.btn_changepwd_complete);
-		btn_send = (Button) findViewById(R.id.btn_changepwd_send);
-		et_mobilenumber = (EditText) findViewById(R.id.et_changepwd_mobilenumber);
-		et_password = (EditText) findViewById(R.id.et_changepwd_password);
-		et_code = (EditText) findViewById(R.id.et_changepwd_code);
+		btn_cancal = (Button) findViewById(R.id.btn_modifypwd_cancal);
+		btn_complete = (Button) findViewById(R.id.btn_modifypwd_complete);
+		btn_send = (Button) findViewById(R.id.btn_modifypwd_send);
+		et_mobilenumber = (EditText) findViewById(R.id.et_modifypwd_mobilenumber);
+		et_password = (EditText) findViewById(R.id.et_modifypwd_password);
+		et_code = (EditText) findViewById(R.id.et_modifypwd_code);
 	}
 
 	/**
@@ -95,10 +95,10 @@ public class ChangePwdActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
-		case R.id.btn_changepwd_cancal:
+		case R.id.btn_modifypwd_cancal:
 			finish();
 			break;
-		case R.id.btn_changepwd_complete:
+		case R.id.btn_modifypwd_complete:
 			code = et_code.getText().toString();
 			password = et_password.getText().toString();
 			mobile = et_mobilenumber.getText().toString();
@@ -119,7 +119,7 @@ public class ChangePwdActivity extends Activity implements OnClickListener {
 				}
 			}
 			break;
-		case R.id.btn_changepwd_send:
+		case R.id.btn_modifypwd_send:
 			mobile = et_mobilenumber.getText().toString();
 			if (TextUtils.isEmpty(mobile) || mobile.length() != 11) {
 				Toast.makeText(this, getString(R.string.phone_num_lack),

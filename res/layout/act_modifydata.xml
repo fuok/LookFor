@@ -10,7 +10,7 @@
         android:background="@drawable/title" >
 
         <Button
-            android:id="@+id/btn_changedata_cancal"
+            android:id="@+id/btn_modifydata_cancal"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentLeft="true"
@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="@string/change_data"
+            android:text="@string/modify_data"
             android:textColor="@android:color/white"
             android:textSize="18sp" />
 
@@ -35,17 +35,17 @@
         android:layout_height="110dp" >
 
         <ImageView
-            android:id="@+id/img_changedata_photo"
+            android:id="@+id/img_modifydata_photo"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_centerInParent="true"
             android:src="@drawable/ic_launcher" />
 
         <Button
-            android:id="@+id/btn_changedata_photo"
+            android:id="@+id/btn_modifydata_photo"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_alignLeft="@+id/img_changedata_photo"
+            android:layout_alignLeft="@+id/img_modifydata_photo"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="18dp"
             android:layout_marginLeft="32dp"
@@ -60,7 +60,7 @@
         android:orientation="vertical" >
 
         <RelativeLayout
-            android:id="@+id/rl_changedata_name"
+            android:id="@+id/rl_modifydata_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
@@ -72,7 +72,7 @@
                 android:textSize="15sp" />
 
             <TextView
-                android:id="@+id/tv_changedata_name"
+                android:id="@+id/tv_modifydata_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -151,7 +151,7 @@
             android:background="@drawable/divider_line" />
 
         <RelativeLayout
-            android:id="@+id/rl_changedata_moblie"
+            android:id="@+id/rl_modifydata_moblie"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
@@ -164,7 +164,7 @@
                 android:textSize="15sp" />
 
             <TextView
-                android:id="@+id/tv_changedata_moblie"
+                android:id="@+id/tv_modifydata_moblie"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -188,7 +188,7 @@
             android:background="@drawable/divider_line" />
 
         <RelativeLayout
-            android:id="@+id/rl_changedata_pwd"
+            android:id="@+id/rl_modifydata_pwd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
@@ -196,7 +196,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="15dp"
-                android:text="@string/change_pwd"
+                android:text="@string/modify_pwd"
                 android:textSize="15sp" />
 
             <ImageView

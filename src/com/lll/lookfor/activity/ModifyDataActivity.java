@@ -28,7 +28,7 @@ import com.lll.lookfor.utils.ImageUtils;
 import com.lll.lookfor.utils.Log;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-public class ChangeDataActivity extends Activity implements OnClickListener {
+public class ModifyDataActivity extends Activity implements OnClickListener {
 	private static final String TAG = "ChangeDataActivity";// Tag
 	private Button btn_cancal;// 取消按钮
 	private Button btn_photo;// 上传头像按钮
@@ -46,7 +46,7 @@ public class ChangeDataActivity extends Activity implements OnClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.act_changedata);
+		setContentView(R.layout.act_modifydata);
 
 		initView();
 		initListener();
@@ -56,11 +56,11 @@ public class ChangeDataActivity extends Activity implements OnClickListener {
 	 * 初始化视图控件
 	 */
 	private void initView() {
-		btn_cancal = (Button) findViewById(R.id.btn_changedata_cancal);
-		btn_photo = (Button) findViewById(R.id.btn_changedata_photo);
-		rl_name = (RelativeLayout) findViewById(R.id.rl_changedata_name);
-		rl_moblie = (RelativeLayout) findViewById(R.id.rl_changedata_moblie);
-		rl_pwd = (RelativeLayout) findViewById(R.id.rl_changedata_pwd);
+		btn_cancal = (Button) findViewById(R.id.btn_modifydata_cancal);
+		btn_photo = (Button) findViewById(R.id.btn_modifydata_photo);
+		rl_name = (RelativeLayout) findViewById(R.id.rl_modifydata_name);
+		rl_moblie = (RelativeLayout) findViewById(R.id.rl_modifydata_moblie);
+		rl_pwd = (RelativeLayout) findViewById(R.id.rl_modifydata_pwd);
 	}
 
 	/**
@@ -78,25 +78,25 @@ public class ChangeDataActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
-		case R.id.btn_changedata_cancal:
+		case R.id.btn_modifydata_cancal:
 			finish();
 			break;
-		case R.id.btn_changedata_photo:
+		case R.id.btn_modifydata_photo:
 			showPhotoDailog();
 			break;
-		case R.id.rl_changedata_name:
-			Intent intent = new Intent(ChangeDataActivity.this,
-					NicknameActivity.class);
+		case R.id.rl_modifydata_name:
+			Intent intent = new Intent(ModifyDataActivity.this,
+					ModifyNicknameActivity.class);
 			startActivityForResult(intent, CHANGE_NICKNAME);
 			break;
-		case R.id.rl_changedata_moblie:
-			Intent intent_moblie = new Intent(ChangeDataActivity.this,
-					ChangeMoblieActivity.class);
+		case R.id.rl_modifydata_moblie:
+			Intent intent_moblie = new Intent(ModifyDataActivity.this,
+					ModifyMoblieActivity.class);
 			startActivityForResult(intent_moblie, CHANGE_MOBLIE);
 			break;
-		case R.id.rl_changedata_pwd:
-			Intent intent_pwd = new Intent(ChangeDataActivity.this,
-					ChangePwdActivity.class);
+		case R.id.rl_modifydata_pwd:
+			Intent intent_pwd = new Intent(ModifyDataActivity.this,
+					ModifyPwdActivity.class);
 			startActivityForResult(intent_pwd, CHANGE_PWD);
 			break;
 
@@ -156,7 +156,7 @@ public class ChangeDataActivity extends Activity implements OnClickListener {
 		}
 
 		public String doInBackground(Void... params) {
-			return doSaveImage(ChangeDataActivity.this, filepath);
+			return doSaveImage(ModifyDataActivity.this, filepath);
 		}
 
 		public void onPostExecute(String result) {
@@ -164,7 +164,7 @@ public class ChangeDataActivity extends Activity implements OnClickListener {
 				// 上传头像
 
 			} else {
-				Toast.makeText(ChangeDataActivity.this, "图片发送失败!",
+				Toast.makeText(ModifyDataActivity.this, "图片发送失败!",
 						Toast.LENGTH_SHORT).show();
 			}
 		}
@@ -222,7 +222,7 @@ public class ChangeDataActivity extends Activity implements OnClickListener {
 	 * 选择图片来源对话框
 	 */
 	private void showPhotoDailog() {
-		final PhotoDialog dialog = new PhotoDialog(ChangeDataActivity.this);
+		final PhotoDialog dialog = new PhotoDialog(ModifyDataActivity.this);
 		dialog.show();
 		dialog.setCanceledOnTouchOutside(true);
 		dialog.setCameraButton(new OnClickListener() {

@@ -29,8 +29,8 @@
     <string name="resend_second">秒)</string>
     <string name="phone_num_lack">请输入11位手机号！</string>
     <string name="complete">完成</string>
-    <string name="change_pwd">修改密码</string>
-    <string name="change_moblie">修改手机号</string>
+    <string name="modify_pwd">修改密码</string>
+    <string name="modify_moblie">修改手机号</string>
     <string name="enter_nickname">输入昵称</string>
     <string name="determine">确定</string>
     <string name="hint_nickname">给自己取个美妙的名字吧</string>
@@ -39,7 +39,7 @@
     <string name="sex">性别</string>
     <string name="man">男</string>
     <string name="woman">女</string>
-    <string name="change_data">修改资料</string>
+    <string name="modify_data">修改资料</string>
     <string name="save">保存</string>
     <string name="confirmation">确认选点</string>
     <string name="select_friend">选择好友</string>

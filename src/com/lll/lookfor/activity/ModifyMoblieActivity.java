@@ -26,7 +26,7 @@ import com.lll.lookfor.utils.HooRequestParams;
 import com.lll.lookfor.utils.HttpUtil;
 import com.lll.lookfor.utils.Log;
 
-public class ChangeMoblieActivity extends Activity implements OnClickListener {
+public class ModifyMoblieActivity extends Activity implements OnClickListener {
 	private static final String TAG = "ChangeMoblieActivity";// Tag
 	private Button btn_cancal;// 取消按钮
 	private Button btn_complete;// 完成按钮
@@ -45,7 +45,7 @@ public class ChangeMoblieActivity extends Activity implements OnClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.act_changemoblie);
+		setContentView(R.layout.act_modifymoblie);
 
 		initView();
 		initListener();
@@ -72,11 +72,11 @@ public class ChangeMoblieActivity extends Activity implements OnClickListener {
 	 * 初始化视图控件
 	 */
 	private void initView() {
-		btn_cancal = (Button) findViewById(R.id.btn_changemoblie_cancal);
-		btn_complete = (Button) findViewById(R.id.btn_changemoblie_complete);
-		btn_send = (Button) findViewById(R.id.btn_changemoblie_send);
-		et_mobilenumber = (EditText) findViewById(R.id.et_changemoblie_mobilenumber);
-		et_code = (EditText) findViewById(R.id.et_changemoblie_code);
+		btn_cancal = (Button) findViewById(R.id.btn_modifymoblie_cancal);
+		btn_complete = (Button) findViewById(R.id.btn_modifymoblie_complete);
+		btn_send = (Button) findViewById(R.id.btn_modifymoblie_send);
+		et_mobilenumber = (EditText) findViewById(R.id.et_modifymoblie_mobilenumber);
+		et_code = (EditText) findViewById(R.id.et_modifymoblie_code);
 	}
 
 	/**
@@ -92,10 +92,10 @@ public class ChangeMoblieActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
-		case R.id.btn_changemoblie_cancal:
+		case R.id.btn_modifymoblie_cancal:
 			finish();
 			break;
-		case R.id.btn_changemoblie_complete:
+		case R.id.btn_modifymoblie_complete:
 			code = et_code.getText().toString();
 			mobile = et_mobilenumber.getText().toString();
 			if (TextUtils.isEmpty(mobile) || mobile.length() != 11) {
@@ -109,7 +109,7 @@ public class ChangeMoblieActivity extends Activity implements OnClickListener {
 				}
 			}
 			break;
-		case R.id.btn_changemoblie_send:
+		case R.id.btn_modifymoblie_send:
 			mobile = et_mobilenumber.getText().toString();
 			if (TextUtils.isEmpty(mobile) || mobile.length() != 11) {
 				Toast.makeText(this, getString(R.string.phone_num_lack),
