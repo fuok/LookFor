@@ -16,6 +16,7 @@ import android.widget.Toast;
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
 
+import com.lll.lookfor.BaseApplication;
 import com.lll.lookfor.R;
 import com.lll.lookfor.model.FriendBean;
 import com.lll.lookfor.network.HooHttpResponse;
@@ -180,7 +181,7 @@ public class ModifyPwdActivity extends Activity implements OnClickListener {
 				if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {// 提交验证码成功
 					Toast.makeText(getApplicationContext(), "提交验证码成功",
 							Toast.LENGTH_SHORT).show();
-					changePwd();
+					modifyPwd();
 				} else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
 					Toast.makeText(getApplicationContext(), "验证码已经发送",
 							Toast.LENGTH_SHORT).show();
@@ -196,12 +197,11 @@ public class ModifyPwdActivity extends Activity implements OnClickListener {
 	/**
 	 * 修改用户密码
 	 */
-	private void changePwd() {
+	private void modifyPwd() {
 		LinkedHashMap<String, String> hashMap = new LinkedHashMap<String, String>();
-		// hashMap.put("subscriberId", subscriberId);
-		// hashMap.put("mobile", mobile);
-		// hashMap.put("password", password);
-		// hashMap.put("checkCode", checkCode);
+		hashMap.put("userId", BaseApplication.getInstance()
+				.getSharePreferenceUtil().getUserId());
+		hashMap.put("password", password);
 		HooRequestParams requestParams = new HooRequestParams(hashMap);
 		ResponseHandler<FriendBean> handler = new ResponseHandler<FriendBean>(
 				FriendBean.class);

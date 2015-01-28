@@ -18,14 +18,23 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.lll.lookfor.BaseApplication;
 import com.lll.lookfor.R;
+import com.lll.lookfor.model.UploadBean;
+import com.lll.lookfor.network.HooHttpResponse;
+import com.lll.lookfor.network.OnHttpResponseListener;
+import com.lll.lookfor.network.ResponseHandler;
 import com.lll.lookfor.ui.PhotoDialog;
 import com.lll.lookfor.utils.FileUtils;
+import com.lll.lookfor.utils.HttpUtil;
 import com.lll.lookfor.utils.ImageUtils;
 import com.lll.lookfor.utils.Log;
+import com.loopj.android.http.RequestParams;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class ModifyDataActivity extends Activity implements OnClickListener {
@@ -35,6 +44,8 @@ public class ModifyDataActivity extends Activity implements OnClickListener {
 	private RelativeLayout rl_name;// 修改名字
 	private RelativeLayout rl_moblie;// 修改手机号
 	private RelativeLayout rl_pwd;// 修改密码
+	private ImageView img_photo;
+	private TextView tv_name;// 昵称
 	private static String IMGPATH = null;
 	private File vFile = null;
 	private static final int CAMERA_WITH_DATA = 101;
@@ -61,6 +72,8 @@ public class ModifyDataActivity extends Activity implements OnClickListener {
 		rl_name = (RelativeLayout) findViewById(R.id.rl_modifydata_name);
 		rl_moblie = (RelativeLayout) findViewById(R.id.rl_modifydata_moblie);
 		rl_pwd = (RelativeLayout) findViewById(R.id.rl_modifydata_pwd);
+		img_photo = (ImageView) findViewById(R.id.img_modifydata_photo);
+		tv_name = (TextView) findViewById(R.id.tv_modifydata_name);
 	}
 
 	/**
@@ -130,7 +143,8 @@ public class ModifyDataActivity extends Activity implements OnClickListener {
 				handleImage.execute(new Void[0]);
 				break;
 			case CHANGE_NICKNAME:
-
+				String nickName = data.getStringExtra("nickName");
+				tv_name.setText(nickName);
 				break;
 			case CHANGE_MOBLIE:
 
@@ -162,12 +176,76 @@ public class ModifyDataActivity extends Activity implements OnClickListener {
 		public void onPostExecute(String result) {
 			if (!TextUtils.isEmpty(result)) {
 				// 上传头像
-
+				sendPhoto(result);
 			} else {
 				Toast.makeText(ModifyDataActivity.this, "图片发送失败!",
 						Toast.LENGTH_SHORT).show();
 			}
 		}
+	}
+
+	/**
+	 * 发送图片消息
+	 * 
+	 * @param content
+	 *            图片地址
+	 */
+	private void sendPhoto(String content) {
+		RequestParams requestParams = new RequestParams();
+		File file = new File(content);
+		try {
+			requestParams.put("userId", BaseApplication.getInstance()
+					.getSharePreferenceUtil().getUserId());
+			requestParams.put("image", file);
+			ResponseHandler<UploadBean> handler = new ResponseHandler<UploadBean>(
+					UploadBean.class);
+			handler.setOnHttpResponseListener(new OnHttpResponseListener() {
+				@SuppressWarnings("rawtypes")
+				@Override
+				public void onSuccess(HooHttpResponse response) {
+					int rc = response.getHeader().getRc();
+					String rm = response.getHeader().getRm();
+					if (rc == 0) {
+						UploadBean upload = (UploadBean) response.getBody();
+
+						Log.d(TAG, "图片已发送！" + upload.getImage());
+						// 图片上传成功，把图片地址写入内容
+						ImageLoader.getInstance().displayImage(
+								upload.getImage(), img_photo);
+					} else {
+						Log.e(TAG, rm);
+						// 上传图片失败
+					}
+				}
+
+				@Override
+				public void onError(int statusCode, Throwable error,
+						String content) {
+				}
+
+				@Override
+				public void onStart() {
+					// TODO Auto-generated method stub
+				}
+
+				@Override
+				public void onEnd() {
+					// TODO Auto-generated method stub
+				}
+
+				@Override
+				public void onProgress(int bytesWritten, int totalSize) {
+					// TODO Auto-generated method stub
+				}
+			});
+
+			Log.e(TAG, "请求URL：" + "" + "?" + requestParams.toString());
+			HttpUtil.post("", requestParams, handler);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 	/**

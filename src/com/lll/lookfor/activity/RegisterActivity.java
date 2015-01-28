@@ -201,10 +201,8 @@ public class RegisterActivity extends Activity implements OnClickListener {
 	 */
 	private void registerUser() {
 		LinkedHashMap<String, String> hashMap = new LinkedHashMap<String, String>();
-		// hashMap.put("subscriberId", subscriberId);
-		// hashMap.put("mobile", mobile);
-		// hashMap.put("password", password);
-		// hashMap.put("checkCode", checkCode);
+		hashMap.put("mobile", mobile);
+		hashMap.put("password", password);
 		HooRequestParams requestParams = new HooRequestParams(hashMap);
 		ResponseHandler<FriendBean> handler = new ResponseHandler<FriendBean>(
 				FriendBean.class);

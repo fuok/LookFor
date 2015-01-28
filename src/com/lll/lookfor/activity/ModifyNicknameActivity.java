@@ -3,11 +3,14 @@ package com.lll.lookfor.activity;
 import java.util.LinkedHashMap;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.lll.lookfor.BaseApplication;
 import com.lll.lookfor.R;
@@ -23,8 +26,8 @@ import com.lll.lookfor.utils.Log;
 
 public class ModifyNicknameActivity extends Activity implements OnClickListener {
 	private static final String TAG = "ChangeNicknameActivity";
-	private EditText nickname;// 昵称输入框
-	private Button determine;// 确认按钮
+	private EditText et_nickname;// 昵称输入框
+	private Button btn_determine;// 确认按钮
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,15 +43,15 @@ public class ModifyNicknameActivity extends Activity implements OnClickListener 
 	 * 初始化视图控件
 	 */
 	private void initView() {
-		nickname = (EditText) findViewById(R.id.et_modifynickname_input);
-		determine = (Button) findViewById(R.id.btn_modifynickname_determine);
+		et_nickname = (EditText) findViewById(R.id.et_modifynickname_input);
+		btn_determine = (Button) findViewById(R.id.btn_modifynickname_determine);
 	}
 
 	/**
 	 * 初始化监听事件
 	 */
 	private void initListener() {
-		determine.setOnClickListener(this);
+		btn_determine.setOnClickListener(this);
 	}
 
 	@Override
@@ -56,6 +59,13 @@ public class ModifyNicknameActivity extends Activity implements OnClickListener 
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.btn_modifynickname_determine:
+			String nickName = et_nickname.getText().toString();
+			if (TextUtils.isEmpty(nickName)) {
+				Toast.makeText(this, "请输入昵称", Toast.LENGTH_SHORT).show();
+			} else {
+				modifyNickName(BaseApplication.getInstance()
+						.getSharePreferenceUtil().getUserId(), nickName);
+			}
 
 			break;
 
@@ -89,7 +99,10 @@ public class ModifyNicknameActivity extends Activity implements OnClickListener 
 					// 保存用户信息
 					BaseApplication.getInstance().getSharePreferenceUtil()
 							.setNickname(userBean.getNickName());
-
+					Intent intent = new Intent();
+					intent.putExtra("nickName", userBean.getNickName());
+					setResult(-1, intent);
+					finish();
 				} else {// 当登录失败时，气泡显示错误信息
 					Log.e(TAG, rm);
 				}
