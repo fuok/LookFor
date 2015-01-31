@@ -137,6 +137,7 @@ public class StartActivity extends Activity {
 					if (!TextUtils.isEmpty(items.get(0).getToken())) {
 						Log.e(TAG, "UserToken : " + items.get(0).getToken());
 						HttpUtil.addHeader("token", items.get(0).getToken());
+						share.setToken(items.get(0).getToken());
 					}
 				}
 

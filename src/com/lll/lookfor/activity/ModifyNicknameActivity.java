@@ -13,13 +13,13 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.lll.lookfor.BaseApplication;
+import com.lll.lookfor.HttpInterface;
 import com.lll.lookfor.R;
 import com.lll.lookfor.model.UserBean;
 import com.lll.lookfor.network.HooHttpResponse;
 import com.lll.lookfor.network.OnHttpResponseListener;
 import com.lll.lookfor.network.ResponseHandler;
 import com.lll.lookfor.network.ResponseHeader;
-import com.lll.lookfor.utils.HooPhoneConstant;
 import com.lll.lookfor.utils.HooRequestParams;
 import com.lll.lookfor.utils.HttpUtil;
 import com.lll.lookfor.utils.Log;
@@ -134,13 +134,8 @@ public class ModifyNicknameActivity extends Activity implements OnClickListener 
 			}
 		});
 		// 请求用户登录接口
-		Log.e(TAG,
-				"请求URL："
-						+ HooPhoneConstant
-								.getURL(HooPhoneConstant.URL_MY_USER_LOGIN)
-						+ "?" + requestParams.toString());
-		HttpUtil.post(
-				HooPhoneConstant.getURL(HooPhoneConstant.URL_MY_USER_LOGIN),
-				requestParams, handler);
+		Log.e(TAG, "请求URL：" + HttpInterface.MODIFY_NICKNAME + "?"
+				+ requestParams.toString());
+		HttpUtil.post(HttpInterface.MODIFY_NICKNAME, requestParams, handler);
 	}
 }

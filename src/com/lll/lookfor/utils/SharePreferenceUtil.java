@@ -19,6 +19,7 @@ public class SharePreferenceUtil {
 	private static final String UPGRADEVERSIONNO = "upgradeVersionNo";// 更新包版本号
 	private static final String CITY = "city";// 城市
 	private static final String SEX = "sex";// 性别
+	private static final String TOKEN ="token";
 
 	private SharedPreferences sp;
 	private SharedPreferences.Editor editor;
@@ -169,6 +170,17 @@ public class SharePreferenceUtil {
 	// 获取性别
 	public int getSex() {
 		return sp.getInt(SEX, 1);
+	}
+	
+	// 保存Token
+	public void setToken(String token) {
+		editor.putString(TOKEN, token);
+		editor.commit();
+	}
+
+	// 获取Token
+	public String getToken() {
+		return sp.getString(TOKEN, "");
 	}
 
 	public void saveUserInfo(String userId, int sex, String mobile,

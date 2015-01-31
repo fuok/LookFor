@@ -1,5 +1,6 @@
 package com.lll.lookfor.activity;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 import android.app.Activity;
@@ -16,12 +17,16 @@ import android.widget.Toast;
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
 
+import com.lll.lookfor.BaseApplication;
+import com.lll.lookfor.HttpInterface;
 import com.lll.lookfor.R;
 import com.lll.lookfor.model.FriendBean;
+import com.lll.lookfor.model.SystemLoginBean;
+import com.lll.lookfor.model.SystemLoginData;
+import com.lll.lookfor.model.UserBean;
 import com.lll.lookfor.network.HooHttpResponse;
 import com.lll.lookfor.network.OnHttpResponseListener;
 import com.lll.lookfor.network.ResponseHandler;
-import com.lll.lookfor.utils.HooPhoneConstant;
 import com.lll.lookfor.utils.HooRequestParams;
 import com.lll.lookfor.utils.HttpUtil;
 import com.lll.lookfor.utils.Log;
@@ -203,21 +208,28 @@ public class RegisterActivity extends Activity implements OnClickListener {
 		LinkedHashMap<String, String> hashMap = new LinkedHashMap<String, String>();
 		hashMap.put("mobile", mobile);
 		hashMap.put("password", password);
+		hashMap.put("token", BaseApplication.getInstance().getSharePreferenceUtil().getToken());
 		HooRequestParams requestParams = new HooRequestParams(hashMap);
-		ResponseHandler<FriendBean> handler = new ResponseHandler<FriendBean>(
-				FriendBean.class);
+		ResponseHandler<UserBean> handler = new ResponseHandler<UserBean>(
+				UserBean.class);
 		handler.setOnHttpResponseListener(new OnHttpResponseListener() {
 			@SuppressWarnings("rawtypes")
 			@Override
 			public void onSuccess(HooHttpResponse response) {
-
+				int rc = response.getHeader().getRc();
+				String rm = response.getHeader().getRm();
+				if (rc == 0) {
+					Log.e(TAG, "用户注册成功:" + "RC=" + rc + "RM=" + rm);
+				} else {
+					Log.e(TAG, "用户注册失败:" + "RC=" + rc + "RM=" + rm);
+				}
 			}
 
 			// 网络请求失败
 			@Override
 			public void onError(int statusCode, Throwable error, String content) {
 				// TODO Auto-generated method stub
-
+				
 			}
 
 			@Override
@@ -240,13 +252,9 @@ public class RegisterActivity extends Activity implements OnClickListener {
 		});
 		// 网络请求
 		Log.e(TAG,
-				"请求URL："
-						+ HooPhoneConstant
-								.getURL(HooPhoneConstant.URL_MY_REGISTER_USER)
-						+ "?" + requestParams.toString());
-		HttpUtil.post(
-				HooPhoneConstant.getURL(HooPhoneConstant.URL_MY_REGISTER_USER),
-				requestParams, handler);
+				"请求URL：" + HttpInterface.REGIST + "?"
+						+ requestParams.toString());
+		HttpUtil.post(HttpInterface.REGIST, requestParams, handler);
 
 	}
 
