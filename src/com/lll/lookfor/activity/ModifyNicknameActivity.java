@@ -76,8 +76,8 @@ public class ModifyNicknameActivity extends Activity implements OnClickListener 
 
 	public void modifyNickName(String userId, String nickName) {
 		LinkedHashMap<String, String> hashMap = new LinkedHashMap<String, String>();
-		hashMap.put("userId", userId);
 		hashMap.put("nickName", nickName);
+		hashMap.put("token", BaseApplication.getInstance().getSharePreferenceUtil().getToken());
 		HooRequestParams requestParams = new HooRequestParams(hashMap);
 		ResponseHandler<UserBean> handler = new ResponseHandler<UserBean>(
 				UserBean.class);
@@ -102,6 +102,7 @@ public class ModifyNicknameActivity extends Activity implements OnClickListener 
 					Intent intent = new Intent();
 					intent.putExtra("nickName", userBean.getNickName());
 					setResult(-1, intent);
+					startActivity(new Intent(ModifyNicknameActivity.this, RegisterActivity.class));
 					finish();
 				} else {// 当登录失败时，气泡显示错误信息
 					Log.e(TAG, rm);
@@ -113,6 +114,7 @@ public class ModifyNicknameActivity extends Activity implements OnClickListener 
 			@Override
 			public void onError(int statusCode, Throwable error, String content) {
 				// TODO Auto-generated method stub
+				Log.e(TAG, "修改昵称错误！");
 			}
 
 			@Override

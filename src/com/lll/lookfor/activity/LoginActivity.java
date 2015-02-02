@@ -109,6 +109,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 		LinkedHashMap<String, String> hashMap = new LinkedHashMap<String, String>();
 		hashMap.put("mobile", mobile);
 		hashMap.put("password", pwd);
+		hashMap.put("token", BaseApplication.getInstance().getSharePreferenceUtil().getToken());
 		HooRequestParams requestParams = new HooRequestParams(hashMap);
 		ResponseHandler<UserBean> handler = new ResponseHandler<UserBean>(
 				UserBean.class);

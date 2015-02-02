@@ -19,7 +19,8 @@
             android:id="@+id/act_routeplan_back_btn"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_alignParentLeft="true" />
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/btn_back_up" />
 
         <LinearLayout
             android:layout_width="200dp"

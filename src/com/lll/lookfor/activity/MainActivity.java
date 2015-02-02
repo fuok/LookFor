@@ -106,14 +106,14 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	private Button btn_home_recovery;// 定位按钮
 	private LatLng ll_recovery;// 当前经纬度
-	private LinearLayout ly_userinfo;// 底部用户信息
-	private TextView userinfo_name;// 用户名称
-	private Button userinfo_close;// 关闭图标
-	private TextView userinfo_position;// 用户地址
-	private TextView userinfo_time;// 用户最后登陆时间
-	private Button userinfo_tohere;// 去TA那按钮
-	private Button userinfo_hide;// 用户信息隐藏部分信息按钮
-	private LinearLayout userinfo_bottom;// 用户信息部分隐藏信息
+	private LinearLayout ll_userinfo;// 底部用户信息
+	private TextView tv_userinfo_name;// 用户名称
+	private Button btn_userinfo_close;// 关闭图标
+	private TextView tv_userinfo_position;// 用户地址
+	private TextView tv_userinfo_time;// 用户最后登陆时间
+	private Button btn_userinfo_tohere;// 去TA那按钮
+	private Button btn_userinfo_hide;// 用户信息隐藏部分信息按钮
+	private LinearLayout ll_userinfo_bottom;// 用户信息部分隐藏信息
 
 	private final static String MY_ACTION = "MYACTION";
 	protected MyReceiver myReceiver;
@@ -249,7 +249,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			public void onMapClick(LatLng point) {
 				Log.e("MainActivity", "单击地图");
 				mBaiduMap.hideInfoWindow();
-				ly_userinfo.setVisibility(View.GONE);
+				ll_userinfo.setVisibility(View.GONE);
 				addOverlay(BaseApplication.getInstance().getAll_friends());
 			}
 
@@ -268,40 +268,48 @@ public class MainActivity extends Activity implements OnClickListener {
 			}
 		});
 
-		ly_userinfo = (LinearLayout) findViewById(R.id.ly_userinfo);
-		userinfo_name = (TextView) findViewById(R.id.userinfo_name);
-		userinfo_close = (Button) findViewById(R.id.userinfo_close);
-		userinfo_position = (TextView) findViewById(R.id.userinfo_position);
-		userinfo_time = (TextView) findViewById(R.id.userinfo_time);
-		userinfo_tohere = (Button) findViewById(R.id.userinfo_tohere);
-		userinfo_hide = (Button) findViewById(R.id.userinfo_hide);
-		userinfo_bottom = (LinearLayout) findViewById(R.id.userinfo_bottom);
+		ll_userinfo = (LinearLayout) findViewById(R.id.ll_userinfo);
+		tv_userinfo_name = (TextView) findViewById(R.id.userinfo_name);
+		btn_userinfo_close = (Button) findViewById(R.id.userinfo_close);
+		tv_userinfo_position = (TextView) findViewById(R.id.userinfo_position);
+		tv_userinfo_time = (TextView) findViewById(R.id.userinfo_time);
+		btn_userinfo_tohere = (Button) findViewById(R.id.userinfo_tohere);
+		btn_userinfo_hide = (Button) findViewById(R.id.userinfo_hide);
+		ll_userinfo_bottom = (LinearLayout) findViewById(R.id.userinfo_bottom);
 	}
 
 	/**
 	 * 设置用户信息，从底部弹出
 	 */
 	private void setUserInfo(LbsBean userBean) {
-		userinfo_name.setText(userBean.getNickName());// 用户昵称
-		userinfo_position.setText(userBean.getLocation());// 用户地址
-		userinfo_time.setText(userBean.getUpdateTime());// 用户最后登陆时间
+		tv_userinfo_name.setText(userBean.getNickName());// 用户昵称
+		tv_userinfo_position.setText(userBean.getLocation());// 用户地址
+		tv_userinfo_time.setText(userBean.getUpdateTime());// 用户最后登陆时间
 
-		ly_userinfo.setVisibility(View.VISIBLE);
-		userinfo_bottom.setVisibility(View.GONE);
+		ll_userinfo.setVisibility(View.VISIBLE);
+		ll_userinfo_bottom.setVisibility(View.GONE);
 
-		userinfo_close.setOnClickListener(new OnClickListener() {
+		btn_userinfo_close.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				// 隐藏用户信息界面
-				ly_userinfo.setVisibility(View.GONE);
+				ll_userinfo.setVisibility(View.GONE);
 			}
 		});
 
-		userinfo_hide.setOnClickListener(new OnClickListener() {
+		btn_userinfo_hide.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				userinfo_bottom.setVisibility(View.VISIBLE);
+				if (ll_userinfo_bottom.getVisibility() == View.GONE) {
+					ll_userinfo_bottom.setVisibility(View.VISIBLE);
+					btn_userinfo_hide
+							.setBackgroundResource(R.drawable.selector_home_arrowup);
+				} else {
+					ll_userinfo_bottom.setVisibility(View.GONE);
+					btn_userinfo_hide
+							.setBackgroundResource(R.drawable.selector_home_arrowdown);
+				}
 			}
 		});
 	}
@@ -399,8 +407,8 @@ public class MainActivity extends Activity implements OnClickListener {
 			final Marker position = markerList.get(i);
 			if (position == selector) {
 				final Overlay_View item = new Overlay_View(MainActivity.this);
-				final FriendBean info = (FriendBean) position.getExtraInfo().get(
-						"info");
+				final FriendBean info = (FriendBean) position.getExtraInfo()
+						.get("info");
 				ImageLoader.getInstance().displayImage(info.getPortrait(),
 						item.getItem_img(), option,
 						new SimpleImageLoadingListener() {
@@ -736,7 +744,8 @@ public class MainActivity extends Activity implements OnClickListener {
 					.getSerializableExtra("select");
 			for (int i = 0; i < markerList.size(); i++) {
 				Marker position = markerList.get(i);
-				FriendBean info = (FriendBean) position.getExtraInfo().get("info");
+				FriendBean info = (FriendBean) position.getExtraInfo().get(
+						"info");
 				if (selectBean.getMobilNumber().equals(info.getMobilNumber())) {
 					LatLng ll = new LatLng(info.getLatitude(),
 							info.getLongitude());

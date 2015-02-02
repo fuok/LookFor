@@ -1,6 +1,5 @@
 package com.lll.lookfor.activity;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 import android.app.Activity;
@@ -20,9 +19,6 @@ import cn.smssdk.SMSSDK;
 import com.lll.lookfor.BaseApplication;
 import com.lll.lookfor.HttpInterface;
 import com.lll.lookfor.R;
-import com.lll.lookfor.model.FriendBean;
-import com.lll.lookfor.model.SystemLoginBean;
-import com.lll.lookfor.model.SystemLoginData;
 import com.lll.lookfor.model.UserBean;
 import com.lll.lookfor.network.HooHttpResponse;
 import com.lll.lookfor.network.OnHttpResponseListener;
@@ -208,7 +204,8 @@ public class RegisterActivity extends Activity implements OnClickListener {
 		LinkedHashMap<String, String> hashMap = new LinkedHashMap<String, String>();
 		hashMap.put("mobile", mobile);
 		hashMap.put("password", password);
-		hashMap.put("token", BaseApplication.getInstance().getSharePreferenceUtil().getToken());
+		hashMap.put("token", BaseApplication.getInstance()
+				.getSharePreferenceUtil().getToken());
 		HooRequestParams requestParams = new HooRequestParams(hashMap);
 		ResponseHandler<UserBean> handler = new ResponseHandler<UserBean>(
 				UserBean.class);
@@ -216,10 +213,15 @@ public class RegisterActivity extends Activity implements OnClickListener {
 			@SuppressWarnings("rawtypes")
 			@Override
 			public void onSuccess(HooHttpResponse response) {
+				UserBean body = (UserBean) response.getBody();
 				int rc = response.getHeader().getRc();
 				String rm = response.getHeader().getRm();
 				if (rc == 0) {
 					Log.e(TAG, "用户注册成功:" + "RC=" + rc + "RM=" + rm);
+					UserBean bean = body.getItems().get(0);
+					BaseApplication.getInstance().getSharePreferenceUtil()
+							.setUserId(bean.getUserId());
+					finish();
 				} else {
 					Log.e(TAG, "用户注册失败:" + "RC=" + rc + "RM=" + rm);
 				}
@@ -229,7 +231,7 @@ public class RegisterActivity extends Activity implements OnClickListener {
 			@Override
 			public void onError(int statusCode, Throwable error, String content) {
 				// TODO Auto-generated method stub
-				
+				Log.e(TAG, "用户注册失败!");
 			}
 
 			@Override
