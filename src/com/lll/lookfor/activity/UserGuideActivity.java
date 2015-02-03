@@ -53,7 +53,12 @@ public class UserGuideActivity extends Activity implements OnPageChangeListener 
 				imageView.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						UserGuideActivity.this.startActivity(new Intent(UserGuideActivity.this, MainActivity.class));
+						Intent intent = new Intent(UserGuideActivity.this,
+								ModifyNicknameActivity.class);
+						intent.putExtra("first", 1);
+						startActivity(intent);
+						
+//						UserGuideActivity.this.startActivity(new Intent(UserGuideActivity.this, MainActivity.class));
 						UserGuideActivity.this.finish();
 					}
 				});

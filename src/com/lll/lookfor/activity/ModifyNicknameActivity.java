@@ -28,12 +28,15 @@ public class ModifyNicknameActivity extends Activity implements OnClickListener 
 	private static final String TAG = "ChangeNicknameActivity";
 	private EditText et_nickname;// 昵称输入框
 	private Button btn_determine;// 确认按钮
+	private int first;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.act_modifynickname);
+
+		first = getIntent().getIntExtra("first", 0);
 
 		initView();
 		initListener();
@@ -77,7 +80,8 @@ public class ModifyNicknameActivity extends Activity implements OnClickListener 
 	public void modifyNickName(String userId, String nickName) {
 		LinkedHashMap<String, String> hashMap = new LinkedHashMap<String, String>();
 		hashMap.put("nickName", nickName);
-		hashMap.put("token", BaseApplication.getInstance().getSharePreferenceUtil().getToken());
+		hashMap.put("token", BaseApplication.getInstance()
+				.getSharePreferenceUtil().getToken());
 		HooRequestParams requestParams = new HooRequestParams(hashMap);
 		ResponseHandler<UserBean> handler = new ResponseHandler<UserBean>(
 				UserBean.class);
@@ -99,10 +103,16 @@ public class ModifyNicknameActivity extends Activity implements OnClickListener 
 					// 保存用户信息
 					BaseApplication.getInstance().getSharePreferenceUtil()
 							.setNickname(userBean.getNickName());
-					Intent intent = new Intent();
-					intent.putExtra("nickName", userBean.getNickName());
-					setResult(-1, intent);
-					startActivity(new Intent(ModifyNicknameActivity.this, RegisterActivity.class));
+					if (first != 1) {
+						Intent intent = new Intent();
+						intent.putExtra("nickName", userBean.getNickName());
+						setResult(-1, intent);
+						startActivity(new Intent(ModifyNicknameActivity.this,
+								RegisterActivity.class));
+					}else {
+						startActivity(new Intent(ModifyNicknameActivity.this,
+								MainActivity.class));
+					}
 					finish();
 				} else {// 当登录失败时，气泡显示错误信息
 					Log.e(TAG, rm);

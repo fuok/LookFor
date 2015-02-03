@@ -188,7 +188,14 @@ public class StartActivity extends Activity {
 			editor.putBoolean(FIRST_RUN, false);
 			editor.commit();
 		} else {
-			intent.setClass(this, MainActivity.class);
+			if (TextUtils.isEmpty(share.getNickname())) {
+				intent.setClass(StartActivity.this,
+						ModifyNicknameActivity.class);
+				intent.putExtra("first", 1);
+				startActivity(intent);
+			} else {
+				intent.setClass(this, MainActivity.class);
+			}
 		}
 		startActivity(intent);
 		finish();
