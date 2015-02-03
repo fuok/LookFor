@@ -208,6 +208,10 @@ public class MainActivity extends Activity implements OnClickListener {
 					int position, long id) {
 				if (position == 0) {
 
+				} else if (position == 2) {
+					Intent intent = new Intent(MainActivity.this,
+							MyMessageActivity.class);
+					startActivity(intent);
 				} else if (position == 3) {
 					Intent intent = new Intent(MainActivity.this,
 							FriendListActivity.class);

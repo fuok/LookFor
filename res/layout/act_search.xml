@@ -13,18 +13,24 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="50dp"
-        android:layout_alignParentTop="true" >
+        android:layout_alignParentTop="true"
+        android:background="@android:color/white" >
 
         <Button
             android:id="@+id/btn_search_back"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_alignParentLeft="true" />
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/selector_back" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="5dp"
             android:layout_toRightOf="@+id/btn_search_back"
+            android:background="@drawable/map_input"
             android:orientation="horizontal" >
 
             <EditText
@@ -37,9 +43,12 @@
 
             <Button
                 android:id="@+id/btn_search"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_alignParentRight="true" />
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/map_ico_search" />
         </RelativeLayout>
     </RelativeLayout>
 

@@ -45,5 +45,8 @@
     <string name="select_friend">选择好友</string>
     <string name="img_from_camera">拍照上传</string>
     <string name="img_from_local">手机相册上传</string>
+    <string name="clear">清空</string>
+    <string name="agree">同意</string>
+    <string name="refuse">拒绝</string>
 
 </resources>

@@ -91,45 +91,52 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
         </activity>
-        
-        <!-- 修改资料-->
+
+        <!-- 修改资料 -->
         <activity
             android:name="com.lll.lookfor.activity.ModifyDataActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
         </activity>
-        
-        <!-- 修改昵称-->
+
+        <!-- 修改昵称 -->
         <activity
             android:name="com.lll.lookfor.activity.ModifyNicknameActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
         </activity>
-        
-        <!-- 修改手机号-->
+
+        <!-- 修改手机号 -->
         <activity
             android:name="com.lll.lookfor.activity.ModifyMoblieActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
         </activity>
-        
-        <!-- 修改密码-->
+
+        <!-- 修改密码 -->
         <activity
             android:name="com.lll.lookfor.activity.ModifyPwdActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
         </activity>
-        
-        <!-- 安心出行-->
+
+        <!-- 安心出行 -->
         <activity
             android:name="com.lll.lookfor.activity.TravelActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
         </activity>
-        
-        <!-- 位置搜索-->
+
+        <!-- 位置搜索 -->
         <activity
             android:name="com.lll.lookfor.activity.SearchActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
+        </activity>
+
+        <!-- 我的消息 -->
+        <activity
+            android:name="com.lll.lookfor.activity.MyMessageActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
         </activity>
