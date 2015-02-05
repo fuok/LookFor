@@ -27,7 +27,7 @@ import com.lll.lookfor.utils.SharePreferenceUtil;
 
 /** 用户登录界面 */
 public class LoginActivity extends Activity implements OnClickListener {
-	private static final String TAG = "ChatActivity";
+	private static final String TAG = "LoginActivity";
 	private Button btn_cancal;// 取消按钮
 	private Button btn_register;// 注册按钮
 	private EditText et_mobilenumber;// 手机号码输入
@@ -109,7 +109,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 		LinkedHashMap<String, String> hashMap = new LinkedHashMap<String, String>();
 		hashMap.put("mobile", mobile);
 		hashMap.put("password", pwd);
-		hashMap.put("token", BaseApplication.getInstance().getSharePreferenceUtil().getToken());
+//		hashMap.put("token", BaseApplication.getInstance().getSharePreferenceUtil().getToken());
 		HooRequestParams requestParams = new HooRequestParams(hashMap);
 		ResponseHandler<UserBean> handler = new ResponseHandler<UserBean>(
 				UserBean.class);
@@ -118,7 +118,6 @@ public class LoginActivity extends Activity implements OnClickListener {
 			@SuppressWarnings("rawtypes")
 			@Override
 			public void onSuccess(HooHttpResponse response) {
-				// TODO Auto-generated method stub
 				UserBean body = (UserBean) response.getBody();
 				ResponseHeader header = response.getHeader();
 				int rc = header.getRc();
@@ -128,7 +127,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 				if (rc == 0) {
 					UserBean userBean = body.getItems().get(0);
 					if (!TextUtils.isEmpty(userBean.getToken())) {
-						Log.e(TAG, "UserToken : " + userBean.getToken());
+						Log.i(TAG, "UserToken : " + userBean.getToken());
 						HttpUtil.addHeader("token", userBean.getToken());
 					}
 
@@ -138,10 +137,10 @@ public class LoginActivity extends Activity implements OnClickListener {
 							userBean.getNickName(), userBean.getPortraitPic());
 
 					Intent intent = new Intent(LoginActivity.this,
-							ModifyDataActivity.class);
+							ModifyDataActivity.class);//这个流程也不对，LY
 					startActivity(intent);
-				} else {// 当登录失败时，气泡显示错误信息
-					Log.e(TAG, rm);
+				} else {// 失败时，气泡显示错误信息
+					Log.e(TAG, "用户登录失败:" + "RC=" + rc + ",RM=" + rm);
 				}
 
 			}

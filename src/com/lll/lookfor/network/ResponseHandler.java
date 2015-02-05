@@ -19,6 +19,7 @@ import org.json.JSONObject;
 
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
@@ -153,6 +154,7 @@ public class ResponseHandler<T> extends AsyncHttpResponseHandler {
 	        responseContent = null;
             try {
                 responseContent = new String(content, "UTF-8");
+                Log.v("liuy", responseContent);//测试数据
             } catch (UnsupportedEncodingException e1) {
                 // TODO Auto-generated catch block
                 e1.printStackTrace();

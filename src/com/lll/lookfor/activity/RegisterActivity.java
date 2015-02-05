@@ -122,6 +122,9 @@ public class RegisterActivity extends Activity implements OnClickListener {
 							.show();
 				}
 			}
+			
+//			registerUser();//把上边屏蔽掉之后做测试用，LY
+			
 			break;
 		case R.id.btn_register_send:
 			mobile = et_mobilenumber.getText().toString();
@@ -204,8 +207,8 @@ public class RegisterActivity extends Activity implements OnClickListener {
 		LinkedHashMap<String, String> hashMap = new LinkedHashMap<String, String>();
 		hashMap.put("mobile", mobile);
 		hashMap.put("password", password);
-		hashMap.put("token", BaseApplication.getInstance()
-				.getSharePreferenceUtil().getToken());
+//		hashMap.put("token", BaseApplication.getInstance()
+//				.getSharePreferenceUtil().getToken());
 		HooRequestParams requestParams = new HooRequestParams(hashMap);
 		ResponseHandler<UserBean> handler = new ResponseHandler<UserBean>(
 				UserBean.class);
