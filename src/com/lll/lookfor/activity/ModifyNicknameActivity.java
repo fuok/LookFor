@@ -25,7 +25,7 @@ import com.lll.lookfor.utils.HttpUtil;
 import com.lll.lookfor.utils.Log;
 
 public class ModifyNicknameActivity extends Activity implements OnClickListener {
-	private static final String TAG = "ChangeNicknameActivity";
+	private static final String TAG = "ModifyNicknameActivity";
 	private EditText et_nickname;// 昵称输入框
 	private Button btn_determine;// 确认按钮
 	private int first;
@@ -80,8 +80,8 @@ public class ModifyNicknameActivity extends Activity implements OnClickListener 
 	public void modifyNickName(String userId, String nickName) {
 		LinkedHashMap<String, String> hashMap = new LinkedHashMap<String, String>();
 		hashMap.put("nickName", nickName);
-		hashMap.put("token", BaseApplication.getInstance()
-				.getSharePreferenceUtil().getToken());
+//		hashMap.put("token", BaseApplication.getInstance()
+//				.getSharePreferenceUtil().getToken());
 		HooRequestParams requestParams = new HooRequestParams(hashMap);
 		ResponseHandler<UserBean> handler = new ResponseHandler<UserBean>(
 				UserBean.class);
@@ -99,11 +99,11 @@ public class ModifyNicknameActivity extends Activity implements OnClickListener 
 				// 登陆成功则从返回值中取用户信息
 				if (rc == 0) {
 					UserBean userBean = body.getItems().get(0);
-
+					Log.i(TAG, "获取昵称：" + userBean.getNickName());
 					// 保存用户信息
 					BaseApplication.getInstance().getSharePreferenceUtil()
 							.setNickname(userBean.getNickName());
-					if (first != 1) {
+					if (first != 1) {//这里是什么意思，LY
 						Intent intent = new Intent();
 						intent.putExtra("nickName", userBean.getNickName());
 						setResult(-1, intent);
@@ -115,7 +115,7 @@ public class ModifyNicknameActivity extends Activity implements OnClickListener 
 					}
 					finish();
 				} else {// 当登录失败时，气泡显示错误信息
-					Log.e(TAG, rm);
+					Log.e(TAG, "获取昵称失败:" + "RC=" + rc + ",RM=" + rm);
 				}
 
 			}

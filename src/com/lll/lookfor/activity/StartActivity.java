@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -86,36 +87,59 @@ public class StartActivity extends Activity {
 		startService(serviceIntent);
 	}
 
-	/** 启动系统登录 */
+	/** 启动系统登录 
+	 * 需要传入：
+	 * subscriberId
+	 * platform
+	 * appVersion
+	 * systemVersion
+	 * deviceModel
+	 * userId
+	 * */
+	@SuppressWarnings("unused")
 	private void doSystemLogin() {
 
 		ResponseHandler<SystemLoginData> handler = new ResponseHandler<SystemLoginData>(
 				SystemLoginData.class);
 		handler.setOnHttpResponseListener(new OnSystemLoginListener());
 
-		String userId = share.getUserId();
-		Log.v(TAG, "UserID :" + userId);
 		// 拼接请求体
-		// String postPara = "receiveId=" + userId;
-		// 请求
 		RequestParams params = new RequestParams();
-		params.add("subscriberId",
-				DeviceUtil.getMACAddress(getApplicationContext()));// MAC
-		params.add("platform", "android");// 平台
+		// MAC
+		params.add("subscriberId",DeviceUtil.getMACAddress(getApplicationContext()));
+		// 平台
+		params.add("platform", "android");
+		// APP版本号
 		PackageManager pm = getPackageManager();// context为当前Activity上下文
 		PackageInfo pi;
-		String version = "";
+		String app_version = "";
 		try {
 			pi = pm.getPackageInfo(getPackageName(), 0);
-			version = pi.versionName;
+			app_version = pi.versionName;
 		} catch (NameNotFoundException e) {
 			e.printStackTrace();
 		}
-		params.add("version", version);// 版本号
-		params.add("userId", userId);// userId
-		Log.w(TAG, "系统登录中:" + HttpInterface.SYSTEM_LOGIN);
-		Log.w(TAG, "系统登录中:" + params.toString());
-		HttpUtil.post(HttpInterface.SYSTEM_LOGIN, params, handler);
+		params.add("appVersion", app_version);
+		//系统版本号
+		@SuppressWarnings("deprecation")
+		String sdk_Version=Build.VERSION.SDK;
+		params.add("systemVersion", sdk_Version);
+		//手机型号
+		String deviceModel=Build.MODEL;
+		params.add("deviceModel", deviceModel);
+		//userId
+		String userId = share.getUserId();
+		if (userId.length() > 1) {//没有就不传
+			params.add("userId", userId);// userId
+		}
+		Log.w(TAG, "SystemLogin...:" + HttpInterface.SYSTEM_LOGIN);
+		Log.w(TAG, "SystemLogin...:" + params.toString());
+		if (true) {
+			HttpUtil.post(HttpInterface.SYSTEM_LOGIN, params, handler);
+		} else {// 用于测试，LY
+			Log.i("liuy", HttpInterface.SYSTEM_LOGIN+"?"+params.toString());
+			HttpUtil.post(HttpInterface.SYSTEM_LOGIN+"?"+params.toString(), handler);
+		}
 
 	}
 
@@ -142,7 +166,7 @@ public class StartActivity extends Activity {
 				}
 
 			} else {
-				Log.e(TAG, "系统登录失败:" + "RC=" + rc + "RM=" + rm);
+				Log.e(TAG, "系统登录失败:" + "RC=" + rc + ",RM=" + rm);
 			}
 
 		}
@@ -192,7 +216,7 @@ public class StartActivity extends Activity {
 				intent.setClass(StartActivity.this,
 						ModifyNicknameActivity.class);
 				intent.putExtra("first", 1);
-				startActivity(intent);
+//				startActivity(intent);//你TM逗我是吧，LY
 			} else {
 				intent.setClass(this, MainActivity.class);
 			}

@@ -7,7 +7,7 @@ public class HttpInterface {
 	private static String LOOK_FOR_HOST = "http://182.92.241.249";
 
 	/** 系统登录接口 */
-	public static String SYSTEM_LOGIN = LOOK_FOR_HOST + "/lookfor/inter/rest/systemLogin";
+	public static String SYSTEM_LOGIN = LOOK_FOR_HOST + "/lookfor/rest/user/systemLogin";
 
 	/** 获取好友列表 */
 	public static String FRIEND_LIST = "http://www.xshcar.com/chen/friendList.html";// 假
