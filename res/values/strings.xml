@@ -49,5 +49,10 @@
     <string name="agree">同意</string>
     <string name="refuse">拒绝</string>
     <string name="click_on_login">点击登录</string>
-
+    <string name="map_exhibition">地图展示方式</string>
+    <string name="eyes_power">闭眼权限设置</string>
+    <string name="commonly_address">常用地址</string>
+    <string name="add_default_contact">添加默认联系人</string>
+	<string name="sign_out">退出</string>
+    
 </resources>
