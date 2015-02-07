@@ -19,7 +19,8 @@ public class SharePreferenceUtil {
 	private static final String UPGRADEVERSIONNO = "upgradeVersionNo";// 更新包版本号
 	private static final String CITY = "city";// 城市
 	private static final String SEX = "sex";// 性别
-	private static final String TOKEN ="token";
+	private static final String TOKEN = "token";
+	private static final String ISLOGIN = "";// 标识是否已经登陆
 
 	private SharedPreferences sp;
 	private SharedPreferences.Editor editor;
@@ -171,7 +172,7 @@ public class SharePreferenceUtil {
 	public int getSex() {
 		return sp.getInt(SEX, 1);
 	}
-	
+
 	// 保存Token
 	public void setToken(String token) {
 		editor.putString(TOKEN, token);
@@ -181,6 +182,17 @@ public class SharePreferenceUtil {
 	// 获取Token
 	public String getToken() {
 		return sp.getString(TOKEN, "");
+	}
+
+	// 保存是否已经登陆
+	public void setIsLogin(Boolean islogin) {
+		editor.putBoolean(ISLOGIN, islogin);
+		editor.commit();
+	}
+
+	// 获取是否已经登陆
+	public Boolean getIsLogin() {
+		return sp.getBoolean(ISLOGIN, false);
 	}
 
 	public void saveUserInfo(String userId, int sex, String mobile,

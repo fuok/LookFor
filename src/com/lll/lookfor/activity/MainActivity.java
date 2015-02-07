@@ -31,7 +31,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -62,8 +61,8 @@ import com.lll.lookfor.adapter.DrawerListAdapter;
 import com.lll.lookfor.adapter.VisiableFriendAdapter;
 import com.lll.lookfor.crossbutton.CrossButtonFragment;
 import com.lll.lookfor.model.DrawerItem;
-import com.lll.lookfor.model.LbsBean;
 import com.lll.lookfor.model.FriendBean;
+import com.lll.lookfor.model.LbsBean;
 import com.lll.lookfor.network.HooHttpResponse;
 import com.lll.lookfor.network.OnHttpResponseListener;
 import com.lll.lookfor.network.ResponseHandler;
@@ -71,6 +70,7 @@ import com.lll.lookfor.ui.InfoWindow_View;
 import com.lll.lookfor.ui.Overlay_View;
 import com.lll.lookfor.utils.HttpUtil;
 import com.lll.lookfor.utils.Log;
+import com.lll.lookfor.utils.SharePreferenceUtil;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
@@ -102,7 +102,8 @@ public class MainActivity extends Activity implements OnClickListener {
 	private ArrayList<Marker> markerList;
 	private ArrayList<BitmapDescriptor> bitmapList;
 	// Imageloader配置
-	private DisplayImageOptions option;
+	private DisplayImageOptions overly_options;
+	private DisplayImageOptions head_options;
 
 	private Button btn_home_recovery;// 定位按钮
 	private LatLng ll_recovery;// 当前经纬度
@@ -114,9 +115,13 @@ public class MainActivity extends Activity implements OnClickListener {
 	private Button btn_userinfo_tohere;// 去TA那按钮
 	private Button btn_userinfo_hide;// 用户信息隐藏部分信息按钮
 	private LinearLayout ll_userinfo_bottom;// 用户信息部分隐藏信息
+	private TextView tv_click;// 点击登录
+	private TextView tv_nickname;// 昵称
+	private ImageView img_portrait;// 头像
 
 	private final static String MY_ACTION = "MYACTION";
 	protected MyReceiver myReceiver;
+	private SharePreferenceUtil sharePfUtil;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -133,13 +138,23 @@ public class MainActivity extends Activity implements OnClickListener {
 
 		this.markerList = new ArrayList<Marker>();
 		this.bitmapList = new ArrayList<BitmapDescriptor>();
-
-		this.option = new DisplayImageOptions.Builder()
+		this.sharePfUtil = BaseApplication.getInstance()
+				.getSharePreferenceUtil();
+		this.head_options = new DisplayImageOptions.Builder()
+				.showImageOnFail(R.drawable.left_login_up)
+				.showImageOnLoading(R.drawable.left_login_up)
+				.showImageForEmptyUri(R.drawable.left_login_up)
 				.bitmapConfig(Bitmap.Config.RGB_565).cacheInMemory(true)
 				.cacheOnDisk(true).displayer(new RoundedBitmapDisplayer(360))
 				.build();
+		this.overly_options = new DisplayImageOptions.Builder()
+				.bitmapConfig(Bitmap.Config.RGB_565).cacheInMemory(true)
+				.cacheOnDisk(true).displayer(new RoundedBitmapDisplayer(360))
+				.build();
+
 		initView();
 		initMyLocation();
+		setHeadUserInfo();
 		myReceiver = new MyReceiver();
 	}
 
@@ -157,22 +172,12 @@ public class MainActivity extends Activity implements OnClickListener {
 		// ListView头部
 		View listHead = LayoutInflater.from(this).inflate(
 				R.layout.drawer_list_head, null);
-		ListView.LayoutParams params = new ListView.LayoutParams(
-				LayoutParams.MATCH_PARENT, 200);
-		listHead.setLayoutParams(params);
+		tv_click = (TextView) listHead.findViewById(R.id.tv_head_click);
+		tv_nickname = (TextView) listHead.findViewById(R.id.tv_head_nickname);
+		img_portrait = (ImageView) listHead
+				.findViewById(R.id.img_head_portrait);
+
 		mDrawerList.addHeaderView(listHead);
-		listHead.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				if (true) {// 登录状态判断
-					Intent intent = new Intent(MainActivity.this,
-							LoginActivity.class);
-					startActivity(intent);
-				}
-
-			}
-		});
 		// ListView底部
 		View listfoot = LayoutInflater.from(this).inflate(
 				R.layout.drawer_list_foot, null);
@@ -207,7 +212,15 @@ public class MainActivity extends Activity implements OnClickListener {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				if (position == 0) {
-
+					if (!sharePfUtil.getIsLogin()) {// 登录状态判断
+						Intent intent = new Intent(MainActivity.this,
+								LoginActivity.class);
+						startActivity(intent);
+					} else {
+						Intent intent = new Intent(MainActivity.this,
+								ModifyDataActivity.class);
+						startActivity(intent);
+					}
 				} else if (position == 2) {
 					Intent intent = new Intent(MainActivity.this,
 							MyMessageActivity.class);
@@ -283,9 +296,25 @@ public class MainActivity extends Activity implements OnClickListener {
 	}
 
 	/**
+	 * 设置头部用户信息
+	 */
+	private void setHeadUserInfo() {
+		if (sharePfUtil.getIsLogin()) {
+			tv_click.setVisibility(View.GONE);
+			tv_nickname.setVisibility(View.VISIBLE);
+			tv_nickname.setText(sharePfUtil.getNickname());
+			ImageLoader.getInstance().displayImage(
+					sharePfUtil.getPortraitPic(), img_portrait, head_options);
+		} else {
+			tv_click.setVisibility(View.VISIBLE);
+			tv_nickname.setVisibility(View.GONE);
+		}
+	}
+
+	/**
 	 * 设置用户信息，从底部弹出
 	 */
-	private void setUserInfo(LbsBean userBean) {
+	private void setBottomUserInfo(LbsBean userBean) {
 		tv_userinfo_name.setText(userBean.getNickName());// 用户昵称
 		tv_userinfo_position.setText(userBean.getLocation());// 用户地址
 		tv_userinfo_time.setText(userBean.getUpdateTime());// 用户最后登陆时间
@@ -376,7 +405,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			final Overlay_View item = new Overlay_View(MainActivity.this);
 
 			ImageLoader.getInstance().displayImage(info.getPortrait(),
-					item.getItem_img(), option,
+					item.getItem_img(), overly_options,
 					new SimpleImageLoadingListener() {
 						public void onLoadingComplete(String imageUri,
 								android.view.View view,
@@ -414,7 +443,7 @@ public class MainActivity extends Activity implements OnClickListener {
 				final FriendBean info = (FriendBean) position.getExtraInfo()
 						.get("info");
 				ImageLoader.getInstance().displayImage(info.getPortrait(),
-						item.getItem_img(), option,
+						item.getItem_img(), overly_options,
 						new SimpleImageLoadingListener() {
 							public void onLoadingComplete(String imageUri,
 									android.view.View view,
@@ -461,7 +490,7 @@ public class MainActivity extends Activity implements OnClickListener {
 				final FriendBean info = (FriendBean) otherMarker.getExtraInfo()
 						.get("info");
 				ImageLoader.getInstance().displayImage(info.getPortrait(),
-						item.getItem_img(), option,
+						item.getItem_img(), overly_options,
 						new SimpleImageLoadingListener() {
 							public void onLoadingComplete(String imageUri,
 									android.view.View view,
@@ -500,6 +529,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	protected void onResume() {
 		IntentFilter filter = new IntentFilter();
 		filter.addAction(MY_ACTION);
+		filter.addAction(BaseApplication.BRODCAST_ISLOGIN);
 		registerReceiver(myReceiver, filter);
 		mMapView.onResume();
 		super.onResume();
@@ -744,18 +774,25 @@ public class MainActivity extends Activity implements OnClickListener {
 	public class MyReceiver extends BroadcastReceiver {
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			FriendBean selectBean = (FriendBean) intent
-					.getSerializableExtra("select");
-			for (int i = 0; i < markerList.size(); i++) {
-				Marker position = markerList.get(i);
-				FriendBean info = (FriendBean) position.getExtraInfo().get(
-						"info");
-				if (selectBean.getMobilNumber().equals(info.getMobilNumber())) {
-					LatLng ll = new LatLng(info.getLatitude(),
-							info.getLongitude());
-					MapStatusUpdate u = MapStatusUpdateFactory.newLatLng(ll);
-					mBaiduMap.animateMapStatus(u);
-					selectorOverlay(position);
+			String flag = intent.getAction();
+			Log.d(TAG, "接收到广播：" + flag);
+			if (BaseApplication.BRODCAST_ISLOGIN.equals(flag)) {
+				setHeadUserInfo();
+			} else if (MY_ACTION.equals(flag)) {
+				FriendBean selectBean = (FriendBean) intent
+						.getSerializableExtra("select");
+				for (int i = 0; i < markerList.size(); i++) {
+					Marker position = markerList.get(i);
+					FriendBean info = (FriendBean) position.getExtraInfo().get(
+							"info");
+					if (selectBean.getFriendId().equals(info.getFriendId())) {
+						LatLng ll = new LatLng(info.getLatitude(),
+								info.getLongitude());
+						MapStatusUpdate u = MapStatusUpdateFactory
+								.newLatLng(ll);
+						mBaiduMap.animateMapStatus(u);
+						selectorOverlay(position);
+					}
 				}
 			}
 		}
@@ -783,7 +820,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			String rm = response.getHeader().getRm();
 			if (rc == 0) {
 				LbsBean lbsListData = (LbsBean) response.getBody();
-				setUserInfo(lbsListData.getItems().get(0));
+				setBottomUserInfo(lbsListData.getItems().get(0));
 			} else {
 				Log.e(TAG, "获取用户信息失败:" + "RC=" + rc + "RM=" + rm);
 			}

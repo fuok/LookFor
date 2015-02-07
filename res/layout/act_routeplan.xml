@@ -13,19 +13,20 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="50dp"
-        android:layout_alignParentTop="true" >
+        android:layout_alignParentTop="true"
+        android:background="@android:color/white" >
 
         <Button
-            android:id="@+id/act_routeplan_back_btn"
+            android:id="@+id/btn_routeplan_back"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentLeft="true"
-            android:background="@drawable/selector_back" />
+            android:background="@drawable/selector_map_back" />
 
         <LinearLayout
             android:layout_width="200dp"
             android:layout_height="50dp"
-            android:layout_toRightOf="@+id/act_routeplan_back_btn"
+            android:layout_toRightOf="@+id/btn_routeplan_back"
             android:orientation="vertical" >
 
             <LinearLayout
@@ -80,22 +81,22 @@
             android:orientation="horizontal" >
 
             <Button
-                android:id="@+id/drive"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="2dip"
-                android:layout_marginRight="2dip"
-                android:onClick="SearchButtonProcess"
-                android:text="驾车搜索" />
-
-            <Button
                 android:id="@+id/walk"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginLeft="2dip"
                 android:layout_marginRight="2dip"
-                android:onClick="SearchButtonProcess"
-                android:text="步行搜索" />
+                android:background="@drawable/selector_walk"
+                android:onClick="SearchButtonProcess" />
+
+            <Button
+                android:id="@+id/drive"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="2dip"
+                android:layout_marginRight="2dip"
+                android:background="@drawable/selector_drive"
+                android:onClick="SearchButtonProcess" />
         </LinearLayout>
     </RelativeLayout>
 

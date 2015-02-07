@@ -48,5 +48,6 @@
     <string name="clear">清空</string>
     <string name="agree">同意</string>
     <string name="refuse">拒绝</string>
+    <string name="click_on_login">点击登录</string>
 
 </resources>

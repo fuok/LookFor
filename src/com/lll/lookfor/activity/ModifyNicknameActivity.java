@@ -28,7 +28,8 @@ public class ModifyNicknameActivity extends Activity implements OnClickListener 
 	private static final String TAG = "ModifyNicknameActivity";
 	private EditText et_nickname;// 昵称输入框
 	private Button btn_determine;// 确认按钮
-	private int first;
+	private Button btn_cancal;// 取消按钮
+	private int first;// 1：用户登陆设定昵称，其他为用户主动修改昵称
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +49,13 @@ public class ModifyNicknameActivity extends Activity implements OnClickListener 
 	private void initView() {
 		et_nickname = (EditText) findViewById(R.id.et_modifynickname_input);
 		btn_determine = (Button) findViewById(R.id.btn_modifynickname_determine);
+		btn_cancal = (Button) findViewById(R.id.btn_modifynickname_cancal);
+
+		if (BaseApplication.getInstance().getSharePreferenceUtil().getIsLogin()) {
+			btn_cancal.setVisibility(View.VISIBLE);
+		} else {
+			btn_cancal.setVisibility(View.GONE);
+		}
 	}
 
 	/**
@@ -55,6 +63,7 @@ public class ModifyNicknameActivity extends Activity implements OnClickListener 
 	 */
 	private void initListener() {
 		btn_determine.setOnClickListener(this);
+		btn_cancal.setOnClickListener(this);
 	}
 
 	@Override
@@ -71,7 +80,9 @@ public class ModifyNicknameActivity extends Activity implements OnClickListener 
 			}
 
 			break;
-
+		case R.id.btn_modifynickname_cancal:
+			finish();
+			break;
 		default:
 			break;
 		}
@@ -80,8 +91,8 @@ public class ModifyNicknameActivity extends Activity implements OnClickListener 
 	public void modifyNickName(String userId, String nickName) {
 		LinkedHashMap<String, String> hashMap = new LinkedHashMap<String, String>();
 		hashMap.put("nickName", nickName);
-//		hashMap.put("token", BaseApplication.getInstance()
-//				.getSharePreferenceUtil().getToken());
+		// hashMap.put("token", BaseApplication.getInstance()
+		// .getSharePreferenceUtil().getToken());
 		HooRequestParams requestParams = new HooRequestParams(hashMap);
 		ResponseHandler<UserBean> handler = new ResponseHandler<UserBean>(
 				UserBean.class);
@@ -103,13 +114,13 @@ public class ModifyNicknameActivity extends Activity implements OnClickListener 
 					// 保存用户信息
 					BaseApplication.getInstance().getSharePreferenceUtil()
 							.setNickname(userBean.getNickName());
-					if (first != 1) {//这里是什么意思，LY
+					if (first != 1) {// 这里是什么意思，LY
 						Intent intent = new Intent();
 						intent.putExtra("nickName", userBean.getNickName());
 						setResult(-1, intent);
 						startActivity(new Intent(ModifyNicknameActivity.this,
 								RegisterActivity.class));
-					}else {
+					} else {
 						startActivity(new Intent(ModifyNicknameActivity.this,
 								MainActivity.class));
 					}

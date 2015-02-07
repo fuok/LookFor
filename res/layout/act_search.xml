@@ -21,7 +21,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentLeft="true"
-            android:background="@drawable/selector_back" />
+            android:background="@drawable/selector_map_back" />
 
         <RelativeLayout
             android:layout_width="match_parent"

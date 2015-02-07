@@ -1,7 +1,6 @@
 package com.lll.lookfor.activity;
 
 import java.util.Timer;
-import java.util.TimerTask;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -9,6 +8,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,8 +40,8 @@ import com.baidu.mapapi.search.route.WalkingRoutePlanOption;
 import com.baidu.mapapi.search.route.WalkingRouteResult;
 import com.lll.lookfor.HttpInterface;
 import com.lll.lookfor.R;
-import com.lll.lookfor.model.LbsListData;
 import com.lll.lookfor.model.FriendBean;
+import com.lll.lookfor.model.LbsListData;
 import com.lll.lookfor.network.HooHttpResponse;
 import com.lll.lookfor.network.OnHttpResponseListener;
 import com.lll.lookfor.network.ResponseHandler;
@@ -78,6 +79,7 @@ public class RoutePlanActivity extends Activity implements
 	private int distance;// 距离
 	private int duration;// 时间
 	private TextView info;
+	private Button btn_back;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -120,17 +122,26 @@ public class RoutePlanActivity extends Activity implements
 		initMyLocation();
 
 		// 开启时间任务，每十秒请求一次
-		timer = new Timer();
-		timer.schedule(new TimerTask() {
-			public void run() {
-				Log.v(TAG, "请求好友地理位置!");
-				mHandler.sendEmptyMessage(0);
-			}
-		}, 0, 10 * 1000);
+		// timer = new Timer();
+		// timer.schedule(new TimerTask() {
+		// public void run() {
+		// Log.v(TAG, "请求好友地理位置!");
+		// mHandler.sendEmptyMessage(0);
+		// }
+		// }, 0, 10 * 1000);
 	}
 
 	private void initView() {
 		info = (TextView) findViewById(R.id.act_routeplan_info);
+		btn_back = (Button) findViewById(R.id.btn_routeplan_back);
+
+		btn_back.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				finish();
+			}
+		});
 	}
 
 	/**

@@ -216,7 +216,6 @@ public class StartActivity extends Activity {
 				intent.setClass(StartActivity.this,
 						ModifyNicknameActivity.class);
 				intent.putExtra("first", 1);
-//				startActivity(intent);//你TM逗我是吧，LY
 			} else {
 				intent.setClass(this, MainActivity.class);
 			}

@@ -10,7 +10,7 @@ public class FriendBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private ArrayList<FriendBean> items;
 	private String friendId; // 用户ID
-	private String mobilNumber;// 手机号码
+	private String mobile;// 手机号码
 	private String nickName;// 中文昵称
 	private int sex;// 性别
 	private String commentName;// 备注名
@@ -19,8 +19,9 @@ public class FriendBean implements Serializable {
 	private String portrait;// 头像Url
 	private double longitude;// 经度
 	private double latitude;// 纬度
+	private String location;// 所处位置
 	private String updateTime;// 更新时间
-	
+
 	public ArrayList<FriendBean> getItems() {
 		return items;
 	}
@@ -37,12 +38,12 @@ public class FriendBean implements Serializable {
 		this.friendId = friendId;
 	}
 
-	public String getMobilNumber() {
-		return mobilNumber;
+	public String getMobile() {
+		return mobile;
 	}
 
-	public void setMobilNumber(String mobilNumber) {
-		this.mobilNumber = mobilNumber;
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
 	}
 
 	public String getNickName() {
@@ -109,6 +110,14 @@ public class FriendBean implements Serializable {
 		this.latitude = latitude;
 	}
 
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
 	public String getUpdateTime() {
 		return updateTime;
 	}
@@ -119,12 +128,12 @@ public class FriendBean implements Serializable {
 
 	@Override
 	public String toString() {
-		return "UserBean [items=" + items + ", friendId=" + friendId
-				+ ", mobilNumber=" + mobilNumber + ", nickName=" + nickName
-				+ ", sex=" + sex + ", commentName=" + commentName + ", status="
-				+ status + ", permission=" + permission + ", portrait="
-				+ portrait + ", longitude=" + longitude + ", latitude="
-				+ latitude + ", updateTime=" + updateTime + "]";
+		return "FriendBean [items=" + items + ", friendId=" + friendId
+				+ ", mobile=" + mobile + ", nickName=" + nickName + ", sex="
+				+ sex + ", commentName=" + commentName + ", status=" + status
+				+ ", permission=" + permission + ", portrait=" + portrait
+				+ ", longitude=" + longitude + ", latitude=" + latitude
+				+ ", location=" + location + ", updateTime=" + updateTime + "]";
 	}
 
 }

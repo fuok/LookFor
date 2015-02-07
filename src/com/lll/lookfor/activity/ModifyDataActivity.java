@@ -9,6 +9,7 @@ import java.util.Locale;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -34,8 +35,11 @@ import com.lll.lookfor.utils.FileUtils;
 import com.lll.lookfor.utils.HttpUtil;
 import com.lll.lookfor.utils.ImageUtils;
 import com.lll.lookfor.utils.Log;
+import com.lll.lookfor.utils.SharePreferenceUtil;
 import com.loopj.android.http.RequestParams;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
 public class ModifyDataActivity extends Activity implements OnClickListener {
 	private static final String TAG = "ChangeDataActivity";// Tag
@@ -46,6 +50,7 @@ public class ModifyDataActivity extends Activity implements OnClickListener {
 	private RelativeLayout rl_pwd;// 修改密码
 	private ImageView img_photo;
 	private TextView tv_name;// 昵称
+	private TextView tv_moblie;// 手机号码
 	private static String IMGPATH = null;
 	private File vFile = null;
 	private static final int CAMERA_WITH_DATA = 101;
@@ -54,10 +59,23 @@ public class ModifyDataActivity extends Activity implements OnClickListener {
 	private static final int CHANGE_MOBLIE = 104;
 	private static final int CHANGE_PWD = 105;
 
+	private SharePreferenceUtil sharePfUtil;
+	private DisplayImageOptions head_options;// Imageloader配置
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.act_modifydata);
+
+		this.sharePfUtil = BaseApplication.getInstance()
+				.getSharePreferenceUtil();
+		this.head_options = new DisplayImageOptions.Builder()
+				.showImageOnFail(R.drawable.left_login_up)
+				.showImageOnLoading(R.drawable.left_login_up)
+				.showImageForEmptyUri(R.drawable.left_login_up)
+				.bitmapConfig(Bitmap.Config.RGB_565).cacheInMemory(true)
+				.cacheOnDisk(true).displayer(new RoundedBitmapDisplayer(360))
+				.build();
 
 		initView();
 		initListener();
@@ -74,6 +92,13 @@ public class ModifyDataActivity extends Activity implements OnClickListener {
 		rl_pwd = (RelativeLayout) findViewById(R.id.rl_modifydata_pwd);
 		img_photo = (ImageView) findViewById(R.id.img_modifydata_photo);
 		tv_name = (TextView) findViewById(R.id.tv_modifydata_name);
+		tv_moblie = (TextView) findViewById(R.id.tv_modifydata_moblie);
+
+		ImageLoader.getInstance().displayImage(sharePfUtil.getPortraitPic(),
+				img_photo, head_options);
+		tv_name.setText(sharePfUtil.getNickname());
+		tv_moblie.setText(sharePfUtil.getMobile());
+
 	}
 
 	/**

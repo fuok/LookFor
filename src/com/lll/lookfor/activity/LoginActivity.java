@@ -109,7 +109,8 @@ public class LoginActivity extends Activity implements OnClickListener {
 		LinkedHashMap<String, String> hashMap = new LinkedHashMap<String, String>();
 		hashMap.put("mobile", mobile);
 		hashMap.put("password", pwd);
-//		hashMap.put("token", BaseApplication.getInstance().getSharePreferenceUtil().getToken());
+		// hashMap.put("token",
+		// BaseApplication.getInstance().getSharePreferenceUtil().getToken());
 		HooRequestParams requestParams = new HooRequestParams(hashMap);
 		ResponseHandler<UserBean> handler = new ResponseHandler<UserBean>(
 				UserBean.class);
@@ -135,10 +136,14 @@ public class LoginActivity extends Activity implements OnClickListener {
 					shareUtil.saveUserInfo(userBean.getUserId(),
 							userBean.getSex(), userBean.getMobile(), null,
 							userBean.getNickName(), userBean.getPortraitPic());
+					shareUtil.setIsLogin(true);
 
-					Intent intent = new Intent(LoginActivity.this,
-							ModifyDataActivity.class);//这个流程也不对，LY
-					startActivity(intent);
+					// 发送广播
+					Intent intent = new Intent();
+					intent.setAction(BaseApplication.BRODCAST_ISLOGIN);
+					sendBroadcast(intent);
+
+					finish();
 				} else {// 失败时，气泡显示错误信息
 					Log.e(TAG, "用户登录失败:" + "RC=" + rc + ",RM=" + rm);
 				}
