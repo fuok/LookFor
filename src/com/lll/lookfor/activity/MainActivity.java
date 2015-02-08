@@ -118,6 +118,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	private TextView tv_click;// 点击登录
 	private TextView tv_nickname;// 昵称
 	private ImageView img_portrait;// 头像
+	private RelativeLayout rl_drawer;
 
 	private final static String MY_ACTION = "MYACTION";
 	protected MyReceiver myReceiver;
@@ -162,12 +163,13 @@ public class MainActivity extends Activity implements OnClickListener {
 	 * 初始化视图控件
 	 */
 	private void initView() {
-		this.mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-		this.left_drawer_img = (ImageView) findViewById(R.id.left_drawer_img);
-		this.left_drawer_img.setOnClickListener(this);
+		rl_drawer = (RelativeLayout) findViewById(R.id.rl_left_drawer);
+		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+		left_drawer_img = (ImageView) findViewById(R.id.left_drawer_img);
+		left_drawer_img.setOnClickListener(this);
 		btn_home_right = (Button) findViewById(R.id.btn_home_right);
 		btn_home_right.setOnClickListener(this);
-		this.mDrawerList = (ListView) findViewById(R.id.left_drawer);
+		mDrawerList = (ListView) findViewById(R.id.lv_left_drawer);
 
 		// ListView头部
 		View listHead = LayoutInflater.from(this).inflate(
@@ -178,17 +180,13 @@ public class MainActivity extends Activity implements OnClickListener {
 				.findViewById(R.id.img_head_portrait);
 
 		mDrawerList.addHeaderView(listHead);
-		// ListView底部
-		View listfoot = LayoutInflater.from(this).inflate(
-				R.layout.drawer_list_foot, null);
-		mDrawerList.addFooterView(listfoot);
-		TextView setting = (TextView) listfoot.findViewById(R.id.setting);
+		TextView setting = (TextView) findViewById(R.id.tv_footer_setting);
 		setting.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(MainActivity.this,
-						SendSMSActivity.class);
+						SettingActivity.class);
 				startActivity(intent);
 			}
 		});
@@ -229,6 +227,8 @@ public class MainActivity extends Activity implements OnClickListener {
 					Intent intent = new Intent(MainActivity.this,
 							FriendListActivity.class);
 					startActivity(intent);
+				} else if (position == 4) {
+
 				}
 			}
 		});
@@ -559,10 +559,10 @@ public class MainActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.left_drawer_img:
-			if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
-				mDrawerLayout.closeDrawer(mDrawerList);
+			if (mDrawerLayout.isDrawerOpen(rl_drawer)) {
+				mDrawerLayout.closeDrawer(rl_drawer);
 			} else {
-				mDrawerLayout.openDrawer(mDrawerList);
+				mDrawerLayout.openDrawer(rl_drawer);
 			}
 			break;
 		case R.id.btn_home_right:

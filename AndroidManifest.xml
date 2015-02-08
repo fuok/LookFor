@@ -141,6 +141,13 @@
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
         </activity>
 
+        <!-- 设置 -->
+        <activity
+            android:name="com.lll.lookfor.activity.SettingActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
+        </activity>
+
         <!-- 百度定位服务 -->
         <service
             android:name="com.baidu.location.f"
