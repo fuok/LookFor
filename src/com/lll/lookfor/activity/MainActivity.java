@@ -254,6 +254,12 @@ public class MainActivity extends Activity implements OnClickListener {
 		MapStatusUpdate u = MapStatusUpdateFactory.zoomTo(15);
 		mBaiduMap.animateMapStatus(u);
 
+		if ("mapmode".equals(sharePfUtil.getMapExhibition())) {
+			mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
+		} else {
+			mBaiduMap.setMapType(BaiduMap.MAP_TYPE_SATELLITE);
+		}
+
 		mBaiduMap.setOnMarkerClickListener(new OnMarkerClickListener() {
 			public boolean onMarkerClick(final Marker marker) {
 				selectorOverlay(marker);
@@ -795,7 +801,7 @@ public class MainActivity extends Activity implements OnClickListener {
 						selectorOverlay(position);
 					}
 				}
-			}else if (BaseApplication.BRODCAST_MAPMODE.endsWith(flag)) {
+			} else if (BaseApplication.BRODCAST_MAPMODE.endsWith(flag)) {
 				String mapexhibition = intent.getStringExtra("mapexhibition");
 				if (mapexhibition.equals("mapmode")) {
 					mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
