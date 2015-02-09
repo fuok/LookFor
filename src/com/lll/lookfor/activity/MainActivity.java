@@ -530,6 +530,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		IntentFilter filter = new IntentFilter();
 		filter.addAction(MY_ACTION);
 		filter.addAction(BaseApplication.BRODCAST_ISLOGIN);
+		filter.addAction(BaseApplication.BRODCAST_MAPMODE);
 		registerReceiver(myReceiver, filter);
 		mMapView.onResume();
 		super.onResume();
@@ -793,6 +794,13 @@ public class MainActivity extends Activity implements OnClickListener {
 						mBaiduMap.animateMapStatus(u);
 						selectorOverlay(position);
 					}
+				}
+			}else if (BaseApplication.BRODCAST_MAPMODE.endsWith(flag)) {
+				String mapexhibition = intent.getStringExtra("mapexhibition");
+				if (mapexhibition.equals("mapmode")) {
+					mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
+				} else {
+					mBaiduMap.setMapType(BaiduMap.MAP_TYPE_SATELLITE);
 				}
 			}
 		}

@@ -20,7 +20,8 @@ public class SharePreferenceUtil {
 	private static final String CITY = "city";// 城市
 	private static final String SEX = "sex";// 性别
 	private static final String TOKEN = "token";
-	private static final String ISLOGIN = "";// 标识是否已经登陆
+	private static final String ISLOGIN = "isLogin";// 标识是否已经登陆
+	private static final String MAPEXHIBITION = "mapexhibition";// 地图展示方式
 
 	private SharedPreferences sp;
 	private SharedPreferences.Editor editor;
@@ -193,6 +194,17 @@ public class SharePreferenceUtil {
 	// 获取是否已经登陆
 	public Boolean getIsLogin() {
 		return sp.getBoolean(ISLOGIN, false);
+	}
+
+	// 保存地图模式
+	public void setMapExhibition(String mapexhibition) {
+		editor.putString(MAPEXHIBITION, mapexhibition);
+		editor.commit();
+	}
+
+	// 获取地图模式
+	public String getMapExhibition() {
+		return sp.getString(MAPEXHIBITION, "mapmode");
 	}
 
 	public void saveUserInfo(String userId, int sex, String mobile,

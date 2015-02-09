@@ -22,6 +22,7 @@ public class BaseApplication extends Application {
 	private ArrayList<FriendBean> all_friends = null;// 全部好友
 	private ArrayList<FriendBean> status_friends = null;// 可见好友
 	public static final String BRODCAST_ISLOGIN = "BrodcastIsLogin";// 登陆广播
+	public static final String BRODCAST_MAPMODE = "BrodcastMapMode";// 地图展示模式广播
 
 	public ArrayList<FriendBean> getAll_friends() {
 		return all_friends;

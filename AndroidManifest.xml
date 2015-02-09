@@ -147,6 +147,13 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
         </activity>
+        
+        <!-- 地图展示模式 -->
+        <activity
+            android:name="com.lll.lookfor.activity.MapExhibitionActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
+        </activity>
 
         <!-- 百度定位服务 -->
         <service

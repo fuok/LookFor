@@ -80,7 +80,7 @@ public class SettingActivity extends Activity implements OnClickListener {
 			sendBroadcast(intent);
 			break;
 		case R.id.rl_setting_mapexhibition:
-
+			startActivity(new Intent(this, MapExhibitionActivity.class));
 			break;
 		case R.id.rl_setting_eyespower:
 
