@@ -180,7 +180,7 @@ public class MainActivity extends Activity implements OnClickListener {
 				.findViewById(R.id.img_head_portrait);
 
 		mDrawerList.addHeaderView(listHead);
-		TextView setting = (TextView) findViewById(R.id.tv_footer_setting);
+		LinearLayout setting = (LinearLayout) findViewById(R.id.ll_footer);
 		setting.setOnClickListener(new OnClickListener() {
 
 			@Override
