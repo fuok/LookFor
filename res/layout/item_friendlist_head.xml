@@ -16,7 +16,7 @@
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_marginLeft="20dp"
-            android:src="@drawable/selector_left_login" />
+            android:src="@drawable/ico_contacts" />
 
         <TextView
             android:layout_width="wrap_content"

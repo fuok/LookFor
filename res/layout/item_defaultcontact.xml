@@ -6,32 +6,32 @@
     android:minHeight="70dp" >
 
     <ImageView
-        android:id="@+id/img_item_friendlist_head"
+        android:id="@+id/img_defaultcontact_choice"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="20dp"
+        android:src="@drawable/tick_up" />
+
+    <ImageView
+        android:id="@+id/img_defaultcontact_head"
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/img_defaultcontact_choice"
         android:src="@drawable/left_login_up" />
 
     <TextView
-        android:id="@+id/tv_item_friendlist_name"
+        android:id="@+id/tv_defaultcontact_name"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_toLeftOf="@+id/img_item_friendlist_visiable"
-        android:layout_toRightOf="@+id/img_item_friendlist_head"
+        android:layout_toRightOf="@+id/img_defaultcontact_head"
         android:singleLine="true"
         android:textSize="15sp" />
-
-    <ImageView
-        android:id="@+id/img_item_friendlist_visiable"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="20dp"
-        android:src="@drawable/ico_friend_up" />
 
 </RelativeLayout>

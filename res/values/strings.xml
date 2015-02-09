@@ -56,5 +56,6 @@
 	<string name="sign_out">退出</string>
 	<string name="map_mode">地图模式</string>
 	<string name="satellite_mode">卫星模式</string>
+	<string name="default_contact">默认联系人</string>
     
 </resources>

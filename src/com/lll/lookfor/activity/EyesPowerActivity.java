@@ -1,32 +1,29 @@
 package com.lll.lookfor.activity;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 
 import com.lll.lookfor.BaseApplication;
 import com.lll.lookfor.R;
-import com.lll.lookfor.adapter.FriendListAdapter;
+import com.lll.lookfor.adapter.EyesPowerAdapter;
 
-public class FriendListActivity extends Activity {
-	private FriendListAdapter adapter;
+public class EyesPowerActivity extends Activity {
+	private EyesPowerAdapter adapter;
 	private ListView listView;
-	private Button btn_back, btn_add;
-	private RelativeLayout rl_findfriend;
+	private Button btn_back;
+	private Button btn_complete;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.act_friendlist);
+		setContentView(R.layout.act_eyespower);
 
 		initView();
 		getData();
@@ -36,42 +33,31 @@ public class FriendListActivity extends Activity {
 	 * 初始化视图控件
 	 */
 	private void initView() {
-		btn_back = (Button) findViewById(R.id.btn_friendlist_back);
+		btn_back = (Button) findViewById(R.id.btn_eyespower_back);
 		btn_back.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				finish();
 			}
 		});
-		btn_add = (Button) findViewById(R.id.btn_friendlist_add);
-		rl_findfriend = (RelativeLayout) findViewById(R.id.rl_friendlist_findfriend);
-		rl_findfriend.setOnClickListener(new OnClickListener() {
+		btn_complete = (Button) findViewById(R.id.btn_eyespower_complete);
+		btn_complete.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 
 			}
 		});
+		listView = (ListView) findViewById(R.id.lv_eyespower);
 
-		listView = (ListView) findViewById(R.id.lv_friendlist);
-
-		// ListView头部
-		View listHead = LayoutInflater.from(this).inflate(
-				R.layout.item_friendlist_head, null);
-		listView.addHeaderView(listHead);
-
-		adapter = new FriendListAdapter(this);
+		adapter = new EyesPowerAdapter(this);
 		listView.setAdapter(adapter);
 		listView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> adapterView, View view,
 					int position, long id) {
-				if (position == 0) {
-					Intent intent = new Intent(FriendListActivity.this,
-							ContactsActivity.class);
-					startActivity(intent);
-				}
+
 			}
 		});
 	}

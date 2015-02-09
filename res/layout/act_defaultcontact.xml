@@ -10,7 +10,7 @@
         android:background="@drawable/title" >
 
         <Button
-            android:id="@+id/btn_friendlist_back"
+            android:id="@+id/btn_defaultcontact_back"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentLeft="true"
@@ -20,44 +20,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="@string/my_friend"
+            android:text="@string/default_contact"
             android:textColor="@android:color/white"
             android:textSize="20sp" />
 
         <Button
-            android:id="@+id/btn_friendlist_add"
+            android:id="@+id/btn_defaultcontact_complete"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentRight="true"
-            android:background="@drawable/selector_add" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/rl_friendlist_findfriend"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_margin="15dp"
-        android:background="#ffffffff" >
-
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_centerInParent="true"
-            android:layout_toLeftOf="@+id/tv_friendlist_findfriend"
-            android:src="@drawable/friend_ico_search" />
-
-        <TextView
-            android:id="@+id/tv_friendlist_findfriend"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="10dp"
-            android:text="@string/find_friend"
+            android:layout_marginRight="10dp"
+            android:background="@null"
+            android:text="@string/complete"
+            android:textColor="@android:color/white"
             android:textSize="15sp" />
     </RelativeLayout>
 
     <ListView
-        android:id="@+id/lv_friendlist"
+        android:id="@+id/lv_defaultcontact"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#00000000"

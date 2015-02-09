@@ -154,6 +154,20 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
         </activity>
+        
+        <!-- 添加默认联系人 -->
+        <activity
+            android:name="com.lll.lookfor.activity.DefaultContactActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
+        </activity>
+        
+        <!-- 添加默认联系人 -->
+        <activity
+            android:name="com.lll.lookfor.activity.EyesPowerActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
+        </activity>
 
         <!-- 百度定位服务 -->
         <service

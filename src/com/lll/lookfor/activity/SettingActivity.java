@@ -83,13 +83,13 @@ public class SettingActivity extends Activity implements OnClickListener {
 			startActivity(new Intent(this, MapExhibitionActivity.class));
 			break;
 		case R.id.rl_setting_eyespower:
-
+			startActivity(new Intent(this, EyesPowerActivity.class));
 			break;
 		case R.id.rl_setting_commonlyaddress:
 
 			break;
 		case R.id.rl_setting_addcontact:
-
+			startActivity(new Intent(this, DefaultContactActivity.class));
 			break;
 		case R.id.rl_setting_versionupdate:
 
