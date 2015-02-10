@@ -23,4 +23,7 @@ public class HttpInterface {
 
 	/** 修改昵称 */
 	public static String MODIFY_NICKNAME = LOOK_FOR_HOST + "/lookfor/inter/user/modifyNickName";
+
+	/** 添加好友 */
+	public static String ADD_REQUEST = LOOK_FOR_HOST + "/lookfor/inter/friend/addRequest";
 }
