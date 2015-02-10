@@ -194,6 +194,13 @@ public class SearchActivity extends Activity implements
 		if (isOlickMap) {
 			isOlickMap = false;
 			input_address = result.getAddressDetail().street;
+			mBaiduMap.clear();
+			mBaiduMap.addOverlay(new MarkerOptions().position(
+					result.getLocation()).icon(
+					BitmapDescriptorFactory
+							.fromResource(R.drawable.map_location)));
+			mBaiduMap.setMapStatus(MapStatusUpdateFactory.newLatLng(result
+					.getLocation()));
 		}
 		tv_input.setText(input_address);
 		tv_address.setText(address);
