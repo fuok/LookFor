@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -27,6 +28,9 @@ public class TravelActivity extends Activity implements OnClickListener {
 	private RelativeLayout rl_address;// 选择地址
 	private RelativeLayout rl_selectfriend;// 选择好友
 	private TextView tv_address;// 目的地
+	private TextView tv_selectfriend;// 好友
+	private ImageView img_address;
+	private ImageView img_selectfriend;
 	private LatLng ll_address;// 目的地经纬度
 	private static final int ADDRESS = 101;
 
@@ -48,6 +52,9 @@ public class TravelActivity extends Activity implements OnClickListener {
 		rl_address = (RelativeLayout) findViewById(R.id.rl_travel_address);
 		rl_selectfriend = (RelativeLayout) findViewById(R.id.rl_travel_selectfriend);
 		tv_address = (TextView) findViewById(R.id.tv_travel_address);
+		tv_selectfriend = (TextView) findViewById(R.id.tv_travel_selectfriend);
+		img_address = (ImageView) findViewById(R.id.img_travel_address);
+		img_selectfriend = (ImageView) findViewById(R.id.img_travel_selectfriend);
 	}
 
 	/**
@@ -98,6 +105,8 @@ public class TravelActivity extends Activity implements OnClickListener {
 				ll_address = new LatLng(userBean.getLatitude(),
 						userBean.getLongitude());
 				tv_address.setText(input_address + "(" + address + ")");
+				img_address.setImageResource(R.drawable.ico_travel_down);
+				Log.e(TAG, "经纬度：" + ll_address.toString());
 				break;
 			default:
 				break;

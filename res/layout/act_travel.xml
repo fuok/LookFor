@@ -45,7 +45,8 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentBottom="true"
-            android:src="@drawable/ic_launcher" />
+            android:src="@drawable/ic_launcher"
+            android:visibility="gone" />
     </RelativeLayout>
 
     <LinearLayout
@@ -61,12 +62,13 @@
             android:layout_height="55dp" >
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:id="@+id/img_travel_address"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
-                android:src="@drawable/ic_launcher"
+                android:src="@drawable/ico_travel_up"
                 android:textSize="15sp" />
 
             <TextView
@@ -100,12 +102,13 @@
             android:layout_height="50dp" >
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:id="@+id/img_travel_selectfriend"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
-                android:src="@drawable/ic_launcher"
+                android:src="@drawable/ico_friend_up"
                 android:textSize="15sp" />
 
             <TextView

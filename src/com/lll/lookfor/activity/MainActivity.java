@@ -480,9 +480,7 @@ public class MainActivity extends Activity implements OnClickListener {
 						new OnClickListener() {
 							@Override
 							public void onClick(View v) {
-								Intent intent = new Intent(MainActivity.this,
-										TravelActivity.class);
-								startActivity(intent);
+
 							}
 						});
 				LatLng ll = position.getPosition();
@@ -734,8 +732,6 @@ public class MainActivity extends Activity implements OnClickListener {
 					view.setOnClickListener(new OnClickListener() {
 						@Override
 						public void onClick(View v) {// item点击事件，TODO
-							Toast.makeText(getActivity(), name,
-									Toast.LENGTH_SHORT).show();
 							Intent intent = new Intent();
 							intent.setAction(MY_ACTION);
 							intent.putExtra("select", ubean);

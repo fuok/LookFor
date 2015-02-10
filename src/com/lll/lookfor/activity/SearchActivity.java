@@ -36,6 +36,7 @@ import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import com.lll.lookfor.BaseApplication;
 import com.lll.lookfor.R;
 import com.lll.lookfor.model.FriendBean;
+import com.lll.lookfor.utils.Log;
 
 /**
  * 此demo用来展示如何进行驾车、步行、公交路线搜索并在地图使用RouteOverlay、TransitOverlay绘制
@@ -62,6 +63,7 @@ public class SearchActivity extends Activity implements
 	private String input_address;// 用户输入搜索地址
 	private String address;// 搜索出来的详细地址
 	private LatLng ll_address;// 目的地经纬度
+	private boolean isOlickMap = false;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -172,7 +174,7 @@ public class SearchActivity extends Activity implements
 		mBaiduMap.clear();
 		mBaiduMap.addOverlay(new MarkerOptions().position(result.getLocation())
 				.icon(BitmapDescriptorFactory
-						.fromResource(R.drawable.icon_marka)));
+						.fromResource(R.drawable.map_location)));
 		mBaiduMap.setMapStatus(MapStatusUpdateFactory.newLatLng(result
 				.getLocation()));
 		// 反Geo搜索
@@ -189,6 +191,10 @@ public class SearchActivity extends Activity implements
 		}
 		closeKeyboard();
 		address = result.getAddress();
+		if (isOlickMap) {
+			isOlickMap = false;
+			input_address = result.getAddressDetail().street;
+		}
 		tv_input.setText(input_address);
 		tv_address.setText(address);
 		info.setVisibility(View.VISIBLE);
@@ -196,7 +202,11 @@ public class SearchActivity extends Activity implements
 
 	@Override
 	public void onMapClick(LatLng point) {
-		mBaiduMap.hideInfoWindow();
+		Log.e(TAG, "单击地图：" + point);
+		isOlickMap = true;
+		ll_address = point;
+		// 反Geo搜索
+		mSearch.reverseGeoCode(new ReverseGeoCodeOption().location(point));
 	}
 
 	@Override
