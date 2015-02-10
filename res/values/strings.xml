@@ -53,9 +53,13 @@
     <string name="eyes_power">闭眼权限设置</string>
     <string name="commonly_address">常用地址</string>
     <string name="add_default_contact">添加默认联系人</string>
-	<string name="sign_out">退出</string>
-	<string name="map_mode">地图模式</string>
-	<string name="satellite_mode">卫星模式</string>
-	<string name="default_contact">默认联系人</string>
-    
+    <string name="sign_out">退出</string>
+    <string name="map_mode">地图模式</string>
+    <string name="satellite_mode">卫星模式</string>
+    <string name="default_contact">默认联系人</string>
+    <string name="addfirend">添加好友</string>
+    <string name="addfirend_success">添加好友成功</string>
+    <string name="addfirend_failure">添加好友失败</string>
+    <string name="hint_addfirend">手机号/昵称</string>
+
 </resources>

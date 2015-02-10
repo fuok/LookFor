@@ -74,6 +74,7 @@ public class SettingActivity extends Activity implements OnClickListener {
 			break;
 		case R.id.btn_setting_signout:
 			sharePfUtil.setIsLogin(false);
+			sharePfUtil.clearUserInfo();
 			// 发送广播
 			Intent intent = new Intent();
 			intent.setAction(BaseApplication.BRODCAST_ISLOGIN);

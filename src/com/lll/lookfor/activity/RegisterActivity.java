@@ -122,9 +122,9 @@ public class RegisterActivity extends Activity implements OnClickListener {
 							.show();
 				}
 			}
-			
-//			registerUser();//把上边屏蔽掉之后做测试用，LY
-			
+
+			// registerUser();//把上边屏蔽掉之后做测试用，LY
+
 			break;
 		case R.id.btn_register_send:
 			mobile = et_mobilenumber.getText().toString();
@@ -185,8 +185,6 @@ public class RegisterActivity extends Activity implements OnClickListener {
 			if (result == SMSSDK.RESULT_COMPLETE) {
 				// 短信注册成功后，返回MainActivity,然后提示新好友
 				if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {// 提交验证码成功
-					Toast.makeText(getApplicationContext(), "提交验证码成功",
-							Toast.LENGTH_SHORT).show();
 					registerUser();
 				} else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
 					Toast.makeText(getApplicationContext(), "验证码已经发送",
@@ -207,8 +205,8 @@ public class RegisterActivity extends Activity implements OnClickListener {
 		LinkedHashMap<String, String> hashMap = new LinkedHashMap<String, String>();
 		hashMap.put("mobile", mobile);
 		hashMap.put("password", password);
-//		hashMap.put("token", BaseApplication.getInstance()
-//				.getSharePreferenceUtil().getToken());
+		// hashMap.put("token", BaseApplication.getInstance()
+		// .getSharePreferenceUtil().getToken());
 		HooRequestParams requestParams = new HooRequestParams(hashMap);
 		ResponseHandler<UserBean> handler = new ResponseHandler<UserBean>(
 				UserBean.class);

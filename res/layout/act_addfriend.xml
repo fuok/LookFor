@@ -10,7 +10,7 @@
         android:background="@drawable/title" >
 
         <Button
-            android:id="@+id/btn_modifynickname_cancal"
+            android:id="@+id/btn_addfriend_cancal"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentLeft="true"
@@ -18,19 +18,18 @@
             android:background="@null"
             android:text="@string/cancal"
             android:textColor="@android:color/white"
-            android:textSize="15sp"
-            android:visibility="gone" />
+            android:textSize="15sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="@string/enter_nickname"
+            android:text="@string/addfirend"
             android:textColor="@android:color/white"
             android:textSize="18sp" />
 
         <Button
-            android:id="@+id/btn_modifynickname_determine"
+            android:id="@+id/btn_addfriend_determine"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -42,13 +41,13 @@
     </RelativeLayout>
 
     <EditText
-        android:id="@+id/et_modifynickname_input"
+        android:id="@+id/et_addfriend_input"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="50dp"
         android:layout_marginTop="20dp"
         android:background="@android:color/white"
-        android:gravity="top"
-        android:hint="@string/hint_nickname"
+        android:gravity="center"
+        android:hint="@string/hint_addfirend"
         android:inputType="text"
         android:maxLength="16"
         android:padding="15dp"

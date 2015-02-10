@@ -9,30 +9,24 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
-import android.text.TextUtils;
 
 import com.lll.lookfor.BaseApplication;
 import com.lll.lookfor.HttpInterface;
-import com.lll.lookfor.model.FriendListData;
 import com.lll.lookfor.model.FriendBean;
 import com.lll.lookfor.network.HooHttpResponse;
 import com.lll.lookfor.network.OnHttpResponseListener;
 import com.lll.lookfor.network.ResponseHandler;
-import com.lll.lookfor.utils.HttpUtil;
 import com.lll.lookfor.utils.Log;
 import com.lll.lookfor.utils.SharePreferenceUtil;
 
 public class MessageService extends Service {
 	private final String TAG = "MessageService";
-	private String userId;
 	private Timer timer;
 	private SharePreferenceUtil share;
 
 	public void onCreate() {
 		super.onCreate();
 		this.share = BaseApplication.getInstance().getSharePreferenceUtil();// 获取sharereferenceUtil
-
-		// share.setUserId("123");//在getUserId方法我已经添加了默认值"0",LY
 
 		// 开启时间任务，每十秒请求一次
 		timer = new Timer();
@@ -81,18 +75,9 @@ public class MessageService extends Service {
 		ResponseHandler<FriendBean> handler = new ResponseHandler<FriendBean>(
 				FriendBean.class);
 		handler.setOnHttpResponseListener(new OnGetHomeMessageListener());
-
-		userId = share.getUserId();
-		if (TextUtils.isEmpty(userId)) {
-			userId = share.getSubscriberId();
-		}
-		if (!TextUtils.isEmpty(userId)) {// 当userId不为空时，才进行请求
-			Log.v(TAG, "UserID :" + userId);
-			// 拼接请求体
-			String postPara = "receiveId=" + userId;
-			// 请求
-			Log.w(TAG, "消息轮询中:" + HttpInterface.FRIEND_LIST);
-			HttpUtil.get(HttpInterface.FRIEND_LIST, handler);
+		if (share.getIsLogin()) {// 当用户登录后才进行查询
+//			Log.w(TAG, "消息轮询中:" + HttpInterface.FRIEND_LIST);
+//			HttpUtil.get(HttpInterface.FRIEND_LIST, handler);
 		}
 	}
 

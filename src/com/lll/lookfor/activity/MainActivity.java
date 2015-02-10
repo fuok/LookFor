@@ -1,6 +1,7 @@
 package com.lll.lookfor.activity;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import android.annotation.SuppressLint;
@@ -63,11 +64,14 @@ import com.lll.lookfor.crossbutton.CrossButtonFragment;
 import com.lll.lookfor.model.DrawerItem;
 import com.lll.lookfor.model.FriendBean;
 import com.lll.lookfor.model.LbsBean;
+import com.lll.lookfor.model.UserBean;
 import com.lll.lookfor.network.HooHttpResponse;
 import com.lll.lookfor.network.OnHttpResponseListener;
 import com.lll.lookfor.network.ResponseHandler;
+import com.lll.lookfor.network.ResponseHeader;
 import com.lll.lookfor.ui.InfoWindow_View;
 import com.lll.lookfor.ui.Overlay_View;
+import com.lll.lookfor.utils.HooRequestParams;
 import com.lll.lookfor.utils.HttpUtil;
 import com.lll.lookfor.utils.Log;
 import com.lll.lookfor.utils.SharePreferenceUtil;
@@ -537,6 +541,11 @@ public class MainActivity extends Activity implements OnClickListener {
 		filter.addAction(BaseApplication.BRODCAST_MAPMODE);
 		registerReceiver(myReceiver, filter);
 		mMapView.onResume();
+
+		if (sharePfUtil.getIsLogin()) {
+			System.out.println("MainActivity.onResume()");
+			getFriendList();
+		}
 		super.onResume();
 	}
 
@@ -879,5 +888,78 @@ public class MainActivity extends Activity implements OnClickListener {
 			return true;
 		}
 		return super.onKeyDown(keyCode, event);
+	}
+
+	/**
+	 * 获取好友列表
+	 * 
+	 */
+	public void getFriendList() {
+		ResponseHandler<FriendBean> handler = new ResponseHandler<FriendBean>(
+				FriendBean.class);
+		handler.setOnHttpResponseListener(new OnHttpResponseListener() {
+
+			@SuppressWarnings("rawtypes")
+			@Override
+			public void onSuccess(HooHttpResponse response) {
+				int rc = response.getHeader().getRc();
+				String rm = response.getHeader().getRm();
+				if (rc == 0) {
+					FriendBean friendList = (FriendBean) response.getBody();
+					if (friendList != null && friendList.getItems().size() > 0) {
+						BaseApplication.getInstance().getAll_friends().clear();
+						BaseApplication.getInstance().getStatus_friends()
+								.clear();
+
+						// 添加全部好友集合
+						BaseApplication.getInstance().getAll_friends()
+								.addAll(friendList.getItems());
+						// 添加可见好友集合
+						for (int i = 0; i < friendList.getItems().size(); i++) {
+							FriendBean uBean = friendList.getItems().get(i);
+							if (uBean.getStatus() == 1) {
+								BaseApplication.getInstance()
+										.getStatus_friends().add(uBean);
+							}
+						}
+					}
+					Log.e(TAG, "获取好友列表成功:"
+							+ BaseApplication.getInstance().getAll_friends()
+									.toString());
+					Log.e(TAG, "获取可见好友列表成功:"
+							+ BaseApplication.getInstance().getStatus_friends()
+									.toString());
+				} else {
+					Log.e(TAG, "获取好友列表失败:" + "RC=" + rc + "RM=" + rm);
+				}
+
+			}
+
+			// 网络请求失败，气泡显示错误信息
+			@Override
+			public void onError(int statusCode, Throwable error, String content) {
+				// TODO Auto-generated method stub
+			}
+
+			@Override
+			public void onStart() {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onEnd() {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onProgress(int bytesWritten, int totalSize) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+		Log.e("获取好友列表", "请求URL：" + HttpInterface.FRIEND_LIST);
+		HttpUtil.get(HttpInterface.FRIEND_LIST, handler);
 	}
 }

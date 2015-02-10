@@ -44,6 +44,13 @@ public class FriendListActivity extends Activity {
 			}
 		});
 		btn_add = (Button) findViewById(R.id.btn_friendlist_add);
+		btn_add.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				startActivity(new Intent(FriendListActivity.this,
+						AddFriendActivity.class));
+			}
+		});
 		rl_findfriend = (RelativeLayout) findViewById(R.id.rl_friendlist_findfriend);
 		rl_findfriend.setOnClickListener(new OnClickListener() {
 			@Override

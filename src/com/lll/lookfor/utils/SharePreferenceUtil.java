@@ -238,6 +238,7 @@ public class SharePreferenceUtil {
 	 */
 	public void clearUserInfo() {
 		editor.remove(USERID);
+		editor.remove(SEX);
 		editor.remove(MOBILE);
 		editor.remove(PASSWORD);
 		editor.remove(NICKNAME);
