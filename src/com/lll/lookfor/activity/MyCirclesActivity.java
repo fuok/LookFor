@@ -11,18 +11,17 @@ import android.widget.ListView;
 
 import com.lll.lookfor.BaseApplication;
 import com.lll.lookfor.R;
-import com.lll.lookfor.adapter.MyMessageAdapter;
+import com.lll.lookfor.adapter.MyCirclesAdapter;
 
-public class MyMessageActivity extends Activity {
-	private MyMessageAdapter adapter;
+public class MyCirclesActivity extends Activity {
+	private MyCirclesAdapter adapter;
 	private ListView listView;
-	private Button btn_back, btn_clear;
+	private Button btn_back;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.act_mymessage);
+		setContentView(R.layout.act_mycircles);
 
 		initView();
 		getData();
@@ -32,23 +31,17 @@ public class MyMessageActivity extends Activity {
 	 * 初始化视图控件
 	 */
 	private void initView() {
-		btn_back = (Button) findViewById(R.id.btn_mymessage_back);
+		btn_back = (Button) findViewById(R.id.btn_mycircles_back);
 		btn_back.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				finish();
 			}
 		});
-		btn_clear = (Button) findViewById(R.id.btn_mymessage_clear);
-		btn_clear.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
 
-			}
-		});
+		listView = (ListView) findViewById(R.id.lv_mycircles);
 
-		adapter = new MyMessageAdapter(this);
-		listView = (ListView) findViewById(R.id.lv_mymessage);
+		adapter = new MyCirclesAdapter(this);
 		listView.setAdapter(adapter);
 		listView.setOnItemClickListener(new OnItemClickListener() {
 

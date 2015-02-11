@@ -1,7 +1,6 @@
 package com.lll.lookfor.activity;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 import android.annotation.SuppressLint;
@@ -64,14 +63,11 @@ import com.lll.lookfor.crossbutton.CrossButtonFragment;
 import com.lll.lookfor.model.DrawerItem;
 import com.lll.lookfor.model.FriendBean;
 import com.lll.lookfor.model.LbsBean;
-import com.lll.lookfor.model.UserBean;
 import com.lll.lookfor.network.HooHttpResponse;
 import com.lll.lookfor.network.OnHttpResponseListener;
 import com.lll.lookfor.network.ResponseHandler;
-import com.lll.lookfor.network.ResponseHeader;
 import com.lll.lookfor.ui.InfoWindow_View;
 import com.lll.lookfor.ui.Overlay_View;
-import com.lll.lookfor.utils.HooRequestParams;
 import com.lll.lookfor.utils.HttpUtil;
 import com.lll.lookfor.utils.Log;
 import com.lll.lookfor.utils.SharePreferenceUtil;
@@ -223,6 +219,10 @@ public class MainActivity extends Activity implements OnClickListener {
 								ModifyDataActivity.class);
 						startActivity(intent);
 					}
+				} else if (position == 1) {
+					Intent intent = new Intent(MainActivity.this,
+							MyCirclesActivity.class);
+					startActivity(intent);
 				} else if (position == 2) {
 					Intent intent = new Intent(MainActivity.this,
 							MyMessageActivity.class);
@@ -232,7 +232,9 @@ public class MainActivity extends Activity implements OnClickListener {
 							FriendListActivity.class);
 					startActivity(intent);
 				} else if (position == 4) {
-
+					Intent intent = new Intent(MainActivity.this,
+							MyRequesActivity.class);
+					startActivity(intent);
 				}
 			}
 		});

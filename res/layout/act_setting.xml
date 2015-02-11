@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#f3f3f3"
     android:orientation="vertical" >
 
     <RelativeLayout
@@ -34,96 +35,109 @@
         android:background="@android:color/white"
         android:orientation="vertical" >
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#d8e2ea" />
+
         <RelativeLayout
             android:id="@+id/rl_setting_mapexhibition"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="68dp" >
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="15dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="18dp"
                 android:text="@string/map_exhibition"
-                android:textSize="15sp" />
+                android:textColor="#404041"
+                android:textSize="18sp" />
 
             <ImageView
-                android:layout_width="15dp"
-                android:layout_height="15dp"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="15dp"
+                android:layout_marginRight="18dp"
                 android:background="@drawable/selector_arrow" />
         </RelativeLayout>
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/divider_line" />
+            android:layout_height="1dp"
+            android:background="#d8e2ea" />
 
         <RelativeLayout
             android:id="@+id/rl_setting_eyespower"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="68dp" >
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="15dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="18dp"
                 android:text="@string/eyes_power"
-                android:textSize="15sp" />
+                android:textColor="#404041"
+                android:textSize="18sp" />
 
             <ImageView
-                android:layout_width="15dp"
-                android:layout_height="15dp"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="15dp"
+                android:layout_marginRight="18dp"
                 android:background="@drawable/selector_arrow" />
         </RelativeLayout>
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/divider_line" />
+            android:layout_height="1dp"
+            android:background="#d8e2ea" />
 
         <RelativeLayout
             android:id="@+id/rl_setting_commonlyaddress"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="68dp" >
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="15dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="18dp"
                 android:text="@string/commonly_address"
-                android:textSize="15sp" />
+                android:textColor="#404041"
+                android:textSize="18sp" />
 
             <ImageView
-                android:layout_width="15dp"
-                android:layout_height="15dp"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="15dp"
+                android:layout_marginRight="18dp"
                 android:background="@drawable/selector_arrow" />
         </RelativeLayout>
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/divider_line" />
+            android:layout_height="1dp"
+            android:background="#d8e2ea" />
 
         <RelativeLayout
             android:id="@+id/rl_setting_addcontact"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="68dp"
             android:orientation="horizontal" >
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="15dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="18dp"
                 android:text="@string/add_default_contact"
-                android:textSize="15sp" />
+                android:textColor="#404041"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/tv_setting_addcontact"
@@ -131,18 +145,24 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="35dp"
+                android:layout_marginRight="44dp"
                 android:text="lily;王晓雅;David"
+                android:textColor="#888888"
                 android:textSize="15sp" />
 
             <ImageView
-                android:layout_width="15dp"
-                android:layout_height="15dp"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="15dp"
+                android:layout_marginRight="18dp"
                 android:background="@drawable/selector_arrow" />
         </RelativeLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#d8e2ea" />
     </LinearLayout>
 
     <LinearLayout
@@ -152,18 +172,25 @@
         android:background="@android:color/white"
         android:orientation="vertical" >
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#d8e2ea" />
+
         <RelativeLayout
             android:id="@+id/rl_setting_versionupdate"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="68dp"
             android:orientation="horizontal" >
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="15dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="18dp"
                 android:text="@string/version_update"
-                android:textSize="15sp" />
+                android:textColor="#404041"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/tv_setting_versionupdate"
@@ -171,49 +198,57 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="35dp"
+                android:layout_marginRight="44dp"
                 android:text="已是最新版本"
+                android:textColor="#888888"
                 android:textSize="15sp" />
 
             <ImageView
-                android:layout_width="15dp"
-                android:layout_height="15dp"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="15dp"
+                android:layout_marginRight="18dp"
                 android:background="@drawable/selector_arrow" />
         </RelativeLayout>
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/divider_line" />
+            android:layout_height="1dp"
+            android:background="#d8e2ea" />
 
         <RelativeLayout
             android:id="@+id/rl_setting_aboutus"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="68dp" >
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="15dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="18dp"
                 android:text="@string/about_us"
-                android:textSize="15sp" />
+                android:textColor="#404041"
+                android:textSize="18sp" />
 
             <ImageView
-                android:layout_width="15dp"
-                android:layout_height="15dp"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="15dp"
+                android:layout_marginRight="18dp"
                 android:background="@drawable/selector_arrow" />
         </RelativeLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#d8e2ea" />
     </LinearLayout>
-    
+
     <Button
         android:id="@+id/btn_setting_signout"
-        android:layout_width="280dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="15dp"

@@ -23,5 +23,8 @@
 
     <!-- 白色半透明 -->
     <color name="white_half">#99fefefc</color>
+    
+    <!-- listview选中效果颜色 -->
+    <color name="list_selector">#dbdcdc</color>
 
 </resources>

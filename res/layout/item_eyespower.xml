@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#ffffffff"
-    android:minHeight="70dp" >
+    android:minHeight="65dp" >
 
     <ImageView
         android:id="@+id/img_eyespower_choice"
@@ -19,7 +19,7 @@
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="13dp"
         android:layout_toRightOf="@+id/img_eyespower_choice"
         android:src="@drawable/left_login_up" />
 

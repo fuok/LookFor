@@ -3,78 +3,74 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#ffffffff"
-    android:minHeight="70dp" >
+    android:minHeight="78dp" >
 
     <ImageView
         android:id="@+id/img_mymessage_head"
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="18dp"
         android:src="@drawable/ic_launcher" />
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/img_mymessage_head" >
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_toLeftOf="@+id/btn_mymessage_agree"
+        android:layout_toRightOf="@+id/img_mymessage_head"
+        android:gravity="center"
+        android:orientation="vertical" >
 
         <TextView
             android:id="@+id/tv_mymessage_name"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_toLeftOf="@+id/tv_mymessage_time"
             android:singleLine="true"
-            android:textColor="@android:color/black"
+            android:textColor="#404041"
             android:textSize="15sp" />
-
-        <TextView
-            android:id="@+id/tv_mymessage_time"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:gravity="right"
-            android:singleLine="true"
-            android:textSize="13sp" />
 
         <TextView
             android:id="@+id/tv_mymessage_remarks"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_mymessage_name"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="3dp"
             android:singleLine="true"
-            android:textSize="15sp" />
+            android:textColor="#888888"
+            android:textSize="12sp" />
 
-        <Button
-            android:id="@+id/btn_mymessage_agree"
-            android:layout_width="45dp"
-            android:layout_height="25dp"
-            android:layout_below="@+id/tv_mymessage_name"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_toLeftOf="@+id/btn_mymessage_refuse"
-            android:background="@drawable/selector_ok"
-            android:text="@string/agree"
-            android:textSize="14sp" />
+        <TextView
+            android:id="@+id/tv_mymessage_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:singleLine="true"
+            android:textColor="#D7D7D8"
+            android:textSize="10sp" />
+    </LinearLayout>
 
-        <Button
-            android:id="@+id/btn_mymessage_refuse"
-            android:layout_width="45dp"
-            android:layout_height="25dp"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/tv_mymessage_name"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/selector_no"
-            android:text="@string/refuse"
-            android:textSize="14sp" />
-    </RelativeLayout>
+    <Button
+        android:id="@+id/btn_mymessage_agree"
+        android:layout_width="45dp"
+        android:layout_height="25dp"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="18dp"
+        android:layout_toLeftOf="@+id/btn_mymessage_refuse"
+        android:background="@drawable/selector_ok"
+        android:text="@string/agree"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/btn_mymessage_refuse"
+        android:layout_width="45dp"
+        android:layout_height="25dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="18dp"
+        android:background="@drawable/selector_no"
+        android:text="@string/refuse"
+        android:textSize="14sp" />
 
 </RelativeLayout>

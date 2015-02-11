@@ -5,7 +5,7 @@
     android:versionName="1.0.0" >
 
     <uses-sdk
-        android:minSdkVersion="13"
+        android:minSdkVersion="14"
         android:targetSdkVersion="19" />
 
     <application
@@ -172,6 +172,20 @@
         <!-- 添加好友 -->
         <activity
             android:name="com.lll.lookfor.activity.AddFriendActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
+        </activity>
+        
+        <!-- 我的申请 -->
+        <activity
+            android:name="com.lll.lookfor.activity.MyRequesActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
+        </activity>
+        
+        <!-- 我的圈圈 -->
+        <activity
+            android:name="com.lll.lookfor.activity.MyCirclesActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
         </activity>
