@@ -27,7 +27,6 @@
             android:text="@string/modify_data"
             android:textColor="@android:color/white"
             android:textSize="18sp" />
-
     </RelativeLayout>
 
     <RelativeLayout
@@ -50,7 +49,6 @@
             android:layout_marginBottom="18dp"
             android:layout_marginLeft="32dp"
             android:background="@drawable/selector_photo" />
-
     </RelativeLayout>
 
     <LinearLayout
@@ -96,6 +94,7 @@
             android:background="@drawable/divider_line" />
 
         <RelativeLayout
+            android:id="@+id/rl_modifydata_sex"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
@@ -111,38 +110,31 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="55dp" >
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/icon_en" />
+                android:layout_marginRight="35dp"
+                android:gravity="center" >
 
                 <TextView
+                    android:id="@+id/tv_modifydata_sex"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/man"
+                    android:layout_marginRight="5dp"
                     android:textSize="15sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="15dp" >
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/icon_en" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/woman"
-                    android:textSize="15sp" />
+                    android:id="@+id/img_modifydata_sex"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:src="@drawable/left_ico_male" />
             </LinearLayout>
+
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/selector_arrow" />
         </RelativeLayout>
 
         <ImageView

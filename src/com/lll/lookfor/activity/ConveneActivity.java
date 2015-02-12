@@ -18,13 +18,13 @@ import com.lll.lookfor.model.FriendBean;
 import com.lll.lookfor.utils.Log;
 
 /**
- * 安全出行
+ * 创建召集
  * 
  * @author Administrator
  * 
  */
-public class TravelActivity extends Activity implements OnClickListener {
-	private static final String TAG = "TravelActivity";// Tag
+public class ConveneActivity extends Activity implements OnClickListener {
+	private static final String TAG = "ConveneActivity";// Tag
 	private Button btn_cancal;// 取消按钮
 	private Button btn_send;// 发送按钮
 	private RelativeLayout rl_address;// 选择地址
@@ -41,7 +41,7 @@ public class TravelActivity extends Activity implements OnClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.act_travel);
+		setContentView(R.layout.act_convene);
 
 		initView();
 		initListener();
@@ -51,14 +51,14 @@ public class TravelActivity extends Activity implements OnClickListener {
 	 * 初始化视图控件
 	 */
 	private void initView() {
-		btn_cancal = (Button) findViewById(R.id.btn_travel_cancal);
-		btn_send = (Button) findViewById(R.id.btn_travel_send);
-		rl_address = (RelativeLayout) findViewById(R.id.rl_travel_address);
-		rl_selectfriend = (RelativeLayout) findViewById(R.id.rl_travel_selectfriend);
-		tv_address = (TextView) findViewById(R.id.tv_travel_address);
-		tv_selectfriend = (TextView) findViewById(R.id.tv_travel_selectfriend);
-		img_address = (ImageView) findViewById(R.id.img_travel_address);
-		img_selectfriend = (ImageView) findViewById(R.id.img_travel_selectfriend);
+		btn_cancal = (Button) findViewById(R.id.btn_convene_cancal);
+		btn_send = (Button) findViewById(R.id.btn_convene_send);
+		rl_address = (RelativeLayout) findViewById(R.id.rl_convene_address);
+		rl_selectfriend = (RelativeLayout) findViewById(R.id.rl_convene_selectfriend);
+		tv_address = (TextView) findViewById(R.id.tv_convene_address);
+		tv_selectfriend = (TextView) findViewById(R.id.tv_convene_selectfriend);
+		img_address = (ImageView) findViewById(R.id.img_convene_address);
+		img_selectfriend = (ImageView) findViewById(R.id.img_convene_selectfriend);
 	}
 
 	/**
@@ -75,21 +75,20 @@ public class TravelActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
-		case R.id.btn_travel_cancal:
+		case R.id.btn_convene_cancal:
 			finish();
 			break;
-		case R.id.btn_travel_send:
+		case R.id.btn_convene_send:
 
 			break;
-		case R.id.rl_travel_address:
-			startActivityForResult(new Intent(TravelActivity.this,
+		case R.id.rl_convene_address:
+			startActivityForResult(new Intent(ConveneActivity.this,
 					SearchActivity.class), ADDRESS);
 			break;
-		case R.id.rl_travel_selectfriend:
-			startActivityForResult(new Intent(TravelActivity.this,
+		case R.id.rl_convene_selectfriend:
+			startActivityForResult(new Intent(ConveneActivity.this,
 					SelectFriendActivity.class), FRIENDS);
 			break;
-
 		default:
 			break;
 		}

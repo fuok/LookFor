@@ -7,6 +7,9 @@ import java.util.ArrayList;
  * 好友信息实体
  */
 public class FriendBean implements Serializable {
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 	private ArrayList<FriendBean> items;
 	private String friendId; // 用户ID
@@ -21,6 +24,10 @@ public class FriendBean implements Serializable {
 	private double latitude;// 纬度
 	private String location;// 所处位置
 	private String updateTime;// 更新时间
+
+	// -----------------------自定义属性---------------------------------
+	// 用于选中
+	private boolean isChoice = false;
 
 	public ArrayList<FriendBean> getItems() {
 		return items;
@@ -126,6 +133,14 @@ public class FriendBean implements Serializable {
 		this.updateTime = updateTime;
 	}
 
+	public boolean isChoice() {
+		return isChoice;
+	}
+
+	public void setChoice(boolean isChoice) {
+		this.isChoice = isChoice;
+	}
+
 	@Override
 	public String toString() {
 		return "FriendBean [items=" + items + ", friendId=" + friendId
@@ -133,7 +148,8 @@ public class FriendBean implements Serializable {
 				+ sex + ", commentName=" + commentName + ", status=" + status
 				+ ", permission=" + permission + ", portrait=" + portrait
 				+ ", longitude=" + longitude + ", latitude=" + latitude
-				+ ", location=" + location + ", updateTime=" + updateTime + "]";
+				+ ", location=" + location + ", updateTime=" + updateTime
+				+ ", isChoice=" + isChoice + "]";
 	}
 
 }

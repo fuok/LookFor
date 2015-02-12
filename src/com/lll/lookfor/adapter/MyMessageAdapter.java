@@ -63,7 +63,7 @@ public class MyMessageAdapter extends BaseAdapter {
 	}
 
 	public Object getItem(int position) {
-		return position;
+		return userBeanList.get(position);
 	}
 
 	public long getItemId(int position) {

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.lll.lookfor.R;
+import com.lll.lookfor.activity.ConveneActivity;
 import com.lll.lookfor.activity.MainActivity;
 import com.lll.lookfor.activity.TravelActivity;
 
@@ -38,12 +39,11 @@ public class CrossButtonFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				if (v.getId() == 100 + 0) {
-					Intent intent = new Intent(getActivity(),
-							TravelActivity.class);
-					startActivity(intent);
+					startActivity(new Intent(getActivity(),
+							TravelActivity.class));
 				} else if (v.getId() == 100 + 1) {
-					Toast.makeText(getActivity(), "召集", Toast.LENGTH_SHORT)
-							.show();
+					startActivity(new Intent(getActivity(),
+							ConveneActivity.class));
 				} else if (v.getId() == 100 + 2) {
 					Toast.makeText(getActivity(), "好友", Toast.LENGTH_SHORT)
 							.show();

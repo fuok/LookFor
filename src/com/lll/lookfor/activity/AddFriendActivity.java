@@ -24,6 +24,12 @@ import com.lll.lookfor.utils.HooRequestParams;
 import com.lll.lookfor.utils.HttpUtil;
 import com.lll.lookfor.utils.Log;
 
+/**
+ * 添加好友
+ * 
+ * @author Administrator
+ * 
+ */
 public class AddFriendActivity extends Activity implements OnClickListener {
 	private static final String TAG = "AddFriendActivity";
 	private EditText et_input;// 输入框

@@ -1,6 +1,12 @@
 package com.lll.lookfor.model;
 
-public class DrawerItem {
+import java.io.Serializable;
+
+public class DrawerItem implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public int id;
 	public int logo;
 	public String title;

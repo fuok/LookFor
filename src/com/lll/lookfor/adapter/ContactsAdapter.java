@@ -35,7 +35,7 @@ public class ContactsAdapter extends BaseAdapter {
 	}
 
 	public Object getItem(int position) {
-		return position;
+		return contactsList.get(position);
 	}
 
 	public long getItemId(int position) {

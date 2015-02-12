@@ -46,10 +46,13 @@ public class ModifyDataActivity extends Activity implements OnClickListener {
 	private Button btn_cancal;// 取消按钮
 	private Button btn_photo;// 上传头像按钮
 	private RelativeLayout rl_name;// 修改名字
+	private RelativeLayout rl_sex;// 修改性别
 	private RelativeLayout rl_moblie;// 修改手机号
 	private RelativeLayout rl_pwd;// 修改密码
 	private ImageView img_photo;
+	private ImageView img_sex;
 	private TextView tv_name;// 昵称
+	private TextView tv_sex;// 性别
 	private TextView tv_moblie;// 手机号码
 	private static String IMGPATH = null;
 	private File vFile = null;
@@ -88,16 +91,27 @@ public class ModifyDataActivity extends Activity implements OnClickListener {
 		btn_cancal = (Button) findViewById(R.id.btn_modifydata_cancal);
 		btn_photo = (Button) findViewById(R.id.btn_modifydata_photo);
 		rl_name = (RelativeLayout) findViewById(R.id.rl_modifydata_name);
+		rl_sex = (RelativeLayout) findViewById(R.id.rl_modifydata_sex);
 		rl_moblie = (RelativeLayout) findViewById(R.id.rl_modifydata_moblie);
 		rl_pwd = (RelativeLayout) findViewById(R.id.rl_modifydata_pwd);
 		img_photo = (ImageView) findViewById(R.id.img_modifydata_photo);
+		img_sex = (ImageView) findViewById(R.id.img_modifydata_sex);
 		tv_name = (TextView) findViewById(R.id.tv_modifydata_name);
+		tv_sex = (TextView) findViewById(R.id.tv_modifydata_sex);
 		tv_moblie = (TextView) findViewById(R.id.tv_modifydata_moblie);
 
 		ImageLoader.getInstance().displayImage(sharePfUtil.getPortraitPic(),
 				img_photo, head_options);
 		tv_name.setText(sharePfUtil.getNickname());
 		tv_moblie.setText(sharePfUtil.getMobile());
+
+		if (sharePfUtil.getSex() == 1) {// 1为男，2为女
+			tv_sex.setText(getString(R.string.man));
+			img_sex.setImageResource(R.drawable.left_ico_male);
+		} else {
+			tv_sex.setText(getString(R.string.woman));
+			img_sex.setImageResource(R.drawable.left_ico_female);
+		}
 
 	}
 

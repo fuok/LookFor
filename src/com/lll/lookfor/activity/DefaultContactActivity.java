@@ -13,6 +13,12 @@ import com.lll.lookfor.BaseApplication;
 import com.lll.lookfor.R;
 import com.lll.lookfor.adapter.DefaultContactAdapter;
 
+/**
+ * 添加默认联系人
+ * 
+ * @author Administrator
+ * 
+ */
 public class DefaultContactActivity extends Activity {
 	private DefaultContactAdapter adapter;
 	private ListView listView;

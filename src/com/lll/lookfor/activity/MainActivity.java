@@ -545,7 +545,6 @@ public class MainActivity extends Activity implements OnClickListener {
 		mMapView.onResume();
 
 		if (sharePfUtil.getIsLogin()) {
-			System.out.println("MainActivity.onResume()");
 			getFriendList();
 		}
 		super.onResume();

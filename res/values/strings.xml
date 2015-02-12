@@ -61,5 +61,9 @@
     <string name="addfirend_success">添加好友成功</string>
     <string name="addfirend_failure">添加好友失败</string>
     <string name="hint_addfirend">手机号/昵称</string>
+    <string name="convene">召集</string>
+    <string name="convene_address">召集目的地</string>
+    <string name="build_convene">创建召集</string>
+    <string name="want_talk">我想说的什么.....</string>
 
 </resources>

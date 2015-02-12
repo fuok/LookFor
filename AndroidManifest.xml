@@ -147,45 +147,59 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
         </activity>
-        
+
         <!-- 地图展示模式 -->
         <activity
             android:name="com.lll.lookfor.activity.MapExhibitionActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
         </activity>
-        
+
         <!-- 添加默认联系人 -->
         <activity
             android:name="com.lll.lookfor.activity.DefaultContactActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
         </activity>
-        
+
         <!-- 添加默认联系人 -->
         <activity
             android:name="com.lll.lookfor.activity.EyesPowerActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
         </activity>
-        
+
         <!-- 添加好友 -->
         <activity
             android:name="com.lll.lookfor.activity.AddFriendActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
         </activity>
-        
+
         <!-- 我的申请 -->
         <activity
             android:name="com.lll.lookfor.activity.MyRequesActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
         </activity>
-        
+
         <!-- 我的圈圈 -->
         <activity
             android:name="com.lll.lookfor.activity.MyCirclesActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
+        </activity>
+
+        <!-- 创建召集 -->
+        <activity
+            android:name="com.lll.lookfor.activity.ConveneActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
+        </activity>
+
+        <!-- 选择好友 -->
+        <activity
+            android:name="com.lll.lookfor.activity.SelectFriendActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
         </activity>

@@ -10,7 +10,7 @@
         android:background="@drawable/title" >
 
         <Button
-            android:id="@+id/btn_travel_cancal"
+            android:id="@+id/btn_convene_cancal"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentLeft="true"
@@ -20,12 +20,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="@string/travel"
+            android:text="@string/build_convene"
             android:textColor="@android:color/white"
             android:textSize="18sp" />
 
         <Button
-            android:id="@+id/btn_travel_camera"
+            android:id="@+id/btn_convene_camera"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentRight="true"
@@ -39,7 +39,7 @@
         android:background="@android:color/white" >
 
         <EditText
-            android:id="@+id/et_travel_input"
+            android:id="@+id/et_convene_input"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:background="@null"
@@ -49,7 +49,7 @@
             android:textSize="13sp" />
 
         <ImageView
-            android:id="@+id/img_travel_photo"
+            android:id="@+id/img_convene_photo"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentBottom="true"
@@ -65,12 +65,12 @@
         android:orientation="vertical" >
 
         <RelativeLayout
-            android:id="@+id/rl_travel_address"
+            android:id="@+id/rl_convene_address"
             android:layout_width="match_parent"
             android:layout_height="55dp" >
 
             <ImageView
-                android:id="@+id/img_travel_address"
+                android:id="@+id/img_convene_address"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_centerVertical="true"
@@ -80,15 +80,25 @@
                 android:textSize="15sp" />
 
             <TextView
-                android:id="@+id/tv_travel_address"
+                android:id="@+id/tv_convene_address_left"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="45dp"
+                android:text="@string/convene_address"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tv_convene_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
                 android:layout_marginRight="30dp"
+                android:layout_toRightOf="@+id/tv_convene_address_left"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:textColor="#888888"
                 android:textSize="15sp" />
 
             <ImageView
@@ -106,12 +116,12 @@
             android:background="@drawable/divider_line" />
 
         <RelativeLayout
-            android:id="@+id/rl_travel_selectfriend"
+            android:id="@+id/rl_convene_selectfriend"
             android:layout_width="match_parent"
             android:layout_height="50dp" >
 
             <ImageView
-                android:id="@+id/img_travel_selectfriend"
+                android:id="@+id/img_convene_selectfriend"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_centerVertical="true"
@@ -121,7 +131,7 @@
                 android:textSize="15sp" />
 
             <TextView
-                android:id="@+id/tv_travel_selectfriend_left"
+                android:id="@+id/tv_convene_selectfriend_left"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -131,14 +141,14 @@
                 android:textSize="15sp" />
 
             <TextView
-                android:id="@+id/tv_travel_selectfriend"
-                android:layout_width="wrap_content"
+                android:id="@+id/tv_convene_selectfriend"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="35dp"
-                android:layout_toRightOf="@+id/tv_travel_selectfriend_left"
+                android:layout_toRightOf="@+id/tv_convene_selectfriend_left"
                 android:ellipsize="end"
                 android:gravity="right"
                 android:singleLine="true"
@@ -156,13 +166,13 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/btn_travel_send"
+        android:id="@+id/btn_convene_send"
         android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="50dp"
-        android:background="@drawable/button_3"
-        android:text="@string/send"
+        android:background="@drawable/button_1"
+        android:text="@string/convene"
         android:textColor="@android:color/white"
         android:textSize="18sp" />
 
